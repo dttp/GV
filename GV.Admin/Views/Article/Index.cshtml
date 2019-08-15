@@ -1,0 +1,119 @@
+﻿<div ng-controller="articleDetailCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span ng-if="mode=='Create'">New article</span>
+                <span ng-if="mode=='Update'">{{article[selectedLanguage.value].Name}}</span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Article detail
+        <small>Add/Edit article</small>
+    </h1>
+    <!-- END PAGE TITLE     -->
+    <!-- END PAGE HEADER    -->
+    <div class="row">
+
+        <div class="tabbable-custom ">
+            <ul class="nav nav-tabs ">
+                <li ng-class="{'active': activeTab.value == lang.value }" ng-repeat="lang in availableLanguages">
+                    <a ng-click="setActiveTab(lang)" data-toggle="tab">
+                        <span class="{{lang.icon}}"></span>
+                        {{lang.name}}
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane " ng-class="{'active': activeTab.value == lang.value }" ng-repeat="lang in availableLanguages">
+                    <form name="forms.articleForm_{{lang.value}}" class="form form-horizontal" novalidate>
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    {{labels.aThumbnail[lang.value]}}
+                                </label>
+                                <div class="col-md-8">
+                                    <img style="width: 150px; height: 120px;" src="{{articles[$index].Thumbnail}}" />
+                                    <button class="btn btn-outline btn-xs blue-madison" 
+                                            ng-click="selectThumbnail()">
+                                        Select from Gallery
+                                    </button>
+                                    <button class="btn red-flamingo btn-xs btn-outline"
+                                            ng-click="removeThumbnail()">
+                                        <i class="fa fa-remove"></i>
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    {{labels.aName[lang.value]}}
+                                </label>
+                                <div class="col-md-4" ng-class="{'has-error': hasError(forms.articleForm_{{lang.value}}.name, 'required')}">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-warning" ng-show="hasError(forms.articleForm_{{lang.value}}.name, 'required')"></i>
+                                        <input type="text"
+                                               maxlength="100"
+                                               class="form-control"
+                                               name="name"
+                                               placeholder="{{labels.aNamePlaceHolder[lang.value]}}"
+                                               ng-model="articles[$index].Name"
+                                               required />
+                                    </div>
+                                    <span class="help-block"
+                                          ng-show="hasError(forms.articleForm_{{lang.value}}.name, 'required')">
+                                        {{labels.nameErrorRequired[lang.value]}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    {{labels.aDesc[lang.value]}}
+                                </label>
+                                <div class="col-md-4">
+                                    <textarea class="form-control"
+                                              placeholder="{{labels.aDescPlaceHolder[lang.value]}}"
+                                              rows="3"
+                                              ng-model="articles[$index].Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    {{labels.aData[lang.value]}}
+                                </label>
+                                <div class="col-md-8">
+                                    <div class="form-control"
+                                         ckeditor="ckEditorOptions"
+                                         ng-model="articles[$index].Data"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="form form-horizontal">
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-4">
+                        <button type="submit" class="btn blue" ng-click="submit()">{{labels.buttonSubmit[selectedLanguage.value]}}</button>
+                        <button type="button" class="btn default" ng-click="cancel()">{{labels.buttonCancel[selectedLanguage.value]}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script src="~/app/components/article/article.detail.js"></script>
+} 

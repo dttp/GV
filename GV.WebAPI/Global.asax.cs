@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.IO;
+using GV.Core;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
+using GV.Services;
 
 namespace GV.WebAPI
 {
@@ -13,11 +10,11 @@ namespace GV.WebAPI
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            var currentDir = Server.MapPath("~");
+            GVConfig.Initialize(currentDir);
+            var fsRootPath = Path.Combine(currentDir, "fs");
+            FSService.Instance.Initialize(fsRootPath, currentDir);
         }
     }
 }

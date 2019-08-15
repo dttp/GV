@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GV.WebAPI", "GV.WebAPI\GV.W
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GV.Db", "GV.Db\GV.Db.sqlproj", "{F76F33C9-0B6C-4485-AA92-0B2A8BB0BCC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GV.Admin", "GV.Admin\GV.Admin.csproj", "{10B678C5-4C14-42E9-9CD5-71E3A1C4E4DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{F76F33C9-0B6C-4485-AA92-0B2A8BB0BCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F76F33C9-0B6C-4485-AA92-0B2A8BB0BCC2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F76F33C9-0B6C-4485-AA92-0B2A8BB0BCC2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{10B678C5-4C14-42E9-9CD5-71E3A1C4E4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B678C5-4C14-42E9-9CD5-71E3A1C4E4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B678C5-4C14-42E9-9CD5-71E3A1C4E4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B678C5-4C14-42E9-9CD5-71E3A1C4E4DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,9 @@
+@media (min-width: 992px) {
+    .c-layout-header .c-brand {
+        margin: 15px 0;
+    }
+
+    .c-page-on-scroll.c-layout-header-fixed .c-layout-header .c-brand {
+        margin: 6px 0;
+    }
+}

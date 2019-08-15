@@ -9,6 +9,6 @@ namespace GV.Model
     public enum Language
     {
         En,
-        Vi
+        Vn
     }
 }

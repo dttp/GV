@@ -13,6 +13,5 @@ namespace GV.Model
         public string Name { get; set; }
         public string Description { get; set; }
         public string ParentId { get; set; }
-        public List<Category> SubCategories { get; set; }
     }
 }

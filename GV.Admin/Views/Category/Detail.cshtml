@@ -1,0 +1,105 @@
+﻿<div ng-controller="categoryDetailCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/category">Categories</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>{{category.Name}}</span>
+            </li>
+        </ul>
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        {{category.Name}}
+        <small>{{category.Description}}</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn-group">
+                <a class="btn blue dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                    <i class="fa fa-plus"></i>
+                    New 
+                    &nbsp;
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="javascript:;" ng-click="createCategory()">
+                            <i class="icon-grid"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" ng-click="createArticle()">
+                            <i class="icon-doc"></i>
+                            &nbsp;
+                            Article
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-scrollable">
+                <table class="table table-hover table-condensed table-light">
+                    <thead>
+                        <tr>
+                            <th style="width: 30px"></th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th style="width: 200px">Type</th>
+                            <th style="width: 220px"> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="items.length == 0">
+                            <td colspan="5">There are no items</td>
+                        </tr>
+                        <tr ng-repeat="item in items">
+                            <td>
+                                <i class="icon-grid font-red" ng-if="item.type==='Category'"></i>
+                                <i class="icon-doc font-blue" ng-if="item.type==='Article'"></i>
+                            </td>
+                            <td>
+                                <a href="{{ item.type === 'Category' ? '/category/detail?id=' + item.data.Id : '/article?id=' + item.data.Id}}">
+                                    {{item.data.Name}}
+                                </a>
+                            </td>
+                            <td>{{item.data.Description}}</td>
+                            <td>{{item.type}}</td>
+                            <td>
+                                <button class="btn btn-xs blue-steel btn-outline"
+                                        ng-click="edit(item)">
+                                    <i class="fa fa-edit"></i>
+                                    Edit
+                                </button>
+                                <button class="btn btn-xs red-flamingo btn-outline"
+                                        ng-click="delete(item)">
+                                    <i class="fa fa-remove"></i>
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section js {
+    <script src="~/app/components/category/category.share.js"></script>
+    <script src="~/app/components/category/category.detail.js"></script>
+}

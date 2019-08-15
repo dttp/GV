@@ -1,0 +1,68 @@
+﻿<div ng-controller="folderViewCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/fs/folder?id={{folder.Id}}">{{folder.Name}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Manage views</span>  
+            </li> 
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Folder view
+        <small>Manage views for folder {{folder.Name}}</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn blue" ng-click="create()" ng-disabled="!hasPermission('Create', objectType)"><i class="fa fa-plus"></i>&nbsp;New</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-scrollable">
+                <table class="table table-hover table-condensed table-light">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th style="width: 250px">Default</th>
+                            <th style="width: 220px"> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="views.length == 0">
+                            <td colspan="4">There are no folder view items</td>
+                        </tr>
+                        <tr ng-repeat="item in views">
+                            <td>{{item.Name}}</td>
+                            <td>{{item.Description}}</td>
+                            <td>
+                                <input id="{{item.Id}}-default" type="checkbox" ng-model="item.IsDefault" ng-change="setDefault(item)" class="c-checkbox">
+                                <label for="{{item.Id}}-default"></label>
+                            </td>
+                            <td>
+                                <button class="btn btn-xs blue-madison btn-outline" ng-click="edit(item)" ng-disabled="!(hasPermission('Edit', objectType))"><i class="fa fa-edit"></i>&nbsp;Edit</button>
+                                <button class="btn btn-xs red-flamingo btn-outline" ng-click="delete(item)" ng-disabled="!(hasPermission('Delete', objectType) && folderViewByOwner(item))"><i class="fa fa-remove"></i>&nbsp;Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script src="~/app/components/folderview/folderview.js"></script>
+}

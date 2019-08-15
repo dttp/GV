@@ -17,6 +17,7 @@ namespace GV.Core
             }
         }
         public string DBConnectionString { get; set; }
+        public string WebAPIEndpoint { get; set; }
 
         public static void Initialize(string currentDir)
         {

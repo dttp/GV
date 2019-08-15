@@ -1,0 +1,62 @@
+﻿<div ng-controller="datalistCtrl" >
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/setup">Setup & Configuration</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>DataList</span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        DataList Type
+        <small>Manage Datalist types</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn blue" ng-click="create()" ng-disabled="!hasPermission('Create', objectType)"><i class="fa fa-plus"></i>&nbsp;New</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-scrollable">
+                <table class="table table-hover table-condensed table-light">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th style="width: 220px"> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="datalisttypes.length == 0">
+                            <td colspan="4">There are no data list items</td>
+                        </tr>
+                        <tr ng-repeat="item in datalisttypes">
+                            <td><a href="/datalist/manage?typeid={{item.Id}}">{{item.Name}}</a></td>
+                            <td>
+                                <button class="btn btn-xs green-haze btn-outline" ng-click="manage(item)"><i class="fa fa-list-alt"></i>&nbsp;Manage</button>
+                                <button class="btn btn-xs blue-madison btn-outline" ng-click="edit(item)" ng-disabled="!hasPermission('Read', objectType)"><i class="fa fa-edit"></i>&nbsp;Edit</button>
+                                <button class="btn btn-xs red-flamingo btn-outline" ng-click="delete(item)" ng-disabled="!hasPermission('Delete', objectType)"><i class="fa fa-remove"></i>&nbsp;Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script src="~/app/components/datalist/datalist.list.js"></script> 
+}

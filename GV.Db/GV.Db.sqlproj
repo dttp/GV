@@ -71,5 +71,16 @@
     <Build Include="dbo\Stored Procedures\SP_CATEGORY_GETBYPARENTID.sql" />
     <Build Include="dbo\Stored Procedures\SP_CATEGORY_DELETE.sql" />
     <Build Include="dbo\Tables\Article.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Stored Procedures\SP_USER_GETBYNAME.sql" />
+    <Build Include="dbo\Stored Procedures\SP_ARTICLE_INSERT.sql" />
+    <Build Include="dbo\Stored Procedures\SP_ARTICLE_DELETE.sql" />
+    <Build Include="dbo\Stored Procedures\SP_ARTICLE_UPDATE.sql" />
+    <Build Include="dbo\Stored Procedures\SP_ARTICLE_GETBYCATEGORY.sql" />
+    <Build Include="dbo\Stored Procedures\SP_ARTICLE_GETBYID.sql" />
+    <Build Include="dbo\Stored Procedures\SP_ARTICLE_DELETEBYCATEGORY.sql" />
+    <Build Include="dbo\Tables\Setting.sql" />
+    <Build Include="dbo\Stored Procedures\SP_SETTING_GETSETTING.sql" />
+    <Build Include="dbo\Stored Procedures\SP_SETTING_SETSETTING.sql" />
   </ItemGroup>
 </Project>

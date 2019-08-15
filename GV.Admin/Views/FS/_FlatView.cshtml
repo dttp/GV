@@ -1,0 +1,170 @@
+﻿<div class="table-scrollable folder-table" ng-style="{'min-height': items.length === 0 ? '' : '250px'}">
+    <table class="table table-condensed table-light table-hover lister" rz-save="false" rz-table rz-model="table" rz-mode="resizeMode" id="tableResize">
+        <thead>
+            <tr>
+                <th class="hide-handle fixWidth">
+                    <input id="selectAll" class="c-checkbox" type="checkbox" ng-model="selectedAll.value" ng-change="onSelectedAllChanged()">
+                    <label for="selectAll"></label>
+                </th>
+                <th class="hide-handle fixWidth"></th>
+                <th ng-repeat="column in selectedView.ViewColumns"
+                    class="handle" rz-col="column.Value"
+                    ng-if="true"
+                    ng-class="{'hide-handle': $index === (selectedView.ViewColumns.length - 1)}">
+                    <div ng-click="sortBy(column)">
+                        {{column.Name}}&nbsp;
+                        <span ng-show="isColumnSortable(column)" ng-class="{'sorting_asc': filter.sortBy == column.Value && filter.sortDirection == 'asc',
+                                             'sorting_desc': filter.sortBy == column.Value && filter.sortDirection == 'desc',
+                                             'sorting': filter.sortBy != column.Value}">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                    </div>
+                </th>
+            </tr>
+            <tr class="tr-resize">
+                <th></th>
+                <th></th>
+                <th ng-repeat="col in selectedView.ViewColumns" rz-col="{{column.Id}}" class="{{column.Id}}">
+                    <div class="filter-input" style="width: 100%">
+                        <ol ng-if="col.Type == 'multiselect' && !(col.Operator == 'In' || col.Operator == 'NotIn')" ng-model-options="{ debounce: 1000 }"
+                            class="nya-bs-select form-control" ng-change="applyFilter(col)"
+                            ng-model="filter.input[col.Value]">
+                            <li nya-bs-option="item in col.Items">
+                                <a>
+                                    {{ item }}
+                                    <span class="fa fa-check check-mark"></span>
+                                </a>
+                            </li>
+                        </ol>
+                        <ol ng-if="col.Type == 'multiselect' && (col.Operator == 'In' || col.Operator == 'NotIn')"
+                            class="nya-bs-select form-control" ng-change="applyFilter(col)"
+                            ng-model="filter.input[col.Value]" multiple ng-model-options="{ debounce: 1000 }">
+                            <li nya-bs-option="item in col.Items">
+                                <a>
+                                    {{ item }}
+                                    <span class="fa fa-check check-mark"></span>
+                                </a>
+                            </li>
+                        </ol>
+                        <input type="text"
+                               maxlength="100"
+                               ng-if="col.Type == 'textarea' || col.Type == 'picklist' || col.Type == 'lookup' || col.Type == 'checkbox'"
+                               placeholder="Filter by {{col.Name}}"
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-change="applyFilter(col)"
+                               ng-enter="applyFilter(col)"
+                               ng-model="filter.input[col.Value]" />
+                        <input type="{{col.Type}}"
+                               ng-if="(col.Type == 'date' && filter.input[col.Value] != '{Today}' ) || col.Type == 'text' || col.Type == 'number'"
+                               placeholder="Filter by {{col.Name}}"
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-change="applyFilter(col)"
+                               ng-enter="applyFilter(col)"
+                               ng-model="filter.input[col.Value]" />
+                        <input type="datetime-local"
+                               ng-if="col.Type == 'datetime' && filter.input[col.Value] != '{Today}'"
+                               placeholder="Filter by {{col.Name}}"
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-change="applyFilter(col)"
+                               ng-enter="applyFilter(col)"
+                               ng-model="filter.input[col.Value]" />
+                        <input type="text"
+                               ng-if="(col.Type == 'datetime' || col.Type == 'date') && filter.input[col.Value] == '{Today}'"
+                               placeholder="Filter by {{col.Name}}" readonly
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-change="applyFilter(col)"
+                               ng-enter="applyFilter(col)"
+                               ng-model="filter.input[col.Value]" />
+
+                        <button class="btn grey-cararra font-blue dropdown-toggle" ng-if="(col.Type == 'datetime' || col.Type == 'date')"
+                                style="margin-right: 0px; padding: 0px 7px; width:26px; height:26px; border-color:#bababa" type="button" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down" style="font-size:10px" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu" style="top:25px; right:30px;">
+                            <li ng-class="{'active': filter.input[col.Value] == '{Today}'}" ng-click="changeToday(col, true)"
+                                ng-if="filter.input[col.Value] !== '{Today}'">
+                                <a title="today" href="javascript:">
+                                    <i aria-hidden="false" style="font-size:12px !important;"></i> Today
+                                </a>
+                            </li>
+                            <li ng-class="{'active': filter.input[col.Value] != '{Today}'}" ng-click="changeToday(col, false)"
+                                ng-if="filter.input[col.Value] === '{Today}'">
+                                <a title="custom date" href="javascript:">
+                                    <i aria-hidden="false" style="font-size:12px !important;"></i> Custom date
+                                </a>
+                            </li>
+                        </ul>
+                        <button class="btn white font-red-flamingo btn-folder"
+                                ng-class="{'active': filter.input[col.Value] && filter.input[col.Value].length > 0 }"
+                                type="button" ng-hide="col.Type == 'today'"
+                                title="Clear filter"
+                                ng-click="clearFilter(col)">
+                            <i class="fa fa-remove"></i>
+                        </button>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-if="items.length == 0">
+                <td colspan="{{selectedView.ViewColumns.length + 2}}">There are no items</td>
+            </tr>
+            <tr ng-repeat="item in items" ng-if="hasPermission('Read', item.type)" class="lister-item">
+                <td class="table-checkbox">
+                    <input id="{{item.data.Id}}" class="c-checkbox" type="checkbox" ng-model="item.selected" ng-change="onItemSelectedChanged()">
+                    <label for="{{item.data.Id}}"></label>
+                </td>
+                <td>
+                    <i ng-class="{'fa fa-file-o': !item.data.Attributes.Checkedout ,'fa fa-file-text-o': item.data.Attributes.Checkedout }"
+                       ng-style="{'color': !item.data.Attributes.Checkedout ? 'rgb(75, 119, 190)' : '#EF4836'}">
+                    </i>
+                </td>
+                <td ng-repeat="col in selectedView.ViewColumns" ng-click="selectItem(item)">
+                    <span ng-if="item.type == 'folder' && col.Group == 'Content' && col.Name == 'Type'">
+                        Folder
+                    </span>
+                    <span ng-if="item.type == 'content' && col.Group == 'Content' && col.Name == 'Type'" title="{{item.data.ContentType.Name}}">
+                        {{item.data.ContentType.Name}}
+                    </span>
+                    <span ng-if="item.type == 'content' && col.Group == 'Content' && col.Name != 'Type' && col.Name != 'Owner'" title="{{item.data[col.ApiName]}}">
+                        {{item.data[col.ApiName]}}
+                    </span>
+                    <span ng-if="col.Group == 'Content' && col.Name == 'Owner'" title="{{item.data.Owner.UserName}}">
+                        {{item.data.Owner.UserName}}
+                    </span>
+                    <span ng-if="col.Group == 'Content' && col.Name == 'Today'">
+                        {{item.data.CreatedDate}}
+                    </span>
+                    <span ng-if="item.type == 'content' && col.Group == 'Library Fields'" title="{{item.data.LibraryFieldValues[col.ApiName]}}">
+                        {{item.data.LibraryFieldValues[col.ApiName]}}
+                    </span>
+                    <span ng-if="item.type == 'content' && col.Group.startsWith('[Content Type]')" title="{{item.data.Values[col.ApiName]}}">
+                        {{item.data.Values[col.ApiName]}}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row paging-info">
+    <div class="col-md-3">
+        <label>
+            Show&nbsp;
+            <select ng-model="filter.pageSize" style="width: 45px !important; height: 34px !important; margin-top: -5px; padding: 0;" class="form-control input-sm input-xsmall input-inline" ng-options="size for size in pageSizes" ng-change="onPageSizeChanged()"></select>
+            &nbsp;items/page
+        </label>
+    </div>
+    <div class="col-md-2">
+        <label>
+            Total:&nbsp;{{filter.total}} items
+        </label>
+    </div>
+    <div class="col-md-7">
+        <paging page="filter.pageIndex"
+                page-size="filter.pageSize"
+                total="filter.total"
+                show-first-last="true"
+                paging-action="onPagingAction(page)" style="float: right;">
+        </paging>
+    </div>
+</div>

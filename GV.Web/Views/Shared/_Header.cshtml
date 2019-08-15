@@ -1,0 +1,63 @@
+﻿<!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
+<!-- BEGIN: HEADER -->
+<header class="c-layout-header c-layout-header-4 c-layout-header-default-mobile">
+    <div class="c-navbar">
+        <div class="container">
+            <!-- BEGIN: BRAND -->
+            <div class="c-navbar-wrapper clearfix">
+                <div class="c-brand c-pull-left">
+                    <a href="/" class="c-logo">
+                        <img src="~/app/assets/imgs/gv-logo.png" height="60" alt="GV" class="c-desktop-logo">
+                        <img src="~/app/assets/imgs/gv-logo.png" height="50" alt="GV" class="c-desktop-logo-inverse">
+                        <img src="~/app/assets/imgs/gv-logo.png" height="25" alt="GV" class="c-mobile-logo">
+                    </a>
+                    <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
+                        <span class="c-line"></span>
+                        <span class="c-line"></span>
+                        <span class="c-line"></span>
+                    </button>
+                </div>
+                <!-- END: BRAND -->
+                <!-- BEGIN: HOR NAV -->
+                <!-- BEGIN: LAYOUT/HEADERS/MEGA-MENU -->
+                <!-- BEGIN: MEGA MENU -->
+                
+                <nav class="c-mega-menu c-pull-right c-mega-menu-light c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
+                    <!-- BEGIN: MEGA MENU -->
+                    <ul class="nav navbar-nav c-theme-nav">
+                        <li class="c-menu-type-classic"
+                            ng-repeat="item in headerMenu[selectedLanguage.value]">
+                            <a href="{{item.Url}}"
+                               class="c-link"
+                               ng-class="{'dropdown-toggle': item.Items.length > 0 }">{{item.Name}}</a>
+                            <ul class="dropdown-menu c-menu-type-classic c-pull-left" ng-if="item.Items.length > 0">
+                                <li ng-repeat="subItem in item.Items">
+                                    <a href="{{subItem.Url}}">{{subItem.Name}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="c-link dropdown-toggle">
+                                <i class="{{selectedLanguage.icon}}"></i>
+                            </a>
+                            <ul class="dropdown-menu c-menu-type-classic c-pull-left">
+                                <li ng-repeat="lang in availableLanguages">
+                                    <a href="javascript:;" ng-click="selectLanguage(lang)">
+                                        <i class="{{lang.icon}}"></i>
+                                        {{lang.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- END MEGA MENU -->
+                </nav>
+                <!-- END: MEGA MENU -->
+                <!-- END: LAYOUT/HEADERS/MEGA-MENU -->
+                <!-- END: HOR NAV -->
+            </div>
+        </div>
+    </div>
+</header>
+<!-- END: HEADER -->
+<!-- END: LAYOUT/HEADERS/HEADER-1 -->

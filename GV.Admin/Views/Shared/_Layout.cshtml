@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>GVCompany | Administrator </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="GV Company" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="~/app/assets/css/roboto.css" rel="stylesheet" />
+    <link href="~/app/assets/css/opensans.css" rel="stylesheet" />
+    <link href="~/app/assets/css/Archivo.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/simple-line-icons-2.3.2/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/animate-css/animate.min.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/flag-icon-css/css/flag-icon.min.css" rel="stylesheet" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <link href="~/app/assets/plugins/icheck/css/all.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-loading-bar/loading-bar.min.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/date-picker/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="~/app/assets/plugins/angular-toastr/angular-toastr.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-hotkeys/hotkeys.min.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-ui-select/select.min.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-ui-select/select.m47.css" rel="stylesheet" />
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="~/app/assets/m4.7/global/css/components.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/global/css/plugins.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/layouts/layout/css/layout.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/layouts/layout/css/themes/blue.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/layouts/layout/css/custom.min.css" rel="stylesheet" />
+
+    @*<link rel="stylesheet" href="~/app/assets/plugins/angular-nested-combobox-master/dist/nestedCombobox.css" />*@
+    <link href="~/app/assets/css/site.css" rel="stylesheet" />
+    <!-- END THEME STYLES -->
+    <!--<link rel="shortcut icon" href="favicon.ico"/> -->
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-header-fixed page-content-white page-sidebar-fixed page-footer-fixed" ng-app="gv.app" ng-controller="coreCtrl" ng-cloak>
+
+    <!-- BEGIN HEADER -->
+    <div id="WEBAPI_ENDPOINT_ID" style="display:none;">@GV.Core.GVConfig.Instance.WebAPIEndpoint</div>
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <img src="~/app/assets/images/logo.png" />
+                <a href="/">
+                    GV
+                </a>
+                <div class="menu-toggler sidebar-toggler">
+                    <span></span>
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                <span></span>
+            </a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" style="color: white; padding-top: 15px; padding-bottom: 14px;">
+                            <span class="{{selectedLanguage.icon}}"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="lang in availableLanguages">
+                                <a href="javascript:;" ng-click="selectLanguage(lang)">
+                                    <span class="{{lang.icon}}"></span>
+                                    {{lang.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" style="color: white;">
+                            <span class="username username-hide-on-mobile"> {{currentUser.Name}} </span>
+                        </a>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                    <li class="dropdown dropdown-quick-sidebar-toggler">
+                        <a href="javascript:;" class="dropdown-toggle " title="Logout" ng-click="logout()">
+                            <i class="icon-logout"></i>
+                        </a>
+                    </li>
+                    <!-- END QUICK SIDEBAR TOGGLER -->
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <!-- END HEADER -->
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+
+        <!-- BEGIN SIDEBAR -->
+        @Html.Partial("/Views/Shared/Sidebar.cshtml")
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        <div class="page-footer-inner">
+
+        </div>
+    </div>
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="~/app/assets/js/const.js"></script>
+    <script src="~/app/assets/plugins/jquery-2.2.4/jquery.js"></script>
+    <script src="~/app/assets/plugins/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="~/app/assets/plugins/angularjs-1.6.4/angular.js"></script>
+    <script src="~/app/assets/plugins/angularjs-1.6.4/angular-sanitize.min.js"></script>
+    <script src="~/app/assets/plugins/angularjs-1.6.4/angular-route.min.js"></script>
+    <script src="~/app/assets/plugins/angularjs-1.6.4/angular-animate.min.js"></script>
+    <script src="~/app/assets/js/Base64.js"></script>
+    <script src="~/app/assets/js/Util.js"></script>
+    <script src="~/app/assets/plugins/lodash-4.13.1/lodash.js"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/app/assets/plugins/momentjs-2.14.1/moment.min.js"></script>
+
+    <script src="~/app/assets/plugins/icheck/js/icheck.min.js"></script>
+    <script src="~/app/assets/plugins/icheck/icheck.js"></script>
+
+    <script src="~/app/assets/plugins/UI Bootstrap/ui-bootstrap-tpls-1.3.3.min.js"></script>
+
+    <script src="~/app/assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
+
+    <script src="~/app/assets/plugins/angular-paging/paging.min.js"></script>
+
+    <script src="~/app/assets/plugins/date-picker/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/app/assets/plugins/date-picker/ng-eternicode-datepicker.min.js"></script>
+
+    <script src="~/app/assets/plugins/angular-file-upload/angular-file-upload.min.js"></script>
+
+    <script src="~/app/assets/plugins/ngstorage/ngStorage.min.js"></script>
+
+    <script src="~/app/assets/plugins/angular-ui-select/select.min.js"></script>
+
+    <script src="~/app/assets/plugins/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
+
+    <script src="~/app/assets/plugins/angular-ckeditor/ckeditor/ckeditor.js"></script>
+    <script src="~/app/assets/plugins/angular-ckeditor/angular-ckeditor.min.js"></script>
+
+    <script src="~/app/assets/plugins/angular-hotkeys/hotkeys.min.js"></script>
+
+    <script src="~/app/assets/plugins/angular-slimscroll/angular-slimscroll.js"></script>
+
+    <script src="~/app/assets/plugins/angular-toastr/angular-toastr.tpls.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="~/app/services/authInterceptorService.js"></script>
+    <script src="~/app/assets/m4.7/global/scripts/app.js"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/app/services/alertService.js"></script>
+    <script src="~/app/services/xhttpService.js"></script>
+    <script src="~/app/services/gv.modal.js"></script>
+    <script src="~/app/services/authService.js"></script>
+
+    <script src="~/app/directives/ngEnter.js"></script>
+
+    <script src="~/app/app.js"></script>
+    <script src="~/app/services/sideBarMenuSvc.js"></script>
+    <script src="~/app/components/core/core.js"></script>
+    <script src="~/app/services/gv.rest.category.js"></script>
+    <script src="~/app/services/gv.rest.article.js"></script>
+    <script src="~/app/services/gv.rest.fsSvc.js"></script>
+    <script src="~/app/services/gv.rest.setting.js"></script>
+    @RenderSection("js", required: false)
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="~/app/assets/m4.7/layouts/layout/scripts/layout.js"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+    <!-- END JAVASCRIPTS -->
+
+</body>
+
+<!-- END BODY -->
+</html>

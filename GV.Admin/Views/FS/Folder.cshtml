@@ -1,0 +1,289 @@
+﻿<link href="~/app/components/fs/css/folder.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="~/app/assets/css/vis.min.css" />
+<div ng-controller="folderCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li ng-repeat="item in folder.Path">
+                <a ng-if="!$last" href="/fs/folder?id={{item.Id}}">{{item.Name}}</a>
+                <i ng-if="!$last" class="fa fa-circle"></i>
+                <span ng-if="$last">{{item.Name}}</span>
+            </li>
+        </ul>
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <div class="page-head relative">
+        <h1 class="page-title">
+            {{folder.Name.substring(0,65)}}
+            <small>Manage folders and contents</small>
+        </h1>
+
+        <div class="page-toolbar">
+            <!-- QUICK ACTION MENU -->
+            <i ng-class="{'fa fa-asterisk': viewChanged >0}" aria-hidden="false" style="font-size:8px !important;color:#0c81e8;vertical-align:text-top;"></i>
+            <small style="vertical-align:sub;">{{selectedView.Name}}</small>
+            <div class="btn-group btn-theme-panel">
+                <a href="javascript:;" class="btn btn-icon-only dropdown-toggle" data-toggle="dropdown" title="List view control">
+                    <i class="icon-grid"></i>
+                </a>
+                <!-- Link or button to toggle dropdown -->
+                <ul class="dropdown-menu pull-right" role="menu" style="z-index:999999999">
+                    <li ng-repeat="view in views track by view.Id" ng-model-options="{ debounce: 1000 }">
+                        <a id="{{view.Id}}" title={{view.Description}} ng-click="selectView(view)">
+                            <i ng-class="{'fa fa-check': selectedView.Id == view.Id}" aria-hidden="false" style="font-size:12px !important;"></i>&nbsp;&nbsp;{{view.Name}}
+                        </a>
+                    </li>
+                    <li ng-show="views.length > 0" class="divider" style="margin:3px 0 !important"></li>
+
+                    <li ng-show="selectedView.Name != 'Standard View' && checkViewByOwner(selectedView.OwnerId)">
+                        <a title="Rename this view" ng-click="renameFolderView()">
+                            <i class="fa fa-edit" aria-hidden="false" style="font-size:12px !important;"></i>&nbsp;&nbsp;Rename
+                        </a>
+                    </li>
+                    <li>
+                        <a title="Select Fields to Display in view" ng-click="fieldDisplayFolderView()">
+                            <i class="fa fa-columns" aria-hidden="false" style="font-size:12px !important;"></i>&nbsp;&nbsp;Select Columns to Display
+                        </a>
+                    </li>
+                    <li>
+                        <a title="Select Fields to Group in view" ng-click="fieldDisplayFolderView('Group')">
+                            <i class="fa fa-group" aria-hidden="false" style="font-size:12px !important;"></i>&nbsp;&nbsp;Select Fields to Group
+                        </a>
+                    </li>
+                    <li ng-show="selectedView.Name != 'Standard View' && checkViewByOwner(selectedView.OwnerId)">
+                        <a title="Select users or profiles can see this view" ng-click="shareFolderView()">
+                            <i class="fa fa-users" aria-hidden="false" style="font-size:12px !important;"></i>&nbsp;&nbsp;Share this view
+                        </a>
+                    </li>
+                    <li ng-show="selectedView.Name != 'Standard View' && checkViewByOwner(selectedView.OwnerId)">
+                        <a title="Update current change" ng-click="SaveView()">
+                            <i class="fa fa-save" aria-hidden="false" style="font-size:12px !important;"></i>&nbsp;&nbsp;Save view
+                        </a>
+                    </li>
+                    <li>
+                        <a title="Save current as new view" ng-click="SaveViewAs()">
+                            <i class="fa fa-clipboard" aria-hidden="false" style="font-size:12px !important;"></i>&nbsp;&nbsp;Save view as
+                        </a>
+                    </li>
+                    <li ng-show="selectedView.Name != 'Standard View' && checkViewByOwner(selectedView.OwnerId)">
+                        <a title="Delete current view" ng-click="removeFolderView()">
+                            <i class="fa fa-trash" aria-hidden="false" style="font-size:12px !important;"></i>&nbsp;&nbsp;Delete
+                        </a>
+                    </li>
+                    <li>
+                        <a title="Manage folder view" href="/folderview?folderid={{folder.Id}}">
+                            <i class="fa fa-th-list" aria-hidden="false" style="font-size:12px !important;"></i> &nbsp;<b>Manage folder view</b>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group btn-theme-panel">
+                <a href="javascript:;" class="btn btn-icon-only dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <i class="icon-settings"></i>
+                </a>
+                <!-- Link or button to toggle dropdown -->
+                <ul class="dropdown-menu pull-right" role="menu" style="z-index:999999999">
+                    <li>
+                        <a ng-class="{'disabled': folder.Owner.Id != currentUser.Id}" title="Edit permission for this folder" ng-click="viewPermissionForCurrentFolder()">
+                            <i class="fa fa-cog" style="font-size:12px !important;"></i>&nbsp;Permission
+                        </a>
+                    </li>
+                    <li ng-show="currentUser.isAdmin">
+                        <a title="View all Fields of current library" href="/fs/Fields?folderid={{folder.Path[0].Id}}">
+                            <i class="fa fa-files-o" style="font-size:12px !important;"></i>&nbsp;Library fields
+                        </a>
+                    </li>
+                    <li ng-show="currentUser.isAdmin">
+                        <a title="View all content types of current library" href="/contenttype?folderid={{folder.Path[0].Id}}">
+                            <i class="fa fa-list-alt" style="font-size:12px !important;"></i>&nbsp;Content Types
+                        </a>
+                    </li>
+                    <li ng-show="currentUser.isAdmin">
+                        <a title="View all workflows of current library" href="/workflow?folderid={{folder.Path[0].Id}}">
+                            <i class="fa fa-cogs" style="font-size:12px !important;"></i>&nbsp;Workflows
+                        </a>
+                    </li>
+
+                    <li ng-show="currentUser.isAdmin">
+                        <a href="javascript:;" ng-click="changeOwner('Folder', folder)">
+                            <i class="fa fa-user" style="font-size:12px !important;"></i>&nbsp;Change Owner
+                        </a>
+                    </li>
+
+                    <li ng-show="currentUser.isAdmin">
+                        <a href="javascript:;" title="View all Custom form of current library" ng-click="customForm(folder.Path[0])">
+                            <i class="fa fa-columns" style="font-size:12px !important;"></i>&nbsp;Custom Form
+                        </a>
+                    </li>
+                    <li ng-show="folder.Owner.Id == currentUser.Id" class="divider" style="margin:3px 0 !important"></li>
+                    <li>
+                        <a href="javascript:;" ng-show="userPermission.canEdit" title="Edit current folder" ng-click="editFolder(folder)">
+                            <i class="fa fa-edit" style="font-size:12px !important;"></i>&nbsp;Edit folder
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" ng-show="userPermission.canDelete" title="Delete current folder" ng-click="deleteFolder(folder)">
+                            <i class="fa fa-remove" style="font-size:12px !important;"></i>&nbsp;Delete folder
+                        </a>
+                    </li>
+
+                    <li ng-show="currentUser.isAdmin && workflows.length > 0" class="head" style="background-color:#2f4f83;">Workflows available</li>
+                    <li ng-show="currentUser.isAdmin" ng-repeat="wf in workflows" class="workflows">
+                        <a title="View states of {{wf.Name}}" href="/workflow/status?id={{wf.Id}}">
+                            {{wf.Name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END THEME PANEL -->
+        </div>
+    </div>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE TOOLBAR -->
+    <div class="row" scroll-to-fixed="{marginTop:50}">
+        <div class="col-md-12">
+            <div class="panel bg-white" style="margin-bottom: 0">
+                <div class="panel-body" style="padding: 8px 0;">
+                    <div class="btn-group">
+                        <div class="btn-group">
+                            <button class="btn blue-steel dropdown-toggle" data-toggle="dropdown" ng-disabled="!(userPermission.canCreate && contentTypes.length > 0)">
+                                <i class="fa fa-plus"></i>
+                                New &nbsp;
+                                <i class="fa fa-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-repeat="ct in contentTypes">
+                                    <a ng-click="createContent(ct.Id)" ng-disabled="!hasPermission('Create', 'Content')">
+                                        {{ct.Name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--button preview-->
+                    <button type="button" class="btn btn-icon-only"
+                            ng-class="{'green-meadow': viewSetting.preview, 'default': !viewSetting.preview}"
+                            ng-click="togglePreview()" title="Toggle Viewer Panel">
+                        <i ng-class="{'fa fa-eye': viewSetting.preview,'fa fa-eye-slash': !viewSetting.preview}" class="fa fa-eye"></i>
+                    </button>
+                    <button type="button"
+                            class="btn btn-icon-only btnadvfilter"
+                            ng-click="showAdvancedFilterDialog()"
+                            title="Advanced filter "></button>
+                    <button style="margin-left: 8px;"
+                            class="btn blue-madison btn-outline"
+                            ng-show="selectedItems[0].data && selectedItems.length == 1 && !checkByOwner(selectedItems[0].data.Attributes.CheckoutOwner)"
+                            ng-click="edit()">
+                        <i class="fa fa-edit"></i> Edit
+                    </button>
+                    <button style="margin-left: 8px;"
+                            class="btn red-flamingo btn-outline"
+                            ng-show="selectedItems[0].data"
+                            ng-click="delete()">
+                        <i class="fa fa-remove"></i> Delete
+                    </button>
+                    <button style="margin-left: 8px;"
+                            class="btn blue-madison btn-outline"
+                            ng-show="selectedItems[0].data && selectedItems.length == 1 && checkByOwner(selectedItems[0].data.Attributes.CheckoutOwner)"
+                            ng-click="edit()">
+                        <i class="fa fa-edit"></i> Continue edit
+                    </button>
+                    <button class="btn blue-madison btn-outline"
+                            ng-show="selectedItems[0].data && selectedItems.length == 1 && checkByOwner(selectedItems[0].data.Attributes.CheckoutOwner)"
+                            ng-click="undoCheckOut()">
+                        <i class="fa fa-undo"></i> Undo CheckOut
+                    </button>
+
+                    <div class="btn-group" style="margin-left: 8px;" ng-if="selectedItems.length > 0">
+                        <div class="btn-group">
+                            <button class="btn btn-icon-only blue-steel btn-outline dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" ng-if="selectedItems != null && selectedItems.length > 0">
+                                <li>
+                                    <a ng-click="viewPermission()"
+                                       ng-class="{'disabled': selectedItems[0].data.Owner.Id != currentUser.Id || selectedItems.length > 1}">
+                                        <i class="fa fa-share-alt"></i>
+                                        Permission
+                                    </a>
+                                </li>
+                                <li>
+                                    <a title="View all versions of this content" ng-click="viewVersions()"
+                                       ng-class="{'disabled': !userPermission.canRead || selectedItems.length > 1}">
+                                        <i class="fa fa-code-fork"></i>
+                                        Versions
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-click="changeOwner('Content', selectedItems)" ng-show="currentUser.isAdmin" ng-class="{'disabled': !userPermission.canEdit}">
+                                        <i class="fa fa-user"></i>
+                                        Change Owner
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-icon-only green" type="button" id="refresh" ng-click="refreshSelectedGroup()"
+                            title="Refresh Group"
+                            ng-show="mode === 'Group' && selectedItems.length <= 1 && selectedItems[0].type !== 'content'">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-icon-only green" type="button" id="refresh" ng-click="refreshFlatView()"
+                            title="Refresh View"
+                            ng-show="mode === 'Flat'">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END PAGE TOOLBAR-->
+    <!-- BEGIN ADVANCED FILTER INFO -->
+    <div class="row" style="border-bottom: 1px solid #eeeeee;">
+        <div class="col-md-12" ng-show="filter.rules.length > 0" style="padding-bottom: 8px; font-size: 13px;">
+            <span>
+                <i class="fa fa-caret-right"></i>
+                Current filter:
+            </span>
+            <span>
+                {{getFiltersName()}}
+            </span>
+            <span title="Clear advanced filter" ng-click="clearAllFilter()" class="advanced-filter-clear"><i class="fa fa-times" aria-hidden="true"></i></span>
+        </div>
+    </div>
+    <!-- END ADVANCED FILTER INFO -->
+    <div class="row" style="position: relative">
+        <div ng-class="{'col-md-6': viewSetting.preview , 'col-md-12':!viewSetting.preview }" style="border-right: 1px solid #e7ecf1; min-height: 600px; margin-top: -1px;">
+            <div ng-if="mode === 'Flat'">
+                @Html.Partial("_FlatView")
+            </div>
+            <div ng-if="mode === 'Group'">
+                @Html.Partial("_GroupView")
+            </div>
+        </div>
+        <preview-panel ng-show="viewSetting.preview"
+                       hasurl="false"
+                       countitems="selectedItems.length"
+                       fullrow="false"
+                       highlight="false"
+                       attachids="null"
+                       showworkflow="true"
+                       selecteditems="selectedItems"
+                       type="selectedItems[0].type">
+        </preview-panel>
+    </div>
+</div>
+
+
+@section js {
+    <script src="~/app/assets/js/vis.min.js"></script>
+    <script src="~/app/components/fs/dialogs/AdvancedFilterModal.js"></script>
+    <script src="~/app/components/fs/dialogs/FolderViewControlModal.js"></script>
+    <script src="~/app/components/fs/fs.folder.js"></script>
+}

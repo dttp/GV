@@ -23,9 +23,9 @@ namespace GV.Data
             
         }
 
-        private SqlParameter[] CreateParams(Category c)
+        public Category Insert(Category c)
         {
-            return new []
+            var p = new []
             {
                 new SqlParameter("@id", SqlDbType.NVarChar)          {Value = c.Id},
                 new SqlParameter("@lang", SqlDbType.NVarChar)        {Value = c.Lang.ToString()},
@@ -33,19 +33,19 @@ namespace GV.Data
                 new SqlParameter("@description", SqlDbType.NVarChar) {Value = c.Description},
                 new SqlParameter("@parentId", SqlDbType.NVarChar)    {Value = (object)c.ParentId ?? DBNull.Value},
             };
-        }
-
-        public Category Insert(Category c)
-        {
-            c.Id = IdHelper.Generate();
-            var p = CreateParams(c);
             Call(SP_CATEGORY_INSERT, p);
             return c;
         }
 
         public void Update(Category c)
         {
-            var p = CreateParams(c);
+            var p = new []
+            {
+                new SqlParameter("@id", SqlDbType.NVarChar)          {Value = c.Id},
+                new SqlParameter("@lang", SqlDbType.NVarChar)        {Value = c.Lang.ToString()},
+                new SqlParameter("@name", SqlDbType.NVarChar)        {Value = c.Name},
+                new SqlParameter("@description", SqlDbType.NVarChar) {Value = c.Description},
+            };
             Call(SP_CATEGORY_UPDATE, p);
         }
 
@@ -58,22 +58,22 @@ namespace GV.Data
             Call(SP_CATEGORY_DELETE, p);
         }
 
-        public Category GetById(string id)
+        public Category GetById(string id, Language lang)
         {
             var p = new []
             {
                 new SqlParameter("@id", SqlDbType.NVarChar) {Value = id}, 
-                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = Context.Lang.ToString()}, 
+                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = lang.ToString()}, 
             };
             return Call(SP_CATEGORY_GETBYID, p, DataHelper.ReadCategories).FirstOrDefault();
         }
 
-        public List<Category> GetByParentId(string parentId)
+        public List<Category> GetByParentId(string parentId, Language lang)
         {
             var p = new []
             {
                 new SqlParameter("@parentId", SqlDbType.NVarChar) {Value = (object) parentId ?? DBNull.Value}, 
-                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = Context.Lang.ToString()}, 
+                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = lang.ToString()}, 
             };
             return Call(SP_CATEGORY_GETBYPARENTID, p, DataHelper.ReadCategories);
         }

@@ -8,5 +8,7 @@
     [CreatedDate] DATETIME NULL, 
     [CategoryId] NVARCHAR(25) NOT NULL, 
     [Visible] BIT NOT NULL DEFAULT 1, 
+    [Thumbnail] NVARCHAR(1000) NULL, 
+    [ViewCount] INT NOT NULL DEFAULT 0, 
     PRIMARY KEY ([Id], [Lang])
 )

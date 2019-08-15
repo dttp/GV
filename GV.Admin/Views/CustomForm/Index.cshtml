@@ -1,0 +1,152 @@
+﻿<style>
+    #folder-link:hover {
+        cursor:pointer;
+        text-decoration:underline;
+    }
+</style>
+<div ng-controller="customFormCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/fs/library">Library</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <div class="btn-group button-menu-fix">
+                    <span id="folder-link" ng-click="backToFolder(folder.Id)" class="btn btn-xs btn-outline btn-default">{{folder.Name}}</span>
+                    <button class="btn btn-xs btn-default btn-outline dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ng-if="currentUser.isAdmin">
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" ng-if="currentUser.isAdmin">
+                        <li>
+                            <a href="javascript:;" ng-click="permission(folder)" ng-class="{'disabled': folder.Owner.Id != currentUser.Id }"><i class="fa fa-cog"></i>&nbsp;Permission </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="folderfield(folder)" ng-class="{'disabled': !hasPermission('Read', 'Folder')}"><i class="fa fa-files-o"></i>&nbsp;Fields</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="contentType(folder)" ng-class="{'disabled': !hasPermission('Read', 'ContentType')}"><i class="fa fa-list-alt"></i>&nbsp;Content Type </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="workflow(folder)" ng-class="{'disabled': !hasPermission('Read', 'Workflow')}"><i class="fa fa-cogs"></i>&nbsp;Workflow</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="customForm(folder)" ><i class="fa fa-columns"></i>&nbsp;Custom Form</a>
+                        </li>
+                    </ul>
+                </div>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Custom Form</span>
+            </li>
+        </ul>
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Custom Form
+        <small><small>Manage Custom Form</small></small>
+    </h1>
+    <!-- END PAGE TITLE     -->
+    <!-- END PAGE HEADER    -->
+    <div class="row">
+        <form name="customForm" class="form form-horizontal" novalidate>
+            <div class="form-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group">
+                            <div class="btn-group">
+                                <button class="btn blue-steel dropdown-toggle" data-toggle="dropdown" ng-disabled="!userPermission.canCreate">
+                                    <i class="fa fa-plus"></i>
+                                    New Form&nbsp;
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="ct in contentTypes">
+                                        <a ng-click="createNew(ct.Folder.Id,ct.Id)">
+                                           {{ct.Name}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-scrollable">
+                            <table class="table table-hover table-condensed table-light">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20px"> # </th>
+                                        <th> Name </th>
+                                        <th> Description </th>
+                                        <th> Content type </th>
+                                        <th style="width: 180px"> Actions </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="customForms.length == 0">
+                                        <td colspan="3" style="text-align:center">There are no templates</td>
+                                    </tr>
+                                    <tr ng-if="customForms.length > 0" ng-repeat="tem in customForms">
+                                        <td align="center">{{$index + 1}}</td>
+                                        <td>{{::tem.Name}}</td>
+                                        <td>{{::tem.Description}}</td>
+                                        <td>{{::tem.ContentType.Name}}</td>
+                                        <td style="width: 250px">
+                                            <button class="btn btn-xs blue-madison btn-outline" ng-click="edit(tem)"><i class="fa fa-edit"></i>&nbsp;Edit</button>
+                                            <button class="btn btn-xs red-flamingo btn-outline" ng-click="delete(tem)"><i class="fa fa-remove"></i>&nbsp;Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div> 
+    <!--/container-->
+    
+    <script type="text/ng-template" id="previewForm.html">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="ok()"></button>
+            <h3 class="modal-title">{{customForm.Name}}</h3>
+        </div>
+        <div class="modal-body">
+            <form name="contentForm" class="form form-horizontal form-customform">
+                <div class="tabbable-line">
+                    <ul class="nav nav-tabs" style="margin-bottom:0; padding-left: 10px;">
+                        <li ng-class="{'active': control.Selected}" ng-repeat="control in customForm.Definition.Controls">
+                            <a href="javascript:;" ng-click="switchTab(control)" data-toggle="tab">{{control.Label}}</a>
+                        </li>
+                    </ul>
+                    <div class="slimScrollDiv " style="height:auto;">
+                        <div class="row tab-content tab-content-customform" slimscroll style="height:auto;">
+                            <div class="col-md-12 tab-pane" ng-class="{'active': control.Selected}" ng-repeat="control in customForm.Definition.Controls" id="tab_{{control.Id}}">
+                                <div ng-if="key === 'Controls'" dnd-list="list" ng-repeat="(key, list) in control" class="row minHight">
+                                    <div class="parent-control {{item.HtmlClass}}" ng-repeat="item in list" style="margin-bottom: 5px;" ng-include="loadTemplate(item.ControlType)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn blue" type="button" ng-click="ok()">Ok</button>
+        </div>
+    </script>
+</div>
+
+@section js {
+    <script src="~/app/components/customform/customform.js"></script>
+}

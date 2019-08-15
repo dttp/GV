@@ -1,0 +1,510 @@
+﻿<link href="~/app/components/customform/css/directive.css" rel="stylesheet" />
+<div ng-controller="addEditCustomFormCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/fs/library">Library</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <div class="btn-group button-menu-fix">
+                    <span class="btn btn-xs btn-outline btn-default folderLink" ng-click="backToFolder()">{{folder.Name}}</span>
+                    <button class="btn btn-xs btn-default btn-outline dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ng-if="currentUser.isAdmin">
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" ng-if="currentUser.isAdmin">
+                        <li>
+                            <a href="javascript:;" ng-click="permission(folder)" ng-disabled="!hasPermission('Edit', objectType)"><i class="fa fa-cog"></i>&nbsp;Permission </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="folderfield(folder)" ng-disabled="!hasPermission('Read', 'ContentType')"><i class="fa fa-files-o"></i>&nbsp;Fields</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="contentType(folder)" ng-disabled="!hasPermission('Read', 'ContentType')"><i class="fa fa-list-alt"></i>&nbsp;Content Type </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="workflow(folder)" ng-disabled="!hasPermission('Read', 'Workflow')"><i class="fa fa-cogs"></i>&nbsp;Workflow</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="customForm(folder)" ng-disabled="!hasPermission('Read', 'Folder')"><i class="fa fa-columns"></i>&nbsp;Custom Form</a>
+                        </li>
+                    </ul>
+                </div>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/customform?folderid={{folder.Id}}">Custom Form</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span title="Content type {{contentType.Name}}">Add/Edit</span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <div class="page-title-wrapper">
+        <h1 class="page-title">
+            {{currentForm.Name}}
+            <small>{{currentForm.Description}}</small>
+        </h1>
+        <div class="page-title-actions">
+            <button type="submit"
+                    class="btn btn-primary"
+                    ng-click="save()"
+                    ng-disabled="!(currentForm.Name && currentForm.Name.length > 0)">
+                Save
+            </button>
+            <button type="button" 
+                    class="btn default" 
+                    ng-click="cancel()">
+                    Cancel
+            </button>
+        </div>
+    </div>
+    @*END PAGE TITLE*@
+    @*END PAGE HEADER*@
+    <div id="boxPanels"
+         class="row box-panel"
+         style="margin-top:5px;">
+        <div class="col-md-9">
+            <form name="contentForm"
+                  class="form form-horizontal form-customform"
+                  novalidate>
+                <div id="dndArea"
+                     class="col-md-12 form-body drag-drop-area"
+                     style="min-height:550px">
+                    <div class="row" scroll>
+                        <div class="col-md-12">
+                            <div dnd-list="currentForm.Definition.Controls"
+                                 dnd-inserted="onAddingItem(item)">
+                                <div ng-repeat-start="control in currentForm.Definition.Controls" ng-if="false"></div>
+                                <section-form-control-editing id="{{control.Id}}"
+                                                              ng-if="control.ControlType == 'Section' && control.Name != 'FormActions'"
+                                                              control="control"
+                                                              parent="currentForm.Definition"
+                                                              select="selectControl"
+                                                              delete="removeControl"
+                                                              field="getAssociatedField"
+                                                              additem="onAddingItem">
+                                </section-form-control-editing>
+                                <field-form-control-editing id="{{control.Id}}"
+                                                            control="control"
+                                                            field="getAssociatedField(control)"
+                                                            ng-if="control.ControlType == 'Field'"
+                                                            select="selectControl(control)"
+                                                            delete="removeControl(control, currentForm.Definition)">
+                                </field-form-control-editing>
+                                <button-form-control-editing id="{{control.Id}}"
+                                                             control="control"
+                                                             select="selectControl(control)"
+                                                             delete="removeControl(control, currentForm.Definition)"
+                                                             ng-if="control.ControlType == 'Button'">
+                                </button-form-control-editing>
+                                <div class="col-md-12" ng-if="control.ControlType == 'Section' && control.Name == 'FormActions'">
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-3 col-md-8"
+                                                 dnd-list="control.Controls"
+                                                 dnd-allowed-types="['Button']"
+                                                 dnd-drop="onAddingItem(item)">
+                                                <button-form-control-editing id="{{btn.Id}}"
+                                                                             control="btn"
+                                                                             select="selectControl(btn)"
+                                                                             delete="removeControl(btn, control)"
+                                                                             ng-repeat="btn in control.Controls">
+                                                </button-form-control-editing>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-repeat-end ng-if="false"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12"
+                     style="padding-left:0;padding-right:0;">
+                    <div class="form-actions" style="padding:10px;">
+                        <div class="row">
+                            <div class="col-md-offset-4 col-md-8">
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3 properties-panel" style="padding-left: 10px;">
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-gift"></i>Controls
+                    </div>
+                    <div class="tools">
+                        <a class="collapse" data-original-title="" id="collapseControls"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body form portlet-body-fix">
+                    <div class="table-body scroll-body" slimscroll>
+                        <ul class="activities-list">
+                            <li class="category" ng-repeat="c in categories">
+                                <i class="fa"
+                                   ng-class="{'fa-caret-right': !c.Expanded, 'fa-caret-down': c.Expanded}"
+                                   ng-click="c.Expanded = !c.Expanded">
+                                </i>
+                                {{c.Name}}
+                                <ul ng-show="c.Expanded">
+                                    <li dnd-draggable="createDraggableControl(f)"
+                                        dnd-type="f.ControlType"
+                                        dnd-effect-allowed="copy"
+                                        ng-class="{'disableEdit': f.Used}"
+                                        class="activity"
+                                        ng-repeat="f in controls | filter: {Category: c.Type}"
+                                        title="{{'Name: ' + f.Name + '\r\nDataType: ' + f.DataType}}">
+                                        <i ng-class="{ 'fa fa-calendar': f.DataType == 'Date' || f.DataType == 'DateTime',
+                                                       'fa fa-text-height': f.DataType == 'Text',
+                                                       'fa fa-align-justify': f.DataType == 'TextArea',
+                                                       'fa fa-search': f.DataType == 'Lookup',
+                                                       'fa fa-check-square': f.DataType == 'Checkbox',
+                                                       'fa fa-list-alt': f.DataType == 'Picklist',
+                                                       'fa fa-list-ol': f.DataType == 'Number',
+                                                       'fa fa-caret-down': f.DataType == 'MultiSelect',
+                                                       'fa fa-object-group': f.DataType == 'Section',
+                                                       'fa fa-plus-square-o': f.DataType == 'Button'
+                                                      }"></i>
+                                        {{f.Name}}
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-gift"></i>Properties
+                    </div>
+                    <div class="tools">
+                        <a class="collapse" data-original-title="" title="" style=""> </a>
+                    </div>
+                </div>
+                <div id="wf-properties" 
+                     class="portlet-body" 
+                     style="display: block; padding: 0">
+                    <div class="slimScrollDiv" 
+                         style="position: relative; width: auto;">
+                        <div style="width: auto; padding: 0" data-initialized="1">
+                            <!-- Form -->
+                            <div ng-show="itemSelected.Definition">
+                                <form name="workflowform">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Type
+                                                </td>
+                                                <td>
+                                                    Form
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Name
+                                                </td>
+                                                <td>
+                                                    <input type="text" 
+                                                           maxlength="100" 
+                                                           class="prop-field" 
+                                                           ng-model="itemSelected.Name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Desciption</td>
+                                                <td>
+                                                    <input type="text" 
+                                                           maxlength="100" 
+                                                           class="prop-field" 
+                                                           ng-model="itemSelected.Description" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+
+                            <!-- Section -->
+                            <div ng-if="itemSelected.ControlType == 'Section'">
+                                <form name="nodeform">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Type
+                                                </td>
+                                                <td>
+                                                    {{itemSelected.ControlType}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Name
+                                                </td>
+                                                <td>
+                                                    <input id="txtName" type="text" maxlength="100" class="prop-field" ng-model="itemSelected.Name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Html Class
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" ng-model="itemSelected.HtmlClass"
+                                                           style="padding-right: 15px;" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+
+                            </div>
+
+                            <!-- Field -->
+                            <div ng-if="itemSelected.ControlType == 'Field'">
+                                <form name="nodeform">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Field Scope
+                                                </td>
+                                                <td>
+                                                    {{(itemSelected.FieldScope == '$Values$') ? 'Content Type Field' : 'Library Field'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Field Name
+                                                </td>
+                                                <td>
+                                                    {{itemSelected.FieldName}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Html Class
+                                                </td>
+                                                <td>
+                                                    <div class="input-icon right">
+                                                        <input type="text" class="form-control"
+                                                               ng-model="itemSelected.HtmlClass" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+
+                            <!-- Button -->
+                            <div ng-if="itemSelected.ControlType == 'Button'">
+                                <form name="nodeform">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:25%">Name</th>
+                                                <th style="width:75%">Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Type
+                                                </td>
+                                                <td>
+                                                    {{itemSelected.ControlType}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Name
+                                                </td>
+                                                <td>
+                                                    <input id="txtName" 
+                                                           type="text" 
+                                                           maxlength="100" 
+                                                           class="prop-field" 
+                                                           ng-model="itemSelected.Name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Html Class
+                                                </td>
+                                                <td>
+                                                    <div class="input-icon right">
+                                                        <input type="text" class="form-control"
+                                                               ng-model="itemSelected.HtmlClass" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="action-list">
+                                                        Actions
+                                                        <div style="float:right">
+                                                            <div class="btn-group" ng-click="collapseControls()">
+                                                                <button class="btn blue-steel btn-sm dropdown-toggle"
+                                                                        data-toggle="dropdown"
+                                                                        aria-expanded="false">
+                                                                    <i class="fa fa-plus"></i>
+                                                                    New &nbsp;
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu pull-right" role="menu">
+                                                                    <li ng-repeat="type in buttonTypes" class="ng-scope" ng-hide="(type == 'Checkin' && checkHasButton('Checkin')) || (type != 'Checkin' && checkHasButton('UndoCheckout'))">
+                                                                        <a ng-click="addAction(type)"
+                                                                           class="ng-binding">
+                                                                            {{type}}
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="action-text"
+                                                         style="padding: 10px 5px;"
+                                                         ng-if="itemSelected.Actions.length <= 0">
+                                                        No action is set
+                                                    </div>
+                                                    <div>
+                                                        <ul style="margin: 8px 0; list-style:none; padding:5px 0;"
+                                                            ng-if="itemSelected.Actions.length > 0">
+                                                            <li ng-repeat="action in itemSelected.Actions">
+                                                                <div class="action-text">
+                                                                    <i class="fa fa-angle-right">
+
+                                                                    </i>
+                                                                    <span>
+                                                                        {{action.Type}}
+                                                                    </span>
+                                                                    <span style="font-style:italic;" ng-if="action.Type == 'SetField'">
+                                                                        - {{action.FieldScope}}.{{action.FieldName}}={{action.Value}}
+                                                                    </span>
+
+                                                                </div>
+                                                                <div class="action-addon">
+                                                                    <a class="btn btn-xs red btn-outline action-targetremain" 
+                                                                       ng-click="deleteAction(action)">
+                                                                        <i class="fa fa-times action-targetremain" 
+                                                                           aria-hidden="true"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="clearfix">
+
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet box green" ng-if="showActionDialog && showActionDialog == true">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-gift"></i>Set Field Action
+                    </div>
+                    <div class="tools">
+                        <a class="collapse" data-original-title="" title="" style=""> </a>
+                    </div>
+                </div>
+                <div id="button-actions" class="portlet-body" style="display: block; padding: 0">
+                    <div class="slimScrollDiv" style="position: relative; width: auto;">
+                        <div style="width: auto; padding: 0" data-initialized="1">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width:40%">Field</th>
+                                        <th style="width:20%">Operator</th>
+                                        <th style="width:40%">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" maxlength="100" class="prop-field" ng-model="setFieldDialog.FieldName" />
+                                        </td>
+                                        <td>
+                                            {{setFieldDialog.Operator}}
+                                        </td>
+                                        <td>
+                                            <input type="text" maxlength="100" class="prop-field" ng-model="setFieldDialog.Value" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row" style="padding-bottom:10px">
+                                <div class="col-md-6" style="text-align:right">
+                                    <button type="submit"
+                                            class="btn btn-primary"
+                                            ng-click="saveAction()"
+                                            ng-disabled="!validateAction()">
+                                        Save
+                                    </button>
+                                </div>
+                                <div class="col-md-6" style="text-align:left">
+                                    <button type="button"
+                                            class="btn default"
+                                            ng-click="cancelAction()">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script src="~/app/components/customform/customform.addedit.js"></script>
+    <script src="~/app/components/customform/directives/buttonFormControlEditing.directive.js"></script>
+    <script src="~/app/components/customform/directives/fieldFormControlEditing.directive.js"></script>
+    <script src="~/app/components/customform/directives/sectionFormControlEditing.directive.js"></script>
+   
+}

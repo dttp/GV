@@ -1,0 +1,182 @@
+﻿<style>
+    #folder-link:hover {
+        cursor:pointer;
+        text-decoration:underline;
+    }
+</style>
+<div ng-controller="contentTypeListCtrl" >
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/setup">Setup & Configuration</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/fs/library">Library</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <div class="btn-group button-menu-fix">
+                    <span id ="folder-link" class="btn btn-xs btn-outline btn-default" ng-click="backToFolder(folder.Id)">{{folder.Name}}</span>
+                    <button class="btn btn-xs btn-default btn-outline dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ng-if="currentUser.isAdmin">
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" ng-if="currentUser.isAdmin">
+                        <li>
+                            <a href="javascript:;" ng-click="permission(folder)" ng-class="{'disabled': folder.Owner.Id != currentUser.Id }"><i class="fa fa-cog"></i>&nbsp;Permission </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="folderfield(folder)" ng-class="{'disabled': !hasPermission('Read', 'Folder')}"><i class="fa fa-files-o"></i>&nbsp;Fields</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="contentType(folder)" ng-class="{'disabled': !hasPermission('Read', 'ContentType')}"><i class="fa fa-list-alt"></i>&nbsp;Content Type </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="workflow(folder)" ng-class="{'disabled': !hasPermission('Read', 'Workflow')}"><i class="fa fa-cogs"></i>&nbsp;Workflow</a>
+                        </li>
+                        <li>
+                            <a href="/customform?folderid={{folder.Id}}"><i class="fa fa-columns"></i>&nbsp;Custom Form</a>
+                        </li>
+                    </ul>
+                </div>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Content Type</span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Content Type
+        <small>Manage content types for <b>{{folder.Name}}</b></small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn blue" ng-disabled="!hasPermission('Create', objectType)" ng-click="createContentType()"><i class="fa fa-plus"></i>&nbsp;New</button>
+        </div>
+    </div>
+    <div class="table-scrollable">
+        <table class="table table-hover table-condensed table-light">
+            <thead>
+            <tr>
+                <th> Name </th>
+                <th> Description </th>
+                <th style="width: 220px"> Actions </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-if="contentTypes.length == 0">
+                <td colspan="4">There are no content types</td>
+            </tr>
+            @* ContentType List *@
+            <tr ng-repeat="cType in contentTypes">
+                <td><a href="/contentType/detail?id={{cType.Id}}&folderId={{cType.Folder.Id}}">{{cType.Name}}</a></td>
+                <td>{{cType.Description}}</td>
+                <td>
+                    <button class="btn btn-xs blue-madison btn-outline" ng-disabled="!hasPermission('Edit', objectType)" ng-click="cloneContentType(cType)"><i class="fa fa-clone"></i>&nbsp;Clone</button>
+                    <button class="btn btn-xs blue-madison btn-outline" ng-disabled="!hasPermission('Edit', objectType)" ng-click="editContentType(cType)"><i class="fa fa-edit"></i>&nbsp;Edit</button>
+                    <button class="btn btn-xs red-flamingo btn-outline" ng-disabled="!hasPermission('Delete', objectType)" ng-click="deleteContentType(cType)"><i class="fa fa-remove"></i>&nbsp;Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <script type="text/ng-template" id="CloneContentTypeModal.html">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()"></button>
+            <h3 class="modal-title">Clone ContentType to Folder</h3>
+        </div>
+        <div class="modal-body">
+            <form name="cloneContentTypeForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group" ng-class="{'has-error': hasError(cloneContentTypeForm.folder, 'invalid')}">
+                        <label class="control-label col-md-3">
+                            Folder
+                            <span class="required" aria-required="true"> * </span>
+                        </label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning tooltips" ng-show="hasError(cloneContentTypeForm.folder, 'required')" data-original-title="This field is required"></i>
+                                <select name="folder" ng-model="folder" id="folder" ng-options="p as p.Name for p in folders track by p.Id" class="form-control" required ng-change="selectchange()"></select>
+                                <span class="help-block" ng-show="hasError(cloneContentTypeForm.folder, 'required')">Folders is required</span>
+                            </div>
+                        </div>
+                    </div>             
+                    <div class="form-group" ng-class="{'has-error': hasError(cloneContentTypeForm.name, 'invalid')}">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(cloneContentTypeForm.name, 'invalid')"></i>
+                                <input id="fccontentType" type="text" class="form-control" name="name" placeholder="Enter content type name here" maxlength="100" ng-model="contentType.Name" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(cloneContentTypeForm.name, 'required')">Content type name is required</span>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Description</label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <input type="text" maxlength="255" class="form-control" name="description" placeholder="Enter description here" ng-model="contentType.Description" />
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn blue" ng-disabled="cloneContentTypeForm.$invalid" type="button" ng-click="ok()">Ok</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="ContentTypeModal.html">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()"></button>
+            <h3 class="modal-title">ContentType information!</h3>
+        </div>
+        <div class="modal-body">
+            <form name="contentTypeForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group" ng-class="{'has-error': hasError(contentTypeForm.name, 'invalid')}">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(contentTypeForm.name, 'invalid')"></i>
+                                <input type="text" class="form-control" name="name" placeholder="Enter content type name here" maxlength="100" ng-model="contentType.Name" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(contentTypeForm.name, 'required')">Content type name is required</span>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Description</label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <input type="text" maxlength="255" class="form-control" name="description" placeholder="Enter description here" ng-model="contentType.Description" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn blue" ng-disabled="contentTypeForm.$invalid || !contentTypeForm.$dirty" type="button" ng-click="ok()">Ok</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+@section js {
+    <script src="~/app/components/content-type/contentType.list.js"></script> 
+}

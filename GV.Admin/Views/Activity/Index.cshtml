@@ -1,0 +1,81 @@
+﻿<div ng-controller="activityListCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/setup">Setup & Configuration</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Activity</span>
+            </li>
+        </ul>
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Activities
+        <small>Manage activities</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn blue" ng-click="create()">
+                <i class="fa fa-plus"></i>
+                Create
+            </button>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-scrollable">
+                <table class="table table-hover table-condensed table-light">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Version</th>
+                            <th>Description</th>
+                            <th>UniqueId</th>
+                            <th>Type</th>
+                            <th style="width: 220px"> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="activities.length == 0">
+                            <td colspan="6">There are no activities</td>
+                        </tr>
+                        <tr ng-repeat="activity in activities">
+                            <td>{{activity.Name}}</td>
+                            <td>{{activity.Version}}</td>
+                            <td>{{activity.Description}}</td>
+                            <td>{{activity.UniqueId}}</td>
+                            <td>
+                                <span class="label"
+                                      ng-class="{'bg-blue-steel': activity.Type.toLowerCase() == 'automatic',
+                                                 'bg-green-dark': activity.Type.toLowerCase() == 'manual',
+                                                 'bg-green': activity.Type.toLowerCase() == 'builtin'}">
+                                    {{activity.Type}}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-xs blue-steel btn-outline" ng-hide="activity.Type == 'BuiltIn'" ng-disabled="!hasPermission('Read', objectType)" ng-click="backupAct(activity)"><i class="fa fa-hdd-o"></i>&nbsp;Backup</button>
+                                <button class="btn btn-xs red-flamingo btn-outline" ng-hide="activity.Type == 'BuiltIn'" ng-disabled="!hasPermission('Delete', objectType)" ng-click="delete(activity)"><i class="fa fa-remove"></i>&nbsp;Delete</button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section js {
+    <script src="~/app/components/category/category.list.js"></script>
+}

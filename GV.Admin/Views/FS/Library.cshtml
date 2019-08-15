@@ -1,0 +1,204 @@
+﻿<div ng-controller="libraryCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/setup">Setup & Configuration</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Library</span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Library
+        <small>Manage library</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE TOOLBAR -->
+    <div class="row fix-menu" scroll-to-fixed="{marginTop:50}">
+        <div class="col-md-12">
+            <div class="panel bg-white" style="margin-bottom: 0">
+                <div class="panel-body" style="padding: 8px 0;">
+                    <button class="btn blue-steel" ng-click="create()" ng-disabled="!hasPermission('Create', objectType)">
+                        <i class="fa fa-plus"></i>&nbsp;New
+                    </button>
+                    <button class="btn blue-madison btn-outline" ng-click="folderChild(selectedItems[0].Id)"
+                            ng-show="selectedItems.length == 1" ng-class="{'disabled': !hasPermission('Read', 'Folder')}">
+                        <i class="fa fa-folder-open-o"></i>&nbsp;Open
+                    </button>
+                    <button class="btn blue-madison btn-outline" ng-click="edit(selectedItems[0])" ng-show="selectedItems.length == 1"
+                            ng-class="{'disabled': !hasPermission('Edit', 'Folder')}">
+                        <i class="fa fa-edit"></i>&nbsp;Rename
+                    </button>
+                    <button class="btn red-flamingo btn-outline" ng-click="deleteAll()" ng-show="selectedItems.length > 0">
+                        <i class="fa fa-remove"></i>&nbsp;Delete
+                    </button>
+                    <button class="btn blue-madison btn-outline" ng-click="folderfield(selectedItems[0].Id)" ng-show="selectedItems.length == 1"
+                            ng-class="{'disabled': !hasPermission('Read', 'Folder')}">
+                        <i class="fa fa-files-o"></i>&nbsp;Library Fields
+                    </button>
+                    <button class="btn blue-madison btn-outline" ng-click="contentType(selectedItems[0].Id)" ng-show="selectedItems.length == 1"
+                            ng-class="{'disabled': !hasPermission('Read', 'ContentType')}">
+                        <i class="fa fa-list-alt"></i>&nbsp;Content Type
+                    </button>
+                    <button class="btn blue-madison btn-outline" ng-click="workflow(selectedItems[0].Id)" ng-show="selectedItems.length == 1"
+                            ng-class="{'disabled': !hasPermission('Read', 'Workflow')}">
+                        <i class="fa fa-cogs"></i>&nbsp;Workflow
+                    </button>
+                    <div class="btn-group" style="margin-left: 8px;" ng-if="selectedItems.length ==1">
+                        <div class="btn-group">
+                            <button class="btn btn-icon-only blue-steel btn-outline dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" ng-if="selectedItems != null && selectedItems.length == 1">
+                                <li>
+                                    <a ng-click="permission(selectedItems[0])" ng-show="selectedItems.length == 1" ng-class="{'disabled': selectedItems[0].Owner.Id != currentUser.Id }">
+                                        <i class="fa fa-cog"></i>&nbsp;Permission
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-click="changeOwner(selectedItems[0])" ng-show="selectedItems.length == 1">
+                                        <i class="fa fa-user"></i>&nbsp;Change Owner
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-click="customForm(selectedItems[0].Id)" ng-show="selectedItems.length == 1">
+                                        <i class="fa fa-columns"></i>&nbsp;Custom Form
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END PAGE TOOLBAR-->
+
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-scrollable" style="overflow:visible">
+                <table class="table table-hover table-condensed table-light">
+                    <thead>
+                        <tr>
+                            <th style="width: 27px;">
+                                <input id="selectAll" class="c-checkbox" type="checkbox" ng-model="selectedAll" ng-change="onSelectedAllChanged()">
+                                <label for="selectAll"></label>
+                            </th>
+                            <th> Name </th>
+                            <th> Owner </th>
+                            <th style="width:307px;"> &nbsp; </th>
+                        </tr>
+                        <tr>
+                            <th style="width: 27px;">
+                            </th>
+                            <th>
+                                <div class="filter-input" style="width:100%">
+                                    <input type="text" 
+                                           maxlength="100"
+                                           ng-model="pagination.name"
+                                           ng-model-options='{ debounce: 1000 }'
+                                           placeholder="Enter name to filter"
+                                           ng-change="refreshLibrary()" /> 
+                                        <button class="btn white font-red-flamingo active" style="width: 36px;height: 26px;padding: 3px;"
+                                                type="button" ng-hide="pagination.name == ''"
+                                                ng-click="clearFilter()"
+                                                title="Clear filter">
+                                            <i class="fa fa-remove"></i>
+                                        </button> 
+                                </div>
+                            </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="libraries.length == 0">
+                            <td colspan="4">There are no libraries</td>
+                        </tr>
+                        <tr ng-repeat="lib in libraries" style="cursor:pointer;height:45px">
+                            <td>
+                                <input id="{{lib.Id}}" class="c-checkbox" type="checkbox" ng-model="lib.selected" ng-click="onItemSelectedChanged(lib)">
+                                <label for="{{lib.Id}}"></label>
+                            </td>
+                            <td ng-click="onItemSelected(lib)">{{::lib.Name}}</td>
+                            <td ng-click="onItemSelected(lib)">{{::lib.Owner.UserName}}</td>
+                            <td>
+                                <div class="btn-group button-hover">
+                                    <a title="Open" class="btn btn-icon-only green-soft btn-outline" ng-click="folderChild(selectedItems[0].Id, this)" ng-class="{'disabled': !hasPermission('Read', 'Folder')}">
+                                        <i class="fa fa-folder-open-o"></i>&nbsp;
+                                    </a>
+                                    <a title="Rename" class="btn btn-icon-only blue-sharp btn-outline" ng-click="edit(selectedItems[0], this)" ng-class="{'disabled': !hasPermission('Edit', 'Folder')}">
+                                        <i class="fa fa-edit"></i>&nbsp;
+                                    </a>
+                                    <a title="Delete" class="btn btn-icon-only red-flamingo btn-outline" ng-click="deleteAll(this)" ng-class="{'disabled': !hasPermission('Edit', 'Folder')}">
+                                        <i class="fa fa-remove"></i>&nbsp;
+                                    </a>
+                                    <a title="Library Fields" class="btn btn-icon-only green-seagreen btn-outline" ng-click="folderfield(selectedItems[0].Id, this)" ng-class="{'disabled': !hasPermission('Read', 'Folder')}">
+                                        <i class="fa fa-files-o"></i>&nbsp;
+                                    </a>
+                                    <a title="Content Type" class="btn btn-icon-only green-haze btn-outline" ng-click="contentType(selectedItems[0].Id, this)" ng-class="{'disabled': !hasPermission('Read', 'ContentType')}">
+                                        <i class="fa fa-list-alt"></i>&nbsp;
+                                    </a>
+                                    <a title="Workflow" class="btn btn-icon-only green-soft btn-outline" ng-click="workflow(selectedItems[0].Id, this)" ng-class="{'disabled': !hasPermission('Read', 'Workflow')}">
+                                        <i class="fa fa-cogs"></i>&nbsp;
+                                    </a>
+                                    <a title="Permission" class="btn btn-icon-only blue-dark btn-outline" ng-click="permission(selectedItems[0], this)" ng-class="{'disabled': selectedItems[0].Owner.Id != currentUser.Id && this.lib.Owner.Id != currentUser.Id  }">
+                                        <i class="fa fa-cog"></i>&nbsp;
+                                    </a>
+                                    <a title="Change Owner" class="btn btn-icon-only blue-steel btn-outline" ng-click="changeOwner(selectedItems[0], this)">
+                                        <i class="fa fa-user"></i>&nbsp;
+                                    </a>
+                                    <a title="Custom Form" class="btn btn-icon-only blue-madison btn-outline" ng-click="customForm(selectedItems[0].Id, this)">
+                                        <i class="fa fa-columns"></i>&nbsp;
+                                    </a>
+                                </div>                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <label>
+                Show&nbsp;
+                <select ng-model="pagination.pageSize" style="width: 45px !important; height: 34px !important; padding: 0;"
+                        class="form-control input-sm input-xsmall input-inline" ng-options="size for size in pageSizes" ng-change="onPagingSizeChange()"></select>
+                &nbsp;items/page
+            </label>
+        </div>
+        <div class="col-md-7">
+            <paging page="pagination.pageIndex"
+                    page-size="pagination.pageSize"
+                    total="pagination.total"
+                    show-first-last="true"
+                    paging-action="onPagingAction(page)" style="float: right; margin-top:-10px">
+            </paging>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script src="~/app/components/fs/fs.library.js"></script>
+}
+<style>
+    .manager-btn .btn {
+        margin-bottom: 5px;
+    }
+
+    button.btn.white.font-red-flamingo {
+        border: 1px solid #E7ECF1;
+        border-color: none;
+    }
+</style>

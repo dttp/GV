@@ -1,0 +1,152 @@
+﻿<div class="table-scrollable folder-table" ng-style="{'min-height': items.length === 0 ? '' : '250px'}">
+    <table class="table table-condensed table-light table-hover " rz-save="false" rz-table rz-model="table" rz-mode="resizeMode" id="tableResize_Group">
+        <thead>
+            <tr>
+                <th class="hide-handle fixWidth">
+                    <input id="selectAll" class="c-checkbox" type="checkbox" ng-model="selectedAll.value" ng-change="onSelectedAllChanged()">
+                    <label for="selectAll"></label>
+                </th>
+                <th class="handle" rz-col="Group" style="min-width:150px;">Group</th>
+                <th ng-repeat="column in selectedView.ViewColumns"
+                    class="handle" rz-col="column.Value"
+                    ng-if="true"
+                    ng-class="{'hide-handle': $index === (selectedView.ViewColumns.length - 1)}">
+                    <div ng-click="sortBy(column)">
+                        {{column.Name}}&nbsp;
+                        <span ng-show="isColumnSortable(column)" ng-class="{'sorting_asc': filter.sortBy == column.Value && filter.sortDirection == 'asc',
+                                             'sorting_desc': filter.sortBy == column.Value && filter.sortDirection == 'desc',
+                                             'sorting': filter.sortBy != column.Value}">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                    </div>
+                </th>
+            </tr>
+            <tr class="tr-resize">
+                <th></th>
+                <th>
+                    <div class="filter-input" style="width: 100%">
+                        <input type="text"
+                               maxlength="100"
+                               placeholder="Filter by {{parseFieldName(selectedView.GroupingFields[0])}}"
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-model="filter.input['First Group']" />
+                    </div>
+                </th>
+                <th ng-repeat="col in selectedView.ViewColumns" rz-col="{{column.Id}}" class="{{column.Id}}">
+                    <div class="filter-input" style="width: 100%">
+                        <ol ng-if="col.Type == 'multiselect'"
+                            class="nya-bs-select form-control" 
+                            ng-change="applyFilter(col)"
+                            ng-model="filter.input[col.Value]"
+                            multiple>
+                            <li nya-bs-option="item in col.Items">
+                                <a>
+                                    {{ item }}
+                                    <span class="fa fa-check check-mark"></span>
+                                </a>
+                            </li>
+                        </ol>
+                        <input type="text"
+                               maxlength="100"
+                               ng-change="applyFilter(col)"
+                               ng-enter="applyFilter(col)"
+                               ng-if="col.Type == 'textarea' || col.Type == 'picklist' || col.Type == 'lookup' || col.Type == 'checkbox'"
+                               placeholder="Filter by {{col.Name}}"
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-model="filter.input[col.Value]" />
+                        <input type="{{col.Type}}"
+                               ng-change="applyFilter(col)"
+                               ng-enter="applyFilter(col)"
+                               ng-if="(col.Type == 'date' && filter.input[col.Value] != '{Today}' ) || col.Type == 'text' || col.Type == 'number'"
+                               placeholder="Filter by {{col.Name}}"
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-model="filter.input[col.Value]" />
+                        <input type="datetime-local"
+                               ng-change="applyFilter(col)"
+                               ng-enter="applyFilter(col)"
+                               ng-if="col.Type == 'datetime' && filter.input[col.Value] != '{Today}'"
+                               placeholder="Filter by {{col.Name}}"
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-model="filter.input[col.Value]" />
+                        <input type="text"
+                               ng-change="applyFilter(col)"
+                               ng-enter="applyFilter(col)"
+                               ng-if="(col.Type == 'datetime' || col.Type == 'date') && filter.input[col.Value] == '{Today}'"
+                               placeholder="Filter by {{col.Name}}" readonly
+                               ng-model-options="{ debounce: 1000 }"
+                               ng-model="filter.input[col.Value]" />
+
+                        <button class="btn grey-cararra font-blue dropdown-toggle" ng-if="(col.Type == 'datetime' || col.Type == 'date')"
+                                style="margin-right: 0px; padding: 0px 7px; width:26px; height:26px; border-color:#bababa" type="button" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down" style="font-size:10px" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu" style="top:25px; right:30px;">
+                            <li ng-class="{'active': filter.input[col.Value] == '{Today}'}" ng-click="changeToday(col, true)"
+                                ng-if="filter.input[col.Value] !== '{Today}'">
+                                <a title="today" href="javascript:">
+                                    <i aria-hidden="false" style="font-size:12px !important;"></i> Today
+                                </a>
+                            </li>
+                            <li ng-class="{'active': filter.input[col.Value] != '{Today}'}" ng-click="changeToday(col, false)"
+                                ng-if="filter.input[col.Value] === '{Today}'">
+                                <a title="custom date" href="javascript:">
+                                    <i aria-hidden="false" style="font-size:12px !important;"></i> Custom date
+                                </a>
+                            </li>
+                        </ul>
+                        <button class="btn white font-red-flamingo btn-folder"
+                                ng-class="{'active': filter.input[col.Value] && filter.input[col.Value].length > 0 }"
+                                type="button" ng-hide="col.Type == 'today'"
+                                title="Clear filter"
+                                ng-click="clearFilter(col)">
+                            <i class="fa fa-remove"></i>
+                        </button>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in localGroupFilter()" class="lister-item">
+                <td class="table-checkbox">
+                    <input id="{{item.type === 'content' ? item.data.Id : item.id}}" class="c-checkbox" ng-if="item.type !== 'noItem'" type="checkbox" 
+                           ng-model="item.selected" ng-change="onItemSelectedChanged()">
+                    <label for="{{item.type === 'content' ? item.data.Id : item.id}}" ng-if="item.type !== 'noItem'"></label>
+                </td>
+                <td class="group-column group-level-{{item.level}}">
+                    <span ng-click="toggleExpand(item)">
+                        <i ng-class="{'fa fa-plus-square-o': item.type === 'group' && !item.expanded,
+                                  'fa fa-minus-square-o': item.type === 'group' && item.expanded}"></i>
+                    </span>
+                    <span ng-class="{'fa fa-file-o': item.type === 'content' && !item.data.Attributes.Checkedout ,
+                                  'fa fa-file-text-o': item.type === 'content' && item.data.Attributes.Checkedout,
+                                  'fa fa-folder font-blue': item.type === 'group' && !item.expanded,
+                                  'fa fa-folder-open font-blue': item.type === 'group' && item.expanded}"
+                       ng-style="{'color': !item.data.Attributes.Checkedout ? 'rgb(75, 119, 190)' : '#EF4836'}">
+                    </span>
+                    <span ng-class="{'noItem':item.type === 'noItem'}"
+                          ng-click="selectItem(item)">{{item.name}}</span>
+                </td>
+                <td ng-repeat="col in selectedView.ViewColumns" ng-click="selectItem(item)">
+                    <span ng-if="item.type == 'content' && col.Group == 'Content' && col.Name == 'Type'" title="{{item.data.ContentType.Name}}">
+                        {{item.data.ContentType.Name}}
+                    </span>
+                    <span ng-if="item.type == 'content' && col.Group == 'Content' && col.Name != 'Type' && col.Name != 'Owner'" title="{{item.data[col.ApiName]}}">
+                        {{item.data[col.ApiName]}}
+                    </span>
+                    <span ng-if="col.Group == 'Content' && col.Name == 'Owner'" title="{{item.data.Owner.UserName}}">
+                        {{item.data.Owner.UserName}}
+                    </span>
+                    <span ng-if="col.Group == 'Content' && col.Name == 'Today'">
+                        {{item.data.CreatedDate}}
+                    </span>
+                    <span ng-if="item.type == 'content' && col.Group == 'Library Fields'" title="{{item.data.LibraryFieldValues[col.ApiName]}}">
+                        {{item.data.LibraryFieldValues[col.ApiName]}}
+                    </span>
+                    <span ng-if="item.type == 'content' && col.Group.startsWith('[Content Type]')" title="{{item.data.Values[col.ApiName]}}">
+                        {{item.data.Values[col.ApiName]}}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,105 @@
+﻿<div class="c-layout-page" ng-controller="contactCtrl">
+    <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
+    <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+        <div class="container">
+            <div class="c-page-title c-pull-left">
+                <h3 class="c-font-uppercase c-font-bold">{{labels[selectedLanguage.value].pageTitle}}</h3>
+            </div>
+            <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+                <li>
+                    <a href="/">{{labels[selectedLanguage.value].homeTitle}}</a>
+                </li>
+                <li>
+                    /
+                </li>
+                <li class="c-state_active">
+                    {{labels[selectedLanguage.value].pageTitle}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
+
+    <div class="c-content-box c-size-md">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="c-content-blog-post-1-view">
+                        <div class="c-content-blog-post-1">
+                            @*<div class="c-media">
+                                <div class="c-content-media-2-slider" data-slider="owl" data-single-item="true" data-auto-play="4000" data-slide-speed="400" data-pagination-speed="800">
+                                    <div class="owl-carousel owl-theme c-theme owl-single" style="opacity: 1; display: block;">
+                                        <div class="owl-wrapper-outer">
+                                            <div class="owl-wrapper" style="width: 4908px; left: 0px; display: block; transform: translate3d(-1636px, 0px, 0px); transition: all 1000ms ease 0s;">
+                                                <div class="owl-item" style="width: 818px;">
+                                                    <div class="item">
+                                                        <div class="c-content-media-2" style="background-image: url(assets/base/img/content/misc/latest-work-3.jpg); min-height: 460px;">
+                                                        </div>
+                                                    </div>
+                                                </div><div class="owl-item" style="width: 818px;">
+                                                    <div class="item">
+                                                        <div class="c-content-media-2" style="background-image: url(assets/base/img/content/misc/latest-work-7.jpg); min-height: 460px;">
+                                                        </div>
+                                                    </div>
+                                                </div><div class="owl-item" style="width: 818px;">
+                                                    <div class="item">
+                                                        <div class="c-content-media-2" style="background-image: url(assets/base/img/content/misc/9.jpg); min-height: 460px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page"><span class=""></span></div><div class="owl-page"><span class=""></span></div><div class="owl-page active"><span class=""></span></div></div></div>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div class="c-title c-font-bold c-font-uppercase">
+                                <a href="#">{{contactArticle.Name}}</a>
+                            </div>
+                            
+                            <div class="c-desc" ng-bind-html="contactArticle.Data">
+                            </div>
+                            <div class="c-comments">
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold">{{labels[selectedLanguage.value].leaveMsgTitle}}</h3>
+                                    <div class="c-line-left">
+                                    </div>
+                                </div>
+                                <form novalidate name="msgForm">
+                                    <div class="form-group">
+                                        <input type="text" 
+                                               placeholder="{{labels[selectedLanguage.value].phName}}" 
+                                               class="form-control c-square" 
+                                               ng-model="message.Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" 
+                                               placeholder="{{labels[selectedLanguage.value].phEmail}}" 
+                                               class="form-control c-square" 
+                                               required
+                                               ng-model="message.Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea rows="8" name="message" placeholder="{{labels[selectedLanguage.value].phMsg}}" ng-model="message.Data" class="form-control c-square"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" 
+                                                ng-disabled="msgForm.$invalid"
+                                                class="btn c-theme-btn c-btn-uppercase btn-md c-btn-sbold btn-block c-btn-square"
+                                                ng-click="sendMessage()">{{labels[selectedLanguage.value].submitBtnText}}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+@section js {
+    <script src="~/app/components/contact/contact.js"></script>
+}

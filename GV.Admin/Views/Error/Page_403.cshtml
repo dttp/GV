@@ -1,0 +1,48 @@
+﻿<head>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="~/app/assets/plugins/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/simple-line-icons-2.3.2/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="~/app/assets/m4.7/global/css/components.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/global/css/plugins.min.css" rel="stylesheet" />
+    <!-- END THEME GLOBAL STYLES -->
+    <link href="~/app/assets/m4.7/pages/css/error.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="page-404-full-page">
+    <div class="row">
+        <div class="col-md-12 page-404">
+            <div class="number font-red"> 403 </div>
+            <div class="details">
+                <h3>FORBIDDEN</h3>
+                <p>
+                    You don't have permission to access on this page.
+                    <br /><br />
+                    @*<a href="/"> Return home </a> or try other pages.*@
+                    <a href="/" class="btn red btn-outline"> Return home </a>
+                    <a href="javascript: history.go(-2)" class="btn red btn-outline">Go Back</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+@section js {
+    <script>
+        (function init() {
+            if (document.getElementsByClassName("page-sidebar-menu")) {
+                document.getElementsByClassName("page-sidebar-menu")[0].style.display = 'none';
+            }
+            if (document.getElementsByClassName("page-footer")) {
+                document.getElementsByClassName("page-footer")[0].style.backgroundColor = '#1f1f1f';
+                document.getElementsByClassName("page-footer")[0].style.marginLeft = '0';
+            }
+            if (document.getElementsByClassName("page-content")) {
+                document.getElementsByClassName("page-content")[0].style.margin = '0';
+            }
+        })();
+
+    </script>
+}

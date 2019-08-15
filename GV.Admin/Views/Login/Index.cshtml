@@ -1,0 +1,158 @@
+﻿@using GV.Core
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+<head>
+    <meta charset="utf-8" />
+    <title>GVCompany | Administrator </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="GV Company" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="~/app/assets/plugins/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/simple-line-icons-2.3.2/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="~/app/assets/plugins/icheck/css/all.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-loading-bar/loading-bar.min.css" rel="stylesheet" />
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="~/app/assets/m4.7/global/css/components.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/global/css/plugins.min.css" rel="stylesheet" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="~/app/assets/m4.7/pages/css/login-5.css" rel="stylesheet" />
+    <link href="~/app/assets/css/site.css" rel="stylesheet" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <!-- END THEME LAYOUT STYLES -->
+    @*<link rel="shortcut icon" href="favicon.ico" />*@
+</head>
+<!-- END HEAD -->
+
+<body class="login" ng-app="gv.app.login" ng-controller="loginCtrl" ng-init="init()">
+    <div id="WEBAPI_ENDPOINT_ID" style="display:none;">@GVConfig.Instance.WebAPIEndpoint</div>
+    <!-- BEGIN LOGO -->
+    <div class="user-login-5">
+        <div class="row bs-reset">
+            <div class="col-md-6 bs-reset mt-login-5-bsfix">
+                <div class="login-bg" style="background-image:url(../app/assets/m4.7/pages/img/login/bg1.jpg)">
+                    <h1 class="product_name">GVCompany</h1>
+                    <div class="ucmsoverlay"></div>
+                </div>
+            </div>
+            <div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
+
+                <div class="login-content">
+                    <div style="text-align:center">
+                        @*<img class="logo_imip" src="~/app/assets/images/imip-logo.png" />*@
+                    </div>
+                    <h1>Sign In</h1>
+                    <p> </p>
+                    <div class="alert alert-danger" ng-show="state.value == 'error'">
+                        <button class="close" ng-click="state.value = 'none'"></button>
+                        <span> {{error}} </span>
+                    </div>
+                    <form action="javascript:;" class="login-form" method="post">
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input class="form-control form-control-solid placeholder-no-fix form-group" type="text" maxlength="100"
+                                       autocomplete="off"
+                                       placeholder="Username"
+                                       name="username"
+                                       ng-model="account.username"
+                                       ng-disabled="state.value =='working'"
+                                       ng-enter="login()"
+                                       ng-change="usernameChanged()" />
+                            </div>
+                            <div class="col-xs-6">
+                                <input class="form-control form-control-solid placeholder-no-fix form-group" type="password"
+                                       autocomplete="off"
+                                       placeholder="Password"
+                                       name="password"
+                                       ng-model="account.password"
+                                       ng-disabled="state.value =='working'"
+                                       ng-enter="login()" />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px">
+                            <div class="col-sm-12 text-right">
+                                <button class="btn green" type="submit" ng-disabled="state.value=='error'" ng-hide="state.value == 'working'" ng-click="login()">Sign In</button>
+                                <img src="~/app/assets/images/signingin.gif" ng-show="state.value == 'working'" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="login-footer">
+                    <div class="row bs-reset">
+                        <div class="col-xs-5 bs-reset">
+                            <ul class="login-social hidden">
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="icon-social-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="icon-social-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="icon-social-dribbble"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-7 bs-reset">
+                            <div class="login-copyright text-right">
+                                <p>Copyright &copy; GV 2019</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="~/app/assets/js/const.js"></script>
+    <script src="~/app/assets/js/Base64.js"></script>
+    <script src="~/app/assets/plugins/jquery-2.2.4/jquery.js"></script>
+    <script src="~/app/assets/plugins/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="~/app/assets/plugins/angularjs-1.6.4/angular.min.js"></script>
+    <script src="~/app/assets/plugins/angularjs-1.6.4/angular-animate.min.js"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/app/assets/plugins/ngstorage/ngStorage.min.js"></script>
+    <script src="~/app/directives/ngEnter.js"></script>
+    <script src="~/app/services/authService.js"></script>
+
+    <script src="~/app/assets/js/Util.js"></script>
+    <script src="~/app/assets/plugins/angular-toastr/angular-toastr.tpls.js"></script>
+    <script src="~/app/services/alertService.js"></script>
+    <script src="~/app/services/xhttpService.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="~/app/assets/m4.7/global/scripts/app.js"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/app/components/account/login.js"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <!-- END THEME LAYOUT SCRIPTS -->
+</body>
+
+</html>

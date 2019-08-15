@@ -1,0 +1,29 @@
+﻿body {
+    font-family: 'Archivo', sans-serif;
+}
+
+/* CUSTOMIZE SIDEBAR*/
+.page-sidebar .page-sidebar-menu > li.heading > h3, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.heading > h3 {
+    color: #d8d4ab;
+}
+.page-sidebar .page-sidebar-menu > li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
+    color: white;
+}
+.page-sidebar .page-sidebar-menu .sub-menu > li > a.selected, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li > a.selected {
+    background: #31608a;
+}
+
+.page-sidebar .page-sidebar-menu .sub-menu > li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li > a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.open > .dropdown-menu {
+    animation: zoomIn 200ms;
+    -webkit-animation: zoomIn 200ms;
+}
+
+
+div.modal {
+    z-index: 10000 !important;
+}

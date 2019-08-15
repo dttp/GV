@@ -1,0 +1,6 @@
+﻿CREATE PROCEDURE [dbo].[SP_USER_GETBYNAME]
+	@name NVARCHAR(100) 
+AS
+	SELECT * 
+	FROM [USER]
+	WHERE Name = @name

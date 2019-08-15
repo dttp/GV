@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SettingDataAdapter.cs" />
     <Compile Include="ArticleDataAdapter.cs" />
     <Compile Include="BaseAdapter.cs" />
     <Compile Include="CategoryDataAdapter.cs" />
     <Compile Include="DataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserDataAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GV.Core\GV.Core.csproj">

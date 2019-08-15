@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -55,6 +58,24 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -72,60 +93,11 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Diagnostics.DiagnosticSource">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
-      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -133,27 +105,628 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="app\app.js" />
+    <Content Include="app\assets\imgs\favicon.ico" />
+    <Content Include="app\assets\imgs\gv-logo.png" />
+    <Content Include="app\assets\jango\base\css\components.css" />
+    <Content Include="app\assets\css\custom.css" />
+    <Content Include="app\assets\jango\base\css\plugins.css" />
+    <Content Include="app\assets\jango\base\css\themes\blue1.css" />
+    <Content Include="app\assets\jango\base\css\themes\blue2.css" />
+    <Content Include="app\assets\jango\base\css\themes\blue3.css" />
+    <Content Include="app\assets\jango\base\css\themes\brown1.css" />
+    <Content Include="app\assets\jango\base\css\themes\brown2.css" />
+    <Content Include="app\assets\jango\base\css\themes\brown3.css" />
+    <Content Include="app\assets\jango\base\css\themes\dark.css" />
+    <Content Include="app\assets\jango\base\css\themes\dark1.css" />
+    <Content Include="app\assets\jango\base\css\themes\dark2.css" />
+    <Content Include="app\assets\jango\base\css\themes\dark3.css" />
+    <Content Include="app\assets\jango\base\css\themes\default.css" />
+    <Content Include="app\assets\jango\base\css\themes\green1.css" />
+    <Content Include="app\assets\jango\base\css\themes\green2.css" />
+    <Content Include="app\assets\jango\base\css\themes\green3.css" />
+    <Content Include="app\assets\jango\base\css\themes\orange.css" />
+    <Content Include="app\assets\jango\base\css\themes\purple1.css" />
+    <Content Include="app\assets\jango\base\css\themes\purple2.css" />
+    <Content Include="app\assets\jango\base\css\themes\purple3.css" />
+    <Content Include="app\assets\jango\base\css\themes\red1.css" />
+    <Content Include="app\assets\jango\base\css\themes\red2.css" />
+    <Content Include="app\assets\jango\base\css\themes\red3.css" />
+    <Content Include="app\assets\jango\base\css\themes\white.css" />
+    <Content Include="app\assets\jango\base\css\themes\yellow1.css" />
+    <Content Include="app\assets\jango\base\css\themes\yellow2.css" />
+    <Content Include="app\assets\jango\base\css\themes\yellow3.css" />
+    <Content Include="app\assets\jango\base\js\app.js" />
+    <Content Include="app\assets\jango\base\js\components.js" />
+    <Content Include="app\assets\jango\base\js\scripts\cubeportfolio\about-team-portfolio.js" />
+    <Content Include="app\assets\jango\base\js\scripts\cubeportfolio\portfolio-masonry.js" />
+    <Content Include="app\assets\jango\base\js\scripts\owl-carousel\home-mini-slider.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\2col-portfolio.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\4col-portfolio.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\contact-2.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\contact.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\extended-portfolio.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\faq.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\fullwidth-gallery.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\index-gallery.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\lightbox-gallery.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\masonry-gallery.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\masonry-portfolio.js" />
+    <Content Include="app\assets\jango\base\js\scripts\pages\modals.js" />
+    <Content Include="app\assets\jango\base\js\scripts\revo-slider\slider-custom.js" />
+    <Content Include="app\assets\jango\base\js\scripts\revo-slider\slider-default.js" />
+    <Content Include="app\assets\jango\base\js\scripts\revo-slider\slider-fullscreen-2.js" />
+    <Content Include="app\assets\jango\base\js\scripts\revo-slider\slider-fullscreen-3.js" />
+    <Content Include="app\assets\jango\base\js\scripts\revo-slider\slider-fullscreen.js" />
+    <Content Include="app\assets\js\const.js" />
+    <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.css" />
+    <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.js" />
+    <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.min.css" />
+    <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.min.js" />
+    <Content Include="app\assets\plugins\angular-paging\paging.js" />
+    <Content Include="app\assets\plugins\angular-paging\paging.min.js" />
+    <Content Include="app\assets\plugins\angular-toastr\angular-toastr.css" />
+    <Content Include="app\assets\plugins\angular-toastr\angular-toastr.js" />
+    <Content Include="app\assets\plugins\angular-toastr\angular-toastr.min.css" />
+    <Content Include="app\assets\plugins\angular-toastr\angular-toastr.min.js" />
+    <Content Include="app\assets\plugins\angular-toastr\angular-toastr.tpls.js" />
+    <Content Include="app\assets\plugins\angular-toastr\angular-toastr.tpls.min.js" />
+    <Content Include="app\assets\plugins\angularjs-1.6.4\angular-animate.min.js" />
+    <Content Include="app\assets\plugins\angularjs-1.6.4\angular-route.min.js" />
+    <Content Include="app\assets\plugins\angularjs-1.6.4\angular-sanitize.min.js" />
+    <Content Include="app\assets\plugins\angularjs-1.6.4\angular.js" />
+    <Content Include="app\assets\plugins\angularjs-1.6.4\angular.min.js" />
+    <Content Include="app\assets\plugins\animate-css\animate.min.css" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\css\bootstrap-theme.css" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\css\bootstrap-theme.min.css" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\css\bootstrap.css" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\css\bootstrap.min.css" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\js\bootstrap.js" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\js\bootstrap.min.js" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\js\npm.js" />
+    <Content Include="app\assets\plugins\flag-icon-css\css\flag-icon.css" />
+    <Content Include="app\assets\plugins\flag-icon-css\css\flag-icon.min.css" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ad.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ae.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\af.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ag.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ai.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\al.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\am.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ao.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\aq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ar.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\as.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\at.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\au.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\aw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ax.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\az.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ba.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bb.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bd.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\be.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bi.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bo.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\br.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bs.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\by.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\bz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ca.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cd.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ch.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ci.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ck.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\co.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cx.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cy.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\cz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\de.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\dj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\dk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\dm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\do.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\dz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ec.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ee.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\eg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\eh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\er.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\es-ct.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\es.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\et.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\eu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\fi.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\fj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\fk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\fm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\fo.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\fr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ga.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gb-eng.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gb-nir.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gb-sct.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gb-wls.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gb.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gd.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ge.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gi.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gp.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gs.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\gy.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\hk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\hm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\hn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\hr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ht.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\hu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\id.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ie.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\il.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\im.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\in.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\io.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\iq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ir.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\is.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\it.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\je.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\jm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\jo.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\jp.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ke.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\kg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\kh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ki.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\km.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\kn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\kp.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\kr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\kw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ky.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\kz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\la.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\lb.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\lc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\li.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\lk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\lr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ls.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\lt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\lu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\lv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ly.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ma.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\md.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\me.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ml.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mo.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mp.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ms.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mx.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\my.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\mz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\na.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\nc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ne.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\nf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ng.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ni.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\nl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\no.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\np.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\nr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\nu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\nz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\om.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pa.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pe.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ph.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ps.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\pw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\py.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\qa.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\re.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ro.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\rs.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ru.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\rw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sa.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sb.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sd.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\se.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\si.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\so.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ss.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\st.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sx.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sy.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\sz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\td.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\th.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\to.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\tz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ua.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ug.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\um.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\un.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\us.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\uy.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\uz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\va.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\vc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ve.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\vg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\vi.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\vn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\vu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\wf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ws.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\xk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\ye.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\yt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\za.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\zm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\1x1\zw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ad.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ae.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\af.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ag.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ai.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\al.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\am.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ao.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\aq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ar.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\as.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\at.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\au.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\aw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ax.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\az.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ba.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bb.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bd.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\be.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bi.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bo.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\br.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bs.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\by.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\bz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ca.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cd.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ch.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ci.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ck.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\co.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cx.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cy.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\cz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\de.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\dj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\dk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\dm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\do.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\dz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ec.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ee.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\eg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\eh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\er.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\es-ct.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\es.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\et.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\eu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\fi.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\fj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\fk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\fm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\fo.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\fr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ga.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gb-eng.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gb-nir.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gb-sct.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gb-wls.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gb.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gd.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ge.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gi.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gp.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gs.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\gy.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\hk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\hm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\hn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\hr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ht.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\hu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\id.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ie.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\il.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\im.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\in.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\io.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\iq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ir.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\is.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\it.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\je.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\jm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\jo.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\jp.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ke.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\kg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\kh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ki.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\km.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\kn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\kp.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\kr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\kw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ky.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\kz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\la.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\lb.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\lc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\li.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\lk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\lr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ls.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\lt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\lu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\lv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ly.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ma.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\md.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\me.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ml.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mo.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mp.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mq.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ms.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mx.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\my.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\mz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\na.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\nc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ne.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\nf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ng.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ni.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\nl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\no.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\np.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\nr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\nu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\nz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\om.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pa.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pe.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ph.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ps.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\pw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\py.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\qa.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\re.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ro.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\rs.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ru.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\rw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sa.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sb.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sd.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\se.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sh.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\si.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\so.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ss.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\st.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sx.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sy.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\sz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\td.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\th.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tj.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tl.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\to.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tr.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tv.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tw.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\tz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ua.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ug.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\um.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\un.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\us.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\uy.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\uz.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\va.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\vc.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ve.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\vg.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\vi.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\vn.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\vu.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\wf.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ws.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\xk.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\ye.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\yt.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\za.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\zm.svg" />
+    <Content Include="app\assets\plugins\flag-icon-css\flags\4x3\zw.svg" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\css\font-awesome.css" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\css\font-awesome.min.css" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\HELP-US-OUT.txt" />
+    <Content Include="app\assets\plugins\jquery-2.2.4\jquery.js" />
+    <Content Include="app\assets\plugins\lodash-4.13.1\lodash.js" />
+    <Content Include="app\assets\plugins\momentjs-2.14.1\moment.min.js" />
+    <Content Include="app\assets\plugins\ngstorage\ngStorage.min.js" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\.gitignore" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\css\simple-line-icons.css" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\fonts\Simple-Line-Icons.svg" />
+    <Content Include="app\assets\plugins\UI Bootstrap\ui-bootstrap-tpls-1.3.3.min.js" />
+    <Content Include="app\components\contact\contact.js" />
+    <Content Include="app\components\core\core.js" />
+    <Content Include="app\components\home\home.js" />
+    <Content Include="app\services\alertService.js" />
+    <Content Include="app\services\authInterceptorService.js" />
+    <Content Include="app\services\authService.js" />
+    <Content Include="app\services\gv.modal.js" />
+    <Content Include="app\services\gv.rest.article.js" />
+    <Content Include="app\services\gv.rest.category.js" />
+    <Content Include="app\services\gv.rest.fsSvc.js" />
+    <Content Include="app\services\gv.rest.setting.js" />
+    <Content Include="app\services\xhttpService.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -165,26 +738,77 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\css\bootstrap-theme.css.map" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\css\bootstrap-theme.min.css.map" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\css\bootstrap.css.map" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\css\bootstrap.min.css.map" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="app\assets\plugins\bootstrap-3.3.6\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\fonts\fontawesome-webfont.eot" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\fonts\fontawesome-webfont.ttf" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\fonts\fontawesome-webfont.woff" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\fonts\fontawesome-webfont.woff2" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\fonts\FontAwesome.otf" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\animated.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\bordered-pulled.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\core.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\fixed-width.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\font-awesome.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\icons.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\larger.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\list.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\mixins.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\path.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\rotated-flipped.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\screen-reader.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\stacked.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\less\variables.less" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\font-awesome.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_animated.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_bordered-pulled.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_core.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_fixed-width.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_icons.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_larger.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_list.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_mixins.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_path.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_rotated-flipped.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_screen-reader.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_stacked.scss" />
+    <Content Include="app\assets\plugins\font-awesome-4.6.3\scss\_variables.scss" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\bower.json" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\CODE_OF_CONDUCT.md" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\CONTRIBUTING.md" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\fonts\Simple-Line-Icons.eot" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\fonts\Simple-Line-Icons.woff" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\fonts\Simple-Line-Icons.woff2" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\History.md" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\less\simple-line-icons.less" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\LICENSE.md" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\package.json" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\README.md" />
+    <Content Include="app\assets\plugins\simple-line-icons-2.3.2\scss\simple-line-icons.scss" />
+    <Content Include="Config\gv.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <ProjectReference Include="..\GV.Core\GV.Core.csproj">
+      <Project>{fe2993fa-c6bf-46d8-b028-11802f9f4dae}</Project>
+      <Name>GV.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -218,7 +842,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

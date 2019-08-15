@@ -1,0 +1,11 @@
+GV HomePage
+ - Menu (Home|Services|AboutUs|Contact)
+ - Slider/Banner Images
+ - Services list
+ - Certificate Example (show as portfolio)
+ - AboutUs|Clients
+ - Footer
+ 
+ 
+ GV Blog grid view
+ GV Single Post

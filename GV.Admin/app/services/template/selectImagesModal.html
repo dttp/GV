@@ -1,0 +1,54 @@
+﻿<style>
+    .gallery {
+        max-height: 600px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border: 1px solid #c0c0c0;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+    .g-item {
+        margin: 15px;
+        position: relative;
+        border: 2px solid transparent;
+    }
+    .g-item-selected {
+        border: 2px solid orangered !important;
+    }
+    .g-thumb {
+        width: 150px;
+        height: 120px;
+        margin-bottom: 10px;
+    }
+    .g-item-img {
+        width: 100%;
+    }
+    .g-item-caption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()"></button>
+    <h3 class="modal-title">Select images!</h3>
+</div>
+<div class="modal-body">
+    <div class="gallery">
+        <div class="g-item" ng-repeat="item in items"
+             ng-class="{'g-item-selected': item.selected}"
+             ng-click="selectItem(item)">
+            <div class="g-thumb">
+                <img class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
+            </div>
+            <div class="g-item-caption">{{item.Name}}</div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn blue" type="button" ng-click="ok()">Ok</button>
+    <button class="btn default" type="button" ng-click="cancel()">Cancel</button>
+</div>

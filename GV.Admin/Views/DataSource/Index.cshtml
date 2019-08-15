@@ -1,0 +1,72 @@
+﻿<div ng-controller="datasourceCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <a href="/setup">Setup & Configuration</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>DataSources</span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        DataSources
+        <small>Manage DataSources</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn blue" 
+                    ng-click="create()">
+                <i class="fa fa-plus"></i>&nbsp;New
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-scrollable">
+                <table class="table table-hover table-condensed table-light">
+                    <thead>
+                        <tr>
+                            <th style="width:40%;">Name</th>
+                            <th style="width:25%;">Database Type</th>
+                            <th style="width:35%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="datasources.length == 0">
+                            <td colspan="3">There are no DataSources</td>
+                        </tr>
+                        <tr ng-repeat="item in datasources">
+                            <td style="width:40%;">
+                                <a href="/datasource/addedit?id={{item.Id}}">
+                                    {{item.Name}}
+                                </a>
+                            </td>
+                            <td style="width:25%;">{{item.DatabaseType}}</td>
+                            <td style="width:35%;">
+                                <button class="btn btn-xs red-flamingo btn-outline" 
+                                        ng-click="delete(item)">
+                                    <i class="fa fa-remove"></i>&nbsp;Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script src="~/app/components/datasource/datasource.list.js"></script>
+}

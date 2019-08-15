@@ -1,0 +1,80 @@
+﻿<link type="text/css" rel="stylesheet" href="~/app/assets/plugins/angular-jsonformatter/json-formatter.min.css" />
+
+<div ng-controller="contentVersionCtrl" >
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li ng-repeat="item in content.Folder.Path">
+                <a href="/fs/folder?id={{item.Id}}">{{item.Name}}</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span> {{content.Name}} </span>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span> Versions </span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        {{content.Name}}
+        <small>Versions</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-7">
+            <!-- Versions TABLE -->
+            <div class="table-scrollable folder-table">
+                <table class="table table-condensed table-light">
+                    <thead>
+                        <tr>
+                            <th> Version </th>
+                            <th> Created Date </th>
+                            <th> Change types </th>
+                            <th> Author </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="versions.length == 0">
+                            <td colspan="4">There are no items</td>
+                        </tr>
+                        <tr class="version-item" ng-class="{'selected': item.Id == selectedVersion.Id}" ng-repeat="item in versions" ng-click="selectVersion(item)">
+                            <td>
+                                <div class="ellipsed-menu">
+                                    {{item.Version}}
+                                </div>
+                            </td>
+                            <td>
+                                {{item.CreatedDate}}
+                            </td>
+                            <td>
+                                {{displayArray(item.ChangeTypes)}}
+                            </td>
+                            <td>
+                                {{item.Author.UserName}}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <h4>Content</h4>
+            <json-formatter json="selectedVersion.Data" open="1" id="preview"></json-formatter>
+        </div>
+    </div>
+</div>
+
+@section js {
+    
+    <script src="~/app/components/content/content.version.js"></script>
+}

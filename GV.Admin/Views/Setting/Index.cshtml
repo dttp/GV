@@ -1,0 +1,173 @@
+﻿<div ng-controller="settingCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Home page info</span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Home page info
+    </h1>
+    <!-- END PAGE TITLE     -->
+    <!-- END PAGE HEADER    -->
+    <div class="row">
+
+        <div class="tabbable-custom ">
+            <ul class="nav nav-tabs ">
+                <li class="active">
+                    <a href="#banner" data-toggle="tab">
+                        Banners/Slides
+                    </a>
+                </li>
+                <li >
+                    <a href="#certificate" data-toggle="tab">
+                        Certificate samples
+                    </a>
+                </li>
+                <li >
+                    <a href="#clients" data-toggle="tab">
+                        Clients
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="banner">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn blue" ng-click="selectImage(homepageInfo.BannerSlides)">Select from gallery</button>
+                        </div>
+                    </div>
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th> Image </th>
+                                    <th> Name </th>
+                                    <th> Description </th>
+                                    <th> Actions </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in homepageInfo.BannerSlides">
+                                    <td>
+                                        <img height="150" src="{{item.Url}}" alt="{{item.Name}}"/>
+                                    </td>
+                                    <td>
+                                        <input class="input-medium" type="text" ng-model="item.Name"/>
+                                    </td>
+                                    <td>
+                                        <input class="input-medium" type="text" ng-model="item.Description" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-outline red">
+                                            <i class="fa fa-remove"></i>
+                                            Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="certificate">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn blue" ng-click="selectImage(homepageInfo.CertificateSamples)">Select from gallery</button>
+                        </div>
+                    </div>
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th> Image </th>
+                                    <th> Name </th>
+                                    <th> Description </th>
+                                    <th> Actions </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in homepageInfo.CertificateSamples">
+                                    <td>
+                                        <img height="150" src="{{item.Url}}" alt="{{item.Name}}" />
+                                    </td>
+                                    <td>
+                                        <input class="input-medium" type="text" ng-model="item.Name" />
+                                    </td>
+                                    <td>
+                                        <input class="input-medium" type="text" ng-model="item.Description" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-outline red">
+                                            <i class="fa fa-remove"></i>
+                                            Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="clients">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn blue" ng-click="selectImage(homepageInfo.ClientImages)">Select from gallery</button>
+                        </div>
+                    </div>
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th> Image </th>
+                                    <th> Name </th>
+                                    <th> Description </th>
+                                    <th> Actions </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in homepageInfo.ClientImages">
+                                    <td>
+                                        <img height="150" src="{{item.Url}}" alt="{{item.Name}}" />
+                                    </td>
+                                    <td>
+                                        <input class="input-medium" type="text" ng-model="item.Name" />
+                                    </td>
+                                    <td>
+                                        <input class="input-medium" type="text" ng-model="item.Description" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-outline red">
+                                            <i class="fa fa-remove"></i>
+                                            Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form form-horizontal">
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-4">
+                        <button type="submit" class="btn blue" ng-click="submit()">{{labels[selectedLanguage.value].submitBtnText}}</button>
+                        <button type="button" class="btn default" ng-click="cancel()">{{labels[selectedLanguage.value].cancelBtnText}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js {
+    <script src="~/app/components/setting/setting.js"></script>
+} 

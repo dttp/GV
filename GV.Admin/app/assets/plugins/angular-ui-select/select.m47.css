@@ -1,0 +1,20 @@
+﻿.form-control.ui-select-container {
+    padding: 0 !important;
+    border: none;
+}
+.btn-default-focus {
+    box-shadow: none !important;
+}
+
+.ui-select-choices.ui-select-choices-content.ui-select-dropdown.dropdown-menu,
+.ui-select-no-choice.dropdown-menu {
+    margin-top: 0 !important;
+    box-shadow: none;
+}
+
+.open > .ui-select-choices.ui-select-choices-content.ui-select-dropdown.dropdown-menu,
+.open > .ui-select-no-choice.dropdown-menu {
+    animation: none;
+    -webkit-animation: none;
+}
+

@@ -1,0 +1,70 @@
+﻿<div ng-controller="categoryCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Category</span>
+            </li>
+        </ul>
+    </div>
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        Categories
+        <small>Manage Categories</small>
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn blue" ng-click="create()">
+                <i class="fa fa-plus"></i>
+                Create
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-scrollable">
+                <table class="table table-hover table-condensed table-light">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th style="width: 220px"> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="categories.length == 0">
+                            <td colspan="3">There are no categories</td>
+                        </tr>
+                        <tr ng-repeat="c in categories">
+                            <td>{{c.Name}}</td>
+                            <td>{{c.Description}}</td>
+                            <td>
+                                <button class="btn btn-xs blue-steel btn-outline"
+                                        ng-click="edit(c)">
+                                    <i class="fa fa-hdd-o"></i>
+                                    Edit
+                                </button>
+                                <button class="btn btn-xs red-flamingo btn-outline"
+                                        ng-click="delete(c)">
+                                    <i class="fa fa-remove"></i>
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section js {
+    <script src="~/app/components/category/category.share.js"></script>
+    <script src="~/app/components/category/category.list.js"></script>
+}

@@ -1,0 +1,5 @@
+﻿CREATE PROCEDURE [dbo].[SP_SETTING_GETSETTING]
+	@id nvarchar(50)
+AS
+	SELECT * FROM SETTING
+	WHERE Id = @id;
