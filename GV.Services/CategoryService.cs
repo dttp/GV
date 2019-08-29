@@ -74,5 +74,16 @@ namespace GV.Services
                 catDA.Update(c);
             }
         }
+
+        public List<Category> GetRootCategories(string currentCatId, Language lang)
+        {
+            var catDA = new CategoryDataAdapter(Context);
+            while(true)
+            {
+                var cat = GetById(currentCatId, lang);
+                if (string.IsNullOrEmpty(cat.ParentId)) return GetCategories(cat.Id, lang);
+                currentCatId = cat.ParentId;
+            }
+        }
     }
 }

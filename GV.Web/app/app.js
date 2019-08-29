@@ -1,8 +1,19 @@
 ﻿angular.module('gv.app.core', []);
+angular.module('gv.app.home', 
+    [
+        'ngOwlCarousel', 
+        'ngLightGallery',
+        'slickCarousel'
+    ]);
 angular.module('gv.app.services', []);
 
-angular.module('gv.app.contact', []);
-
+angular.module('gv.app.contact', [
+        'ngMap',
+    ]);
+angular.module('gv.app.article', [
+]);
+angular.module('gv.app.category', [
+]);
 var gvWebApp = angular.module('gv.app',
     [
         'ngHttp',
@@ -12,12 +23,16 @@ var gvWebApp = angular.module('gv.app',
         'ngAnimate',
         'ngStorage',
         'ngAlert',
+        
         'gv.app.services',
         'angular-loading-bar',
         'gv.modal',
         'toastr',
         'gv.app.core',
-        'gv.app.contact'
+        'gv.app.home',
+        'gv.app.contact',
+        'gv.app.category',
+        'gv.app.article'
     ]);
 gvWebApp.config(function (cfpLoadingBarProvider, $httpProvider, toastrConfig) {
     $httpProvider.interceptors.push('authInterceptorService');
@@ -36,7 +51,7 @@ gvWebApp.config(function (cfpLoadingBarProvider, $httpProvider, toastrConfig) {
         });
 });
 
-gvWebApp.run(function ($rootScope, alertSvc) {
+gvWebApp.run(function ($rootScope, alertSvc, $localStorage) {
     $rootScope.alertSvc = alertSvc;
     $rootScope.availableLanguages = [
         {
@@ -53,6 +68,7 @@ gvWebApp.run(function ($rootScope, alertSvc) {
     $rootScope.selectedLanguage = $rootScope.availableLanguages[0];
     $rootScope.selectLanguage = function (lang) {
         $rootScope.selectedLanguage = lang;
+        $localStorage.lang = lang;
         $rootScope.$broadcast('languageChanged');
     };
 
@@ -78,6 +94,8 @@ gvWebApp.run(function ($rootScope, alertSvc) {
     };
 
     $rootScope.init = function () {
+        if ($localStorage.lang)
+            $rootScope.selectLanguage($localStorage.lang);
         setTimeout(function () {
             $rootScope.$broadcast('appInitialized');
             $rootScope.$apply();

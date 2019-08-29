@@ -29,6 +29,7 @@
     <link href="~/app/assets/plugins/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/app/assets/plugins/angular-toastr/angular-toastr.min.css" rel="stylesheet" />
     <link href="~/app/assets/plugins/angular-loading-bar/loading-bar.min.css" rel="stylesheet" />
+    @RenderSection("css", false)
     <!-- END GLOBAL MANDATORY STYLES -->
     @*<!-- BEGIN: LAYOUT PLUGINS -->
         <link href="assets/plugins/revo-slider/css/settings.css" rel="stylesheet" type="text/css" />
@@ -69,6 +70,7 @@
     <script src="~/app/assets/plugins/UI Bootstrap/ui-bootstrap-tpls-1.3.3.min.js"></script>
     <script src="~/app/assets/plugins/angular-toastr/angular-toastr.tpls.min.js"></script>
     <script src="~/app/assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
+    <script src="~/app/assets/js/Util.js"></script>
     <!-- END: CORE PLUGINS -->
     <!-- BEGIN: LAYOUT PLUGINS -->
     @*<script src="assets/plugins/revo-slider/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
@@ -80,7 +82,10 @@
         <script src="assets/plugins/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>*@
     <!-- END: LAYOUT PLUGINS -->
     <!-- BEGIN: THEME SCRIPTS -->
-
+    <script src="~/app/assets/jango/plugins/owl-carousel/angular.owlcarousel.directive.js"></script>
+    <script src="~/app/assets/plugins/lightgallery/ng-lightgallery.js"></script>
+    <script src="~/app/assets/plugins/angular-slick-carousel/angular-slick.min.js"></script>
+    <script src="~/app/assets/plugins/ngMap/ng-map.min.js"></script>
 
     <script src="~/app/services/alertService.js"></script>
     <script src="~/app/services/xhttpService.js"></script>

@@ -13,6 +13,6 @@ AS
 		Description = @description,
 		Data = @data,
 		Visible = @visible,
-		Thumbnail = Thumbnail
+		Thumbnail = @thumbnail
 	WHERE 
 		Id = @id AND Lang = @lang

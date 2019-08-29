@@ -40,6 +40,23 @@ namespace GV.Services
             return articleDA.GetByCategory(catId, lang);
         }
 
+        public List<Article> GetAllByCategory(string catId, Language lang)
+        {
+            var articles = new List<Article>();
+
+            articles.AddRange(GetByCategory(catId, lang));
+
+            var catDA = new CategoryDataAdapter(Context);
+            var subCat = catDA.GetByParentId(catId, lang);
+
+            foreach (var category in subCat)
+            {
+                articles.AddRange(GetAllByCategory(category.Id, lang));
+            }
+            
+            return articles;
+        }
+
         public List<Article> Insert(List<Article> articles)
         {
             var id = IdHelper.Generate();

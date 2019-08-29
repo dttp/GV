@@ -1,5 +1,5 @@
 ﻿angular.module('gv.app.core')
-    .controller('coreCtrl', function ($scope) {
+    .controller('coreCtrl', function ($scope, $category) {
 
         $scope.headerMenu = {
             'en': [{
@@ -12,11 +12,6 @@
                     Name: 'Services',
                     Url: '/',
                     Items: []
-                },
-                {
-                    Id: 'about',
-                    Name: 'About Us',
-                    Url: '/#about',
                 },
                 {
                     Id: 'contact',
@@ -35,23 +30,28 @@
                     Items: []
                 },
                 {
-                    Id: 'about',
-                    Name: 'Giới thiệu',
-                    Url: '/#about',
-                },
-                {
                     Id: 'contact',
                     Name: 'Liên hệ',
                     Url: '/contact'
                 }]
         };
 
+        $scope.categories = [];
         $scope.init = function () {
-            console.log('Core init');
+            $category.getCategories('', $scope.selectedLanguage.value).then(function (response) {
+                $scope.categories = response.data;
+                var serviceMenuItem = _.find($scope.headerMenu[$scope.selectedLanguage.value], { Id: 'services'});
+                serviceMenuItem.Items = [];
+                _.each($scope.categories, function (c) {
+                    serviceMenuItem.Items.push({
+                        Id: c.Id,
+                        Name: c.Name,
+                        Url: '/category?id=' + c.Id,
+                    });
+                });
+            });
         };
 
-        $scope.$on('languageChanged', function () {
-        });
-
+        $scope.$on('languageChanged', function () { $scope.init(); });
         $scope.$on('appInitialized', function () { $scope.init(); });
     });

@@ -58,15 +58,20 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
 
     $scope.selectThumbnail = function () {
         $modal.selectImages().then(function (response) {
-            _.each($scope.articles, a => a.Thumbnail = response[0].Url);
+            _.each($scope.articles, function (a) {
+                a.Thumbnail = response[0].Url;
+            }); 
         });
     };
 
     $scope.removeThumbnail = function () {
-        _.each($scope.articles, a => a.Thumbnail = '');
+        _.each($scope.articles, function (a) {
+            a.Thumbnail = '';
+        });
     };
 
     $scope.submit = function () {
+        console.log($scope.articles);
         var promise = $scope.mode === 'Create'
                         ? $article.create($scope.articles) 
                         : $article.update($scope.articles);
@@ -98,6 +103,7 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
                 _.each(responses, function (res) {
                     $scope.articles.push(res.data);
                 });
+                console.log($scope.articles);
             });
         } else {
             _.each($scope.availableLanguages, function (lang) {

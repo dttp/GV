@@ -1,0 +1,29 @@
+﻿.lgItem img {
+    width: 200px;
+    height: 250px;
+    object-fit: contain;
+}
+.lgItem span {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+}
+
+.slick__item {
+    height: 620px;
+    position: relative;
+}
+
+.slick__item__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.slick__item h3 {
+    position: absolute;
+    margin: 0 auto;
+    top: 40%;
+    left: 25%;
+}

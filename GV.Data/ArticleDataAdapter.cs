@@ -16,7 +16,7 @@ namespace GV.Data
         private const string SP_ARTICLE_DELETE = "sp_article_delete";
         private const string SP_ARTICLE_GETBYID = "sp_article_getbyid";
         private const string SP_ARTICLE_GETBYCATEGORY = "sp_article_getbycategory";
-        private const string SP_ARTICLE_DELETEBYCATEGORY = "sp_article_deleteBycatgory";
+        private const string SP_ARTICLE_DELETEBYCATEGORY = "sp_article_deleteByCategory";
 
         public ArticleDataAdapter(WebAPIContext context) : base (context)
         {

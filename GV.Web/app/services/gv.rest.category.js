@@ -8,6 +8,10 @@
                 if (!parentId) parentId = '';
                 return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getCategories?parentId=' + parentId + '&lang=' + lang);
             },
+            getRootCategories: function (currentCatId, lang) {
+                if (!currentCatId) currentCatId = '';
+                return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getRootCategories?currentCatId=' + currentCatId + '&lang=' + lang);
+            },
             delete: function (catId) {
                 return $xhttp.delete(WEBAPI_ENDPOINT + '/api/category/delete?catId=' + catId);
             },

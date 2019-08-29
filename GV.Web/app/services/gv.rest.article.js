@@ -7,6 +7,9 @@
             getByCategory: function (catId, lang) {
                 return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getByCategory?catId=' + catId + '&lang=' + lang);
             },
+            getAllByCategory: function (catId, lang) {
+                return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getAllByCategory?catId=' + catId + '&lang=' + lang);
+            },
             delete: function (id) {
                 return $xhttp.delete(WEBAPI_ENDPOINT + '/api/article/delete?id=' + id);
             },

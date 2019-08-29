@@ -5,6 +5,7 @@
         $scope.labels = {
             'en': {
                 pageTitle: 'Contact',
+                mapTitle: 'Where to find us',
                 homeTitle: 'Home',
                 leaveMsgTitle: 'Leave a message',
                 phName: 'Your Name',
@@ -14,6 +15,7 @@
             },
             'vn': {
                 pageTitle: 'Liên hệ',
+                mapTitle: 'Địa chỉ',
                 homeTitle: 'Trang chủ',
                 leaveMsgTitle: 'Gửi lời nhắn',
                 phName: 'Tên của bạn',

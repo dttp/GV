@@ -2999,7 +2999,7 @@ h1 {
   .c-layout-header-fixed .c-layout-header {
     top: 0;
     position: fixed;
-    z-index: 9995;
+    z-index: 995;
     width: 100%;
   }
 

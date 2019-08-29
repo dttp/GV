@@ -32,6 +32,16 @@ namespace GV.WebAPI.Controllers
             });
         }
 
+        [AcceptVerbs("GET")]
+        public List<Category> GetRootCategories(string currentCatId, Language lang)
+        {
+            return Execute(() =>
+            {
+                var svc = new CategoryService(Context);
+                return svc.GetRootCategories(currentCatId, lang);
+            });
+        }
+
         [AcceptVerbs("DELETE")]
         public HttpResponseMessage Delete(string catId)
         {

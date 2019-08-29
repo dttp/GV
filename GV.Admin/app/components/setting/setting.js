@@ -27,7 +27,7 @@ module.controller('settingCtrl', function ($scope, $modal, $setting) {
     };
 
     $scope.remove = function (imageList, item) {
-
+        _.remove(imageList, {Url: item.Url});
     };
 
     $scope.submit = function () {
