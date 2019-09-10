@@ -77,5 +77,44 @@ namespace GV.Services
                 articleDA.Update(article);
             }
         }
+
+        public Breadcrumb GetBreadcrumb(string articleId, Language lang)
+        {
+            var breadcrumb = new Breadcrumb();
+            var article = GetById(articleId, lang);
+            breadcrumb.Items = new List<BreadcrumbItem>();
+
+            var homeItem = new BreadcrumbItem
+            {
+                Id = "home",
+                Name = lang == Language.En ? "Home" : "Trang chủ"
+            };
+
+            breadcrumb.Items.Add(homeItem);
+            var catSvc = new CategoryService(Context);
+
+            var catList = new List<Category>();
+            string catId = article.CategoryId;
+            while(true)
+            {
+                var cat = catSvc.GetById(catId, lang);
+                catList.Insert(0, cat);
+                if (string.IsNullOrEmpty(cat.ParentId))
+                {
+                    break;
+                } 
+                
+                catId = cat.ParentId;
+            }
+            foreach(var cat in catList)
+            {
+                breadcrumb.Items.Add(new BreadcrumbItem
+                {
+                    Id = cat.Id,
+                    Name = cat.Name
+                });
+            }
+            return breadcrumb;
+        }
     }
 }

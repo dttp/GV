@@ -21,6 +21,9 @@
             },
             update: function (articles) {
                 return $xhttp.post(WEBAPI_ENDPOINT + '/api/article/update', articles);
+            },
+            getBreadcrumb: function (articleId, lang) {
+                return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getBreadcrumb?articleId=' + articleId + '&lang=' + lang);
             }
         };
         return service;

@@ -35,6 +35,7 @@
         $scope.category = {};
         $scope.articles = [];
         $scope.subCategories = [];
+        $scope.breadcrumb = {};
 
         $scope.init = function () {
             var id = Utils.getParameterByName("id");
@@ -52,6 +53,10 @@
                 if ($scope.paging.pageCount * $scope.paging.itemsPerPage < $scope.articles.length) $scope.paging.pageCount ++;
                 $scope.paging.range = _.range($scope.paging.pageCount);
                 console.log($scope.paging);
+            });
+
+            $category.getBreadcrumb(id, $scope.selectedLanguage.value).then(function (response) {
+                $scope.breadcrumb = response.data;
             });
         };
 

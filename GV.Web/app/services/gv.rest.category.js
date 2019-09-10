@@ -20,6 +20,9 @@
             },
             update: function (categories) {
                 return $xhttp.post(WEBAPI_ENDPOINT + '/api/category/update', categories);
+            },
+            getBreadcrumb: function (catId, lang) {
+                return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getbreadcrumb?catId=' + catId + '&lang=' + lang);
             }
         };
         return service;

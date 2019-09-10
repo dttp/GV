@@ -83,5 +83,15 @@ namespace GV.WebAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
             });
         }
+
+        [AcceptVerbs("GET")]
+        public Breadcrumb GetBreadcrumb(string articleId, Language lang)
+        {
+            return Execute(() =>
+            {
+                var svc = new ArticleService(Context);
+                return svc.GetBreadcrumb(articleId, lang);
+            });
+        }
     }
 }

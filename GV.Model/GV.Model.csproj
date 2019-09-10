@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ApiError.cs" />
     <Compile Include="Article.cs" />
+    <Compile Include="Breadcrumb.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="FileSystemObject.cs" />

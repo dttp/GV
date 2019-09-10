@@ -25,17 +25,14 @@
     <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
         <div class="container">
             <div class="c-page-title c-pull-left">
-                <h3 class="c-font-uppercase c-font-bold">{{category.Name}}</h3>
             </div>
             <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
-                <li>
-                    <a href="/">{{labels[selectedLanguage.value].homeTitle}}</a>
+                <li ng-repeat-start="item in breadcrumb.Items"
+                    ng-class="{'c-state_active' : $last}">
+                    <a href="{{ item.Id == 'home' ? '/' : '/category?id=' + item.Id }}">{{item.Name}}</a>
                 </li>
-                <li>
-                    /
-                </li>
-                <li class="c-state_active">
-                    {{category.Name}}
+                <li ng-repeat-end>
+                    <span ng-if="!$last">/</span>
                 </li>
             </ul>
         </div>

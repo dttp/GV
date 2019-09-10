@@ -15,6 +15,7 @@
         };
 
         $scope.article = {};
+        $scope.breadcrumb = {};
         $scope.subCategories = [];
 
         $scope.trustArticleContent = function () {
@@ -30,6 +31,10 @@
                 $category.getRootCategories($scope.article.CategoryId, $scope.selectedLanguage.value).then(function (response) {
                     $scope.subCategories = response.data;
                 });
+            });
+
+            $article.getBreadcrumb(id, $scope.selectedLanguage.value).then(function (response) {
+                $scope.breadcrumb = response.data;
             });
         };
 
