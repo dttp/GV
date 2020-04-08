@@ -8,10 +8,10 @@ module.controller('dashboardCtrl', function ($scope, $article) {
             url: '/setting'
         },
         {
-            title: 'Image gallery',
-            description: 'Manage images used in GV',
+            title: 'File Manager',
+            description: 'Manage files used in GV',
             icon: 'icon-picture font-yellow theme-font',
-            url: '/gallery'
+            url: '/fileManager'
         },
         {
             title: 'Services Category',

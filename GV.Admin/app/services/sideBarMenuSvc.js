@@ -15,12 +15,12 @@ module.factory('$sidebarMenu', function ($category, $rootScope) {
     };
     var galleryMenuItem = {
         "Id": "sb-gallery",
-        "Name": "Image Gallery",
+        "Name": "File Manager",
         "Type": "MenuItem",
-        "Url": "/gallery",
+        "Url": "/fileManager",
         "Icon": "icon-picture",
         "SelectedPages": [
-            '/gallery'
+            '/filemanager'
         ]
     };
 

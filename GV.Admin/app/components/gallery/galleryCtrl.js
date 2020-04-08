@@ -53,6 +53,13 @@ galleryModule.controller('galleryCtrl', function ($scope, $modal, $fs, FileUploa
         $scope.init();
     };
 
+    $scope.canPreview = function (item) {
+        var idx = item.Url.lastIndexOf('.');
+        var ext = item.Url.substring(idx + 1).toLowerCase();
+        if (ext === 'jpg' || ext === 'png' || ext === 'bmp') return true;
+        return false;
+    };
+
     $scope.init = function () {
         $fs.getList($scope.currentPath).then(function (response) {
            $scope.items = response.data;

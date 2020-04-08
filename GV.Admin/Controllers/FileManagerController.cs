@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace GV.Admin.Controllers
 {
-    public class GalleryController : Controller
+    public class FileManagerController : Controller
     {
         // GET: Gallery
         public ActionResult Index()

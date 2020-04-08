@@ -7,3 +7,19 @@
         margin: 6px 0;
     }
 }
+
+.service-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+@media (min-width: 768px) {
+    .service-item {
+        flex: 1 0 calc(33.33% - 10px);
+    }
+}
+
+@media (max-width: 767px) {
+    .service-item {
+        flex: 1 0 calc(50% - 10px);
+    }
+}

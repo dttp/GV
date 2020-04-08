@@ -102,7 +102,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\GalleryController.cs" />
+    <Compile Include="Controllers\FileManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
@@ -134,6 +134,9 @@
     <Content Include="app\assets\images\folder.png" />
     <Content Include="app\assets\images\folder.svg" />
     <Content Include="app\assets\images\gears.svg" />
+    <Content Include="app\assets\images\iconfinder_1-01_511561%281%29.png" />
+    <Content Include="app\assets\images\iconfinder_1-01_511561.png" />
+    <Content Include="app\assets\images\iconfinder_document_1055071%281%29.png" />
     <Content Include="app\assets\images\imip-logo.png" />
     <Content Include="app\assets\images\loading.gif" />
     <Content Include="app\assets\images\location-pin.png" />
@@ -2277,8 +2280,9 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Detail.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
-    <Content Include="Views\Gallery\Index.cshtml" />
+    <Content Include="Views\FileManager\Index.cshtml" />
     <Content Include="Views\Setting\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Pub.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GV.Core\GV.Core.csproj">

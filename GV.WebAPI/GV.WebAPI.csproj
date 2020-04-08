@@ -181,6 +181,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Pub.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GV.Core\GV.Core.csproj">

@@ -970,6 +970,7 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Pub.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GV.Core\GV.Core.csproj">

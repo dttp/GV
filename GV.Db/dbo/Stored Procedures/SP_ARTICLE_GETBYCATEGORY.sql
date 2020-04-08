@@ -5,3 +5,4 @@ AS
 	SELECT a.* 
 	FROM Article a
 	WHERE a.CategoryId = @categoryId AND a.Lang = @lang
+	ORDER BY a.Name ASC

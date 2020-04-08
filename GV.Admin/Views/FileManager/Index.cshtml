@@ -8,15 +8,15 @@
                 <i class="fa fa-circle"></i>
             </li>
             <li>
-                <span>Image Gallery</span>
+                <span>File Manager</span>
             </li>
         </ul>
 
     </div>
     <!-- BEGIN PAGE TITLE-->
     <h1 class="page-title">
-        Image gallery
-        <small>Manage iamges for GV app</small>
+        File Manager
+        <small>Manage files for GV app</small>
     </h1>
     <!-- END PAGE TITLE     -->
     <!-- END PAGE HEADER    -->
@@ -31,7 +31,7 @@
                 <i class="fa fa-upload"></i>
                 Upload
             </button>
-            <input type="file" id="fileImport" multiple accept="image/*" style="position:absolute; left: -1000px; top: -10000px; width: 0; height: 0" nv-file-select uploader="uploader" />
+            <input type="file" id="fileImport" multiple style="position:absolute; left: -1000px; top: -10000px; width: 0; height: 0" nv-file-select uploader="uploader" />
         </div>
     </div>
     <div class="progress progress-striped active" style="margin-top: 10px;" ng-show="uploader.isUploading">
@@ -48,7 +48,8 @@
                     <i class="fa fa-remove">
                     </i>
                 </button>
-                <img class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
+                <img ng-if="canPreview(item)" class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
+                <img ng-if="!canPreview(item)" class="g-item-img" src="~/app/assets/images/iconfinder_1-01_511561(1).png" alt="{{item.Name}}">
                 <div class="g-thumb-actions">
                     <button class="btn yellow-gold" ng-click="copyUrl(item)">Copy Url</button>
                 </div>

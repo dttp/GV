@@ -44,7 +44,8 @@
              ng-class="{'g-item-selected': item.selected}"
              ng-click="selectItem(item)">
             <div class="g-thumb">
-                <img class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
+                <img ng-if="canPreview(item)" class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
+                <img ng-if="!canPreview(item)" class="g-item-img" src="./app/assets/images/iconfinder_1-01_511561.png" alt="{{item.Name}}">
             </div>
             <div class="g-item-caption">{{item.Name}}</div>
         </div>

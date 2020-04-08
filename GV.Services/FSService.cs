@@ -47,10 +47,7 @@ namespace GV.Services
                 .ToList();
 
             foreach(var file in dirInfo.GetFiles())
-            {
-                if (!file.Extension.Equals(".jpg", StringComparison.CurrentCultureIgnoreCase) &&
-                    !file.Extension.Equals(".bmp", StringComparison.CurrentCultureIgnoreCase) &&
-                    !file.Extension.Equals(".png", StringComparison.CurrentCultureIgnoreCase)) continue;
+            {                
                 var fso = new FileSystemObject
                 {
                     Name = file.Name,
