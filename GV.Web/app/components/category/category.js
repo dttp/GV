@@ -49,7 +49,7 @@
 
             $article.getAllByCategory(id, $scope.selectedLanguage.value).then(function (response) {
                 $scope.articles = response.data;
-                $scope.paging.pageCount = $scope.articles.length / $scope.paging.itemsPerPage;
+                $scope.paging.pageCount = Math.floor($scope.articles.length / $scope.paging.itemsPerPage);
                 if ($scope.paging.pageCount * $scope.paging.itemsPerPage < $scope.articles.length) $scope.paging.pageCount ++;
                 $scope.paging.range = _.range($scope.paging.pageCount);
                 console.log($scope.paging);

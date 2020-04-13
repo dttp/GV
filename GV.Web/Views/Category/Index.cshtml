@@ -19,6 +19,10 @@
         height: 250px;
         object-fit: contain;
     }
+    .c-desc a {
+        font-weight: bold;
+        color: orangered;
+    }
 </style>
 <div class="c-layout-page" ng-controller="categoryCtrl">
     <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
@@ -53,7 +57,7 @@
                             </div>
                             <div class="c-desc">
                                 {{a.Description}}
-                                <a href="/article?id={{a.Id}}">read more...</a>
+                                <a href="/article?id={{a.Id}}">Read More...</a>
                             </div>
                         </div>
                         
@@ -64,7 +68,7 @@
                                 </li>
                                 <li ng-repeat="i in paging.range"
                                     ng-class="{'c-active': i + 1 === paging.currentPage}">
-                                    <a href="javascript:;" ng-click="gotoPage(i)">{{i + 1}}</a>
+                                    <a href="javascript:;" ng-click="gotoPage(i+1)">{{i + 1}}</a>
                                 </li>
                                 <li class="c-next">
                                     <a href="javascript:;" ng-click="gotoPage(paging.currentPage + 1)"><i class="fa fa-angle-right"></i></a>

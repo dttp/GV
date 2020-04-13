@@ -93,7 +93,8 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
         var id = Utils.getParameterByName('id');
         var catId = Utils.getParameterByName('catid');
         if (id) $scope.mode = 'Update';
-
+        
+        $scope.articles = [];
         if ($scope.mode === 'Update') {
             var promises = [];
             _.each($scope.availableLanguages, function (lang) {

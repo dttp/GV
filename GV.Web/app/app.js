@@ -37,7 +37,7 @@ var gvWebApp = angular.module('gv.app',
 gvWebApp.config(function (cfpLoadingBarProvider, $httpProvider, toastrConfig) {
     $httpProvider.interceptors.push('authInterceptorService');
     cfpLoadingBarProvider.spinnerTemplate =
-        '<div class="blockUI blockOverlay" style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; opacity: 0.05; cursor: wait; position: fixed; background-color: rgb(85, 85, 85);"></div><div class="blockUI blockMsg blockPage" style="z-index: 1011; position: fixed; padding: 0px; margin: 0px; width: 30%; top: 40%; left: 35%; text-align: center; color: rgb(0, 0, 0); border: 0px; cursor: wait;"><div class="loading-message loading-message-boxed"><img src="/app/assets/images/loading.gif" style="width:48px" align=""><span>&nbsp;&nbsp;LOADING...</span></div></div>';
+        '<div class="blockUI blockOverlay" style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; opacity: 0.05; cursor: wait; position: fixed; background-color: rgb(85, 85, 85);"></div><div class="blockUI blockMsg blockPage" style="z-index: 1011; position: fixed; padding: 0px; margin: 0px; width: 30%; top: 40%; left: 35%; text-align: center; color: rgb(0, 0, 0); border: 0px; cursor: wait;"><div class="loading-message loading-message-boxed"><img src="/app/assets/imgs/Spinner-1s-284px.png" style="width:48px" align=""><span>&nbsp;&nbsp;LOADING...</span></div></div>';
     angular.extend(toastrConfig,
         {
             autoDismiss: false,

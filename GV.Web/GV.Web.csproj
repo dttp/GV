@@ -113,6 +113,7 @@
     <Content Include="app\app.js" />
     <Content Include="app\assets\imgs\favicon.ico" />
     <Content Include="app\assets\imgs\gv-logo.png" />
+    <Content Include="app\assets\imgs\Spinner-1s-284px.png" />
     <Content Include="app\assets\jango\base\css\components.css" />
     <Content Include="app\assets\css\custom.css" />
     <Content Include="app\assets\jango\base\css\plugins.css" />
