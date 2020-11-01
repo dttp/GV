@@ -14,8 +14,8 @@ namespace GV.Model
         public string Description { get; set; }
         public string Data { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string CategoryId { get; set; }
-        public bool Visible { get; set; } = true;
+        public DateTime LastModifiedDate { get; set; }        
         public string Thumbnail { get; set; }
+        public string CategoryId { get; set; }
     }
 }

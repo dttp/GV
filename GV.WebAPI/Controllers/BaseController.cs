@@ -24,45 +24,47 @@ namespace GV.WebAPI.Controllers
             Context = new WebAPIContext();
             try
             {
-                if (string.IsNullOrEmpty(Request.Headers.Authorization.Scheme) || 
-                    !Request.Headers.Authorization.Scheme.Equals("Basic", StringComparison.CurrentCultureIgnoreCase))
-                    throw new ForbiddenException();
-                string[] userInfo;
-                try
-                {
-                    var authorizeInfo = Encoding.UTF8.GetString(Convert.FromBase64String(Request.Headers.Authorization.Parameter));
-                    userInfo = authorizeInfo.Split(':');
-                    if (userInfo.Length != 2) 
-                        userInfo = null;
-
-                    if (userInfo == null)
-                        throw new ForbiddenException();
-                }
-                catch (Exception)
-                {
-                    throw new ForbiddenException();
-                }
-            
-                var userSvc = new UserService(null);
-                var user = userSvc.ValidateUser(userInfo[0], userInfo[1]);
-                Context.User = user;
-            }
-            catch (Exception)
-            {
                 if (Request.Headers.Contains("X-GV-Context"))
                 {
                     var gvContext = Request.Headers.GetValues("X-GV-Context").FirstOrDefault();
                     if (gvContext != null && gvContext.Equals("web", StringComparison.CurrentCultureIgnoreCase))
                     {
                         Context.User = null;
-                    } 
-                    else
-                    {
-                        throw;
                     }
                 }
+                else if (Request.Headers.Authorization == null || 
+                         string.IsNullOrEmpty(Request.Headers.Authorization.Scheme) || 
+                        !Request.Headers.Authorization.Scheme.Equals("Basic", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    throw new ForbiddenException();
+                }
+                else
+                {
+                    string[] userInfo;
+                    try
+                    {
+                        var authorizeInfo = Encoding.UTF8.GetString(Convert.FromBase64String(Request.Headers.Authorization.Parameter));
+                        userInfo = authorizeInfo.Split(':');
+                        if (userInfo.Length != 2)
+                            userInfo = null;
+
+                        if (userInfo == null)
+                            throw new ForbiddenException();
+                    }
+                    catch (Exception)
+                    {
+                        throw new ForbiddenException();
+                    }
+
+                    var userSvc = new UserService(null);
+                    var user = userSvc.ValidateUser(userInfo[0], userInfo[1]);
+                    Context.User = user;
+                }
             }
-            
+            catch (Exception ex)
+            {
+                throw new Exception("Error while getting context from the request", ex);
+            }
         }
 
         public TResult Execute<TResult>(Func<TResult> action)

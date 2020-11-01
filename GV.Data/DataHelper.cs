@@ -57,9 +57,9 @@ namespace GV.Data
                     Language = (Language)Enum.Parse(typeof(Language), reader["Lang"].ToString()),
                     CategoryId = reader["CategoryId"].ToString(),
                     CreatedDate = DateTime.Parse(reader["CreatedDate"].ToString()),
+                    LastModifiedDate = DateTime.Parse(reader["LastModifiedDate"].ToString()),
                     Data = reader["Data"].ToString(),
                     Thumbnail = reader["Thumbnail"].ToString(),
-                    Visible = Convert.ToBoolean(reader["Visible"].ToString())
                 };
                 result.Add(a);
             }

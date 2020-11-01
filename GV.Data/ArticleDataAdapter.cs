@@ -52,8 +52,7 @@ namespace GV.Data
                 new SqlParameter("@name", SqlDbType.NVarChar) {Value = article.Name},
                 new SqlParameter("@description", SqlDbType.NVarChar) {Value = article.Description},
                 new SqlParameter("@data", SqlDbType.NVarChar) {Value = article.Data},
-                new SqlParameter("@categoryId", SqlDbType.NVarChar) {Value = article.CategoryId},
-                new SqlParameter("@visible", SqlDbType.Bit) {Value = article.Visible},
+                new SqlParameter("@categoryId", SqlDbType.NVarChar) {Value = article.CategoryId},                
                 new SqlParameter("@thumbnail", SqlDbType.NVarChar) {Value = article.Thumbnail}
             };
             Call(SP_ARTICLE_INSERT, p);
@@ -68,7 +67,6 @@ namespace GV.Data
                 new SqlParameter("@name", SqlDbType.NVarChar) {Value = article.Name},
                 new SqlParameter("@description", SqlDbType.NVarChar) {Value = article.Description},
                 new SqlParameter("@data", SqlDbType.NVarChar) {Value = article.Data},
-                new SqlParameter("@visible", SqlDbType.Bit) {Value = article.Visible},
                 new SqlParameter("@thumbnail", SqlDbType.NVarChar) {Value = article.Thumbnail}
             };
             Call(SP_ARTICLE_UPDATE, p);
