@@ -6,7 +6,7 @@ angular.module('gv.app.dashboard', []);
 /* gallery module */
 angular.module('gv.app.gallery', []);
 /* article module */
-angular.module('gv.app.article.detail', ['ckeditor']);
+angular.module('gv.app.article.detail', []);
 angular.module('gv.app.article', ['gv.app.article.detail']);
 
 /* category module */
@@ -16,31 +16,21 @@ angular.module('gv.app.category.detail', ['gv.app.category.share']);
 angular.module('gv.app.category', ['gv.app.category.list', 'gv.app.category.detail']);
 
 /* setting module */
-angular.module('gv.app.setting', []);
 var app = angular.module('gv.app',
     [
-        'ngHttp',
-        'cfp.hotkeys',
+        'ngHttp',        
         'authService',
-        'authInterceptor',
-        'ngSanitize',
-        'ngAnimate',
+        'authInterceptor',        
         'ngStorage',
-        'ngAlert',
-        'ngEnter',
-        'icheck.directives',
-        'gv.app.services',
-        'angularFileUpload',
+        'ngAlert',        
+        'gv.app.services',        
         'angular-loading-bar',
-        'gv.modal',
-        'ngRoute',
         'toastr',
         'gv.app.core',
         'gv.app.dashboard',
         'gv.app.category',
         'gv.app.article',
         'gv.app.gallery',
-        'gv.app.setting'
     ]);
 app.config(function (cfpLoadingBarProvider, $httpProvider, toastrConfig) {
     $httpProvider.interceptors.push('authInterceptorService');
@@ -55,7 +45,11 @@ app.config(function (cfpLoadingBarProvider, $httpProvider, toastrConfig) {
             preventDuplicates: false,
             preventOpenDuplicates: false,
             closeButton: true,
-            timeOut: 2500
+            timeOut: 2500,
+            showDuration: 300,
+            hideDuration: 1000,
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut"            
         });
 });
 
@@ -72,10 +66,10 @@ app.run(function ($rootScope, alertSvc, $localStorage) {
             name: 'Tiếng Việt',
             icon: 'flag-icon flag-icon-vn'
         }];
-
-    $rootScope.selectedLanguage = $rootScope.availableLanguages[0];
+    
     $rootScope.selectLanguage = function (lang) {
         $rootScope.selectedLanguage = lang;
+        $localStorage.selectedLanguage = lang;
         $rootScope.$broadcast('languageChanged');
     };
 
@@ -100,12 +94,23 @@ app.run(function ($rootScope, alertSvc, $localStorage) {
         }
     };
 
-    if (!$localStorage.authData) {
-        location.href = '/login';
-    } else {
-        setTimeout(function () {
-            $rootScope.$broadcast('appInitialized');
-            $rootScope.$apply();
-        }, 100);
-    }
+    $rootScope.init = function () {
+        
+        $rootScope.selectedLanguage = $localStorage.selectedLanguage;
+        if (!$rootScope.selectedLanguage) $rootScope.selectedLanguage = $rootScope.availableLanguages[0];
+
+        if (!$localStorage.authData) {
+            location.href = '/login';
+        } else {
+            setTimeout(function () {
+                $rootScope.$broadcast('appInitialized');
+                $rootScope.$apply();
+            }, 100);
+        }
+    };
+
+
+    $rootScope.init();
+
+    
 });

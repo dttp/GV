@@ -1,0 +1,74 @@
+﻿<!-- begin:: Header -->
+<div id="kt_header" class="kt-header kt-grid__item  kt-header--fixed ">
+
+    <!-- begin:: Header Menu -->
+    <!-- Uncomment this to display the close button of the panel
+    <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+    -->
+    <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+        
+    </div>
+
+    <!-- end:: Header Menu -->
+    <!-- begin:: Header Topbar -->
+    <div class="kt-header__topbar">
+
+        <!--begin: Language bar -->
+        <div class="kt-header__topbar-item kt-header__topbar-item--langs">
+            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                <span class="kt-header__topbar-icon">
+                    <img ng-if="selectedLanguage.value == 'en'" src="~/app/assets/m618/assets/media/flags/226-united-states.svg" alt="" />
+                    <img ng-if="selectedLanguage.value == 'vn'" src="~/app/assets/m618/assets/media/flags/220-vietnam.svg" alt="" />
+                </span>
+            </div>
+            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround">
+                <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
+                    <li class="kt-nav__item " 
+                        ng-class="{'kt-nav__item--active': lang.value == selectedLanguage.value}" 
+                        ng-repeat="lang in availableLanguages">
+                        <a href="#" class="kt-nav__link"
+                           ng-click="selectLanguage(lang)">
+                            <span class="kt-nav__link-icon">
+                                <img ng-if="lang.value == 'en'" src="~/app/assets/m618/assets/media/flags/226-united-states.svg" alt="" />
+                                <img ng-if="lang.value == 'vn'"src="~/app/assets/m618/assets/media/flags/220-vietnam.svg" alt="" />
+                            </span>
+                            <span class="kt-nav__link-text">{{lang.name}}</span>
+                        </a>
+                    </li>                    
+                </ul>
+            </div>
+        </div>
+
+        <!--end: Language bar -->
+        <!--begin: User Bar -->
+        <div class="kt-header__topbar-item kt-header__topbar-item--user">
+            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
+                <div class="kt-header__topbar-user">
+                    <span class="kt-header__topbar-welcome kt-hidden-mobile">Hi,</span>
+                    <span class="kt-header__topbar-username kt-hidden-mobile">Admin</span>
+                    <img class="kt-hidden" alt="Pic" src="~/app/assets/m618/assets/media/users/300_25.jpg" />
+
+                    <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
+                    <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">A</span>
+                </div>
+            </div>
+            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround ">
+                <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
+                    <li class="kt-nav__item">
+                        <a href="/login" class="kt-nav__link">    
+                            <span class="kt-nav__link-icon fa fa-sign-out-alt"></span>
+                            <span class="kt-nav__link-text">Sign out</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!--end: User Bar -->
+    </div>
+
+    <!-- end:: Header Topbar -->
+</div>
+
+<!-- end:: Header -->

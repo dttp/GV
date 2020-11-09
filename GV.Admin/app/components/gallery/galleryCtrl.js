@@ -1,4 +1,4 @@
-﻿var galleryModule = angular.module('gv.app.gallery');
+﻿var galleryModule = angular.module('gv.app.gallery', ['gv.modal', 'angularFileUpload']);
 galleryModule.controller('galleryCtrl', function ($scope, $modal, $fs, FileUploader, $localStorage) {
     $scope.items = [];
     $scope.currentPath = '';
@@ -31,10 +31,20 @@ galleryModule.controller('galleryCtrl', function ($scope, $modal, $fs, FileUploa
     };
 
     $scope.delete = function (item) {
-        $fs.delete(item.Path).then(function () {
-            $scope.alertSvc.addSuccess('Delete item successfully');
-            $scope.init();
+        $modal.showConfirm('Are you sure you want to delete this file?').then(function () {
+            $fs.delete(item.Path).then(function () {
+                $scope.alertSvc.addSuccess('Delete item successfully');
+                $scope.init();
+            });
         });
+    };
+
+    $scope.selectItem = function (item) {
+        var selected = !item.selected;
+        _.each($scope.items, function (item) {
+            item.selected = false;
+        });
+        item.selected = selected;
     };
 
     $scope.copyUrl = function (item) {

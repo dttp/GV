@@ -1,12 +1,20 @@
-﻿var categoryListModule = angular.module('gv.app.category.list');
-categoryListModule.controller('categoryCtrl', function ($scope, $category, $modal, $uibModal, $q) {
+﻿var categoryListModule = angular.module('gv.app.category.list', ['gv.modal', 'ui.bootstrap', 'gv.app.category.share']);
+categoryListModule.controller('categoryCtrl', function ($scope, $category, $modal, $uibModal, $q, $article) {
     
+    $scope.currentCategory = null;
     $scope.categories = [];
 
     $scope.init = function () {
-        $category.getCategories(null, $scope.selectedLanguage.value).then(function (response) {
-            $scope.categories = response.data;
-        });
+        var cid = Utils.getParameterByName("cid");        
+        if (!cid) 
+            location.href = PAGE_500;
+        $category.getById(cid, $scope.selectedLanguage.value).then(function (response) {
+            $scope.currentCategory = response.data;
+            
+            $category.getCategories(cid, $scope.selectedLanguage.value).then(function (response) {
+                $scope.categories = _.orderBy(response.data,  ['Id'], 'asc');
+            });
+        });        
     };
 
     function showCategoryModal(categories) {
@@ -14,6 +22,7 @@ categoryListModule.controller('categoryCtrl', function ($scope, $category, $moda
             templateUrl: '/app/components/category/dialog/category.modal.html',
             controller: 'categoryModalCtrl',
             backdrop: 'static',
+            animation: false,
             resolve: {
                 categories: function () {return categories;},
                 parentId: function () { return null; }
@@ -28,9 +37,39 @@ categoryListModule.controller('categoryCtrl', function ($scope, $category, $moda
             $category.create(result).then(function () {
                 $scope.alertSvc.addSuccess('Create category successful');
                 $scope.init();
-                $scope.sidebarMenu.refreshCategoryList();
             });
         });
+    };
+
+    $scope.manage = function (c) {
+        if (c.ParentId === 'cat_services') {
+            $article.getByCategory(c.Id, $scope.selectedLanguage.value).then(function (response) {
+                if (response.data.length > 0) {
+                    var article = _.find(response.data, function (a) {
+                        return a.Language.toLowerCase() === $scope.selectedLanguage.value;
+                    });
+                    location.href = '/article?id=' + article.Id;
+                } else {
+                    var articles = _.map($scope.availableLanguages, function (lang) {
+                        return {
+                            Id: Utils.uniqueId(),
+                            CategoryId: c.Id,
+                            Language: lang.value,
+                            Name: c.Name,
+                            Desccription: c.Desccription,
+                            Data: '',                            
+                            Thumbnail: ''
+                        };
+                    });
+                    $article.create(articles).then(function (response) {
+                        location.href = '/article?id=' + response.data[0].Id;
+                    });
+
+                }
+            });
+        } else {
+            location.href = '/category/detail?cid=' + c.Id;
+        }
     };
 
     $scope.edit = function (cat) {
@@ -46,9 +85,8 @@ categoryListModule.controller('categoryCtrl', function ($scope, $category, $moda
                 $category.update(result).then(function () {
                     $scope.alertSvc.addSuccess('Update category successful');
                     $scope.init();
-                    $scope.sidebarMenu.refreshCategoryList();
                 });
-            });
+            }, function () {});
         });
         
     };

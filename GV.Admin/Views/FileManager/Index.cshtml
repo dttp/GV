@@ -1,64 +1,113 @@
 ﻿<link href="~/app/components/gallery/css/gallery.css" rel="stylesheet" />
 <div ng-controller="galleryCtrl">
-    <!-- BEGIN PAGE HEADER-->
-    <div class="page-bar">
-        <ul class="page-breadcrumb">
-            <li>
-                <a href="/">Home</a>
-                <i class="fa fa-circle"></i>
-            </li>
-            <li>
-                <span>File Manager</span>
-            </li>
-        </ul>
 
-    </div>
-    <!-- BEGIN PAGE TITLE-->
-    <h1 class="page-title">
-        File Manager
-        <small>Manage files for GV app</small>
-    </h1>
-    <!-- END PAGE TITLE     -->
-    <!-- END PAGE HEADER    -->
-    <div class="row">
-        <div class="col-md-12">
-            @*<button class="btn yellow-casablanca">
-                <i class="fa fa-plus"> </i>
-                New Folder
-            </button>*@
-            <button class="btn green-meadow"
-                    ng-click="selectFiles()">
-                <i class="fa fa-upload"></i>
-                Upload
-            </button>
-            <input type="file" id="fileImport" multiple style="position:absolute; left: -1000px; top: -10000px; width: 0; height: 0" nv-file-select uploader="uploader" />
-        </div>
-    </div>
-    <div class="progress progress-striped active" style="margin-top: 10px;" ng-show="uploader.isUploading">
-        <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{uploader.progress}}%">
-        </div>
-    </div>
+    <!-- begin:: Subheader -->
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">
+                    File Manager                    
+                </h3>
 
-    <div class="gallery">
-        <div class="g-item" ng-repeat="item in items">
-            <div class="g-thumb">
-                <button class="btn btn-xs red btn__remove"
-                        title="Delete this image"
-                        ng-click="delete(item)">
-                    <i class="fa fa-remove">
-                    </i>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <button class="btn btn-label-brand btn-bold"
+                        ng-click="selectFiles()">
+                    <i class="fa fa-upload"></i>
+                    Upload File
                 </button>
-                <img ng-if="canPreview(item)" class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
-                <img ng-if="!canPreview(item)" class="g-item-img" src="~/app/assets/images/iconfinder_1-01_511561(1).png" alt="{{item.Name}}">
-                <div class="g-thumb-actions">
-                    <button class="btn yellow-gold" ng-click="copyUrl(item)">Copy Url</button>
+                <input type="file" id="fileImport" multiple style="position:absolute; left: -1000px; top: -10000px; width: 0; height: 0" nv-file-select uploader="uploader" />
+            </div>
+        </div>
+    </div>
+
+    <!-- end:: Subheader -->
+    <!-- begin:: Content -->
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        <div class="row" ng-show="uploader.isUploading">
+            <div class="col">
+                <div class="kt-portlet">
+                    <div class="kt-portlet__body">
+                        <div class="progress">
+                            <div class="kt-space-10"></div>
+                            <div class="progress-bar" role="progressbar" ng-style="{'width': uploader.progress + '%'}"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="g-item-caption" title="{{item.Name}}">{{item.Name}}</div>
         </div>
+        <div class="row">
+            <div class="col">
+                <div class="kt-portlet kt-portlet--mobile">
+                    <div class="kt-portlet__body">
+                        <div class="gallery">
+                            <div class="g-item" ng-repeat="item in items">
+                                <div class="g-item__thumb" ng-class="{'active': item.selected}">
+                                    <button class="btn btn-danger btn-circle btn-icon btn__remove"
+                                            title="Delete this image"
+                                            ng-click="delete(item)">
+                                        <i class="flaticon-delete">
+                                        </i>
+                                    </button>
+                                    <img ng-if="canPreview(item)" ng-click="selectItem(item)" class="g-item-img" ng-src="{{item.Url}}" alt="{{item.Name}}">
+                                    <img ng-if="!canPreview(item)" ng-click="selectItem(item)" class="g-item-img" src="~/app/assets/images/iconfinder_1-01_511561(1).png" alt="{{item.Name}}">
+                                    <div class="g-item__thumb__actions">
+                                        <button class="btn btn-success" ng-click="copyUrl(item)">Copy Url</button>
+                                    </div>
+                                </div>
+                                <div class="g-item__caption" title="{{item.Name}}">{{item.Name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <!-- end:: Content -->
+    @*<div class="row">
+            <div class="col-md-12">
+
+                <button class="btn green-meadow"
+                        ng-click="selectFiles()">
+                    <i class="fa fa-upload"></i>
+                    Upload
+                </button>
+                <input type="file" id="fileImport" multiple style="position:absolute; left: -1000px; top: -10000px; width: 0; height: 0" nv-file-select uploader="uploader" />
+            </div>
+        </div>
+        <div class="progress progress-striped active" style="margin-top: 10px;" ng-show="uploader.isUploading">
+            <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{uploader.progress}}%">
+            </div>
+        </div>
+
+        <div class="gallery">
+            <div class="g-item" ng-repeat="item in items">
+                <div class="g-thumb">
+                    <button class="btn btn-xs red btn__remove"
+                            title="Delete this image"
+                            ng-click="delete(item)">
+                        <i class="fa fa-remove">
+                        </i>
+                    </button>
+                    <img ng-if="canPreview(item)" class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
+                    <img ng-if="!canPreview(item)" class="g-item-img" src="~/app/assets/images/iconfinder_1-01_511561(1).png" alt="{{item.Name}}">
+                    <div class="g-thumb-actions">
+                        <button class="btn yellow-gold" ng-click="copyUrl(item)">Copy Url</button>
+                    </div>
+                </div>
+                <div class="g-item-caption" title="{{item.Name}}">{{item.Name}}</div>
+            </div>
+        </div>*@
 </div>
 
-@section js {
+@section pluginJs {
+    <script src="~/app/assets/plugins/angular-file-upload/angular-file-upload.min.js"></script>
+}
+
+@section pageJs {
+    <script src="~/app/services/gv.modal.js"></script>
+    <script src="~/app/services/gv.rest.fsSvc.js"></script>
     <script src="~/app/components/gallery/galleryCtrl.js"></script>
 } 

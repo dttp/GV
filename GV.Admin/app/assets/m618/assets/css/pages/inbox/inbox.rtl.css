@@ -140,7 +140,7 @@
   padding: 0; }
   @media (min-width: 1025px) {
     .kt-inbox .kt-inbox__list {
-      margin-right: 30px; } }
+      margin-right: 25px; } }
   .kt-inbox .kt-inbox__list.kt-inbox__list--shown {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -446,7 +446,7 @@
   display: none; }
   @media (min-width: 1025px) {
     .kt-inbox .kt-inbox__view {
-      margin-right: 30px; } }
+      margin-right: 25px; } }
   .kt-inbox .kt-inbox__view.kt-inbox__view--shown {
     display: -webkit-box;
     display: -ms-flexbox;

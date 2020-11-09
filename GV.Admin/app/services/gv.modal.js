@@ -59,6 +59,7 @@
                 templateUrl: '/app/services/template/confirmModal.html',
                 controller: 'confirmModalCtrl',
                 backdrop: 'static',
+                animation: false,
                 resolve: {
                     message: function () { return message; }
                 }
@@ -73,6 +74,7 @@
                 controller: 'selectImagesModalCtrl',
                 backdrop: 'static',
                 size: 'lg',
+                animation: false,
                 resolve: {
                     'multiple': function () { return multiple; }
                 }

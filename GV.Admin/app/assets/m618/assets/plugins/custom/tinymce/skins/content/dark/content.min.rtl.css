@@ -17,17 +17,9 @@ a {
 table {
   border-collapse: collapse; }
 
-table:not([cellpadding]) td, table:not([cellpadding]) th {
+table td, table th {
+  border: 1px solid #6d737b;
   padding: .4rem; }
-
-table[border]:not([border="0"]):not([style*=border-width]) td, table[border]:not([border="0"]):not([style*=border-width]) th {
-  border-width: 1px; }
-
-table[border]:not([border="0"]):not([style*=border-style]) td, table[border]:not([border="0"]):not([style*=border-style]) th {
-  border-style: solid; }
-
-table[border]:not([border="0"]):not([style*=border-color]) td, table[border]:not([border="0"]):not([style*=border-color]) th {
-  border-color: #6d737b; }
 
 figure {
   display: table;
@@ -48,6 +40,9 @@ code {
   background-color: #6d737b;
   border-radius: 3px;
   padding: .1rem .2rem; }
+
+td[data-mce-selected], th[data-mce-selected] {
+  color: #333; }
 
 .mce-content-body:not([dir=rtl]) blockquote {
   border-left: 2px solid #6d737b;

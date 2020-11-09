@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Cors;
 using GV.WebAPI.Filters;
+using GV.WebAPI.Formatter;
 using MultipartDataMediaFormatter;
 using MultipartDataMediaFormatter.Infrastructure;
 
@@ -15,6 +16,8 @@ namespace GV.WebAPI
             // Web API routes
             config.MapHttpAttributeRoutes();
             config.Formatters.Add(new FormMultipartEncodedMediaTypeFormatter(new MultipartFormatterSettings()));
+            //config.Formatters.Remove(config.Formatters.JsonFormatter);
+            config.Formatters.Insert(0, new Utf8JsonFormatter());
             config.Filters.Add(new ExceptionFilter());
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

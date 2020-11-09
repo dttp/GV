@@ -1,8 +1,6 @@
-﻿var categoryDetailModule = angular.module('gv.app.category.detail');
+﻿var categoryDetailModule = angular.module('gv.app.category.detail', ['ui.bootstrap', 'gv.modal']);
 categoryDetailModule.controller('categoryDetailCtrl', function ($scope, $category, $modal, $uibModal, $q, $article) {
-    
     $scope.category = {};
-
     $scope.items = [];
 
     function showCategoryModal(categories) {
@@ -85,24 +83,25 @@ categoryDetailModule.controller('categoryDetailCtrl', function ($scope, $categor
     };
 
     $scope.init = function () {
-        var id = Utils.getParameterByName('id');
+        var id = Utils.getParameterByName('cid');
         $category.getById(id, $scope.selectedLanguage.value).then(function (response) {
             $scope.category = response.data;
         });
+
         var items = [];
         var promises = [];
-        promises.push($category.getCategories(id, $scope.selectedLanguage.value));
+        //promises.push($category.getCategories(id, $scope.selectedLanguage.value));
         promises.push($article.getByCategory(id, $scope.selectedLanguage.value));
         
         $q.all(promises).then(function (responses) {
-            _.each(responses[0].data, function (cat) {
-                var item = {
-                    type: 'Category',
-                    data: cat
-                };
-                items.push(item);
-            });
-            _.each(responses[1].data, function (article) {
+            //_.each(responses[0].data, function (cat) {
+            //    var item = {
+            //        type: 'Category',
+            //        data: cat
+            //    };
+            //    items.push(item);
+            //});
+            _.each(responses[0].data, function (article) {
                 var item = {
                     type: 'Article',
                     data: article

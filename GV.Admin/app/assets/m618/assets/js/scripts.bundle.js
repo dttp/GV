@@ -9163,244 +9163,334 @@ $(document).ready(function() {
 "use strict";
 
 var KTLayout = function() {
-    var body;
+	var body;
 
-    var header;
-    var headerMenu;
-    var headerMenuOffcanvas;
-    var mobileHeaderTopbarToggle;
+	var header;
+	var headerMenu;
+	var headerMenuOffcanvas;
 
-    var asideMenu;
-    var asideMenuOffcanvas;
+	var asideMenu;
+	var asideMenuOffcanvas;
+	var asideToggler;
 
-    var scrollTop;
+	var asideSecondary;
+	var asideSecondaryToggler;
 
-    var pageStickyPortlet;
+	var scrollTop;
 
-    // Header
-    var initHeader = function() {
-        var tmp;
-        var headerEl = KTUtil.get('kt_header');
-        var headerMobileEl = KTUtil.get('kt_header_mobile');
+	var pageStickyPortlet;
 
-        var options = {
-            classic: {
-                desktop: true,
-                mobile: true
-            }
-        };
+	// Header
+	var initHeader = function() {
+		var tmp;
+		var headerEl = KTUtil.get('kt_header');
+		var options = {
+			offset: {},
+			minimize: {
+				/*
+				desktop: {
+				    on: 'kt-header--minimize'
+				},
+				*/
+				desktop: false,
+				mobile: false
+			}
+		};
 
-        header = new KTHeader('kt_header', options);
-    }
+		if (tmp = KTUtil.attr(headerEl, 'data-ktheader-minimize-offset')) {
+			options.offset.desktop = tmp;
+		}
 
-    // Header Menu
-    var initHeaderMenu = function() {
-        // init aside left offcanvas
-        headerMenuOffcanvas = new KTOffcanvas('kt_header_menu_wrapper', {
-            overlay: true,
-            baseClass: 'kt-header-menu-wrapper',
-            closeBy: 'kt_header_menu_mobile_close_btn',
-            toggleBy: {
-                target: 'kt_header_mobile_toggler',
-                state: 'kt-header-mobile__toolbar-toggler--active'
-            }
-        });
+		if (tmp = KTUtil.attr(headerEl, 'data-ktheader-minimize-mobile-offset')) {
+			options.offset.mobile = tmp;
+		}
 
-        headerMenu = new KTMenu('kt_header_menu', {
-            submenu: {
-                desktop: 'dropdown',
-                tablet: 'accordion',
-                mobile: 'accordion'
-            },
-            accordion: {
-                slideSpeed: 200, // accordion toggle slide speed in milliseconds
-                expandAll: false // allow having multiple expanded accordions in the menu
-            }
-        });
-    }
+		header = new KTHeader('kt_header', options);
+	}
 
-    // Header Topbar
-    var initHeaderTopbar = function() {
-        mobileHeaderTopbarToggle = new KTToggle('kt_header_mobile_topbar_toggler', {
-            target: 'body',
-            targetState: 'kt-header__topbar--mobile-on',
-            togglerState: 'kt-header-mobile__toolbar-topbar-toggler--active'
-        });
-    }
+	// Header Menu
+	var initHeaderMenu = function() {
+		// init aside left offcanvas
+		headerMenuOffcanvas = new KTOffcanvas('kt_header_menu_wrapper', {
+			overlay: true,
+			baseClass: 'kt-header-menu-wrapper',
+			closeBy: 'kt_header_menu_mobile_close_btn',
+			toggleBy: {
+				target: 'kt_header_mobile_toggler',
+				state: 'kt-header-mobile__toolbar-toggler--active'
+			}
+		});
 
-    // Aside
-    var initAside = function() {
-        // init aside left offcanvas
-        var asidBrandHover = false;
-        var aside = KTUtil.get('kt_aside');
-        var asideBrand = KTUtil.get('kt_aside_brand');
-        var asideOffcanvasClass = KTUtil.hasClass(aside, 'kt-aside--offcanvas-default') ? 'kt-aside--offcanvas-default' : 'kt-aside';
+		headerMenu = new KTMenu('kt_header_menu', {
+			submenu: {
+				desktop: 'dropdown',
+				tablet: 'accordion',
+				mobile: 'accordion'
+			},
+			accordion: {
+				slideSpeed: 200, // accordion toggle slide speed in milliseconds
+				expandAll: false // allow having multiple expanded accordions in the menu
+			}
+		});
+	}
 
-        asideMenuOffcanvas = new KTOffcanvas('kt_aside', {
-            baseClass: asideOffcanvasClass,
-            overlay: true,
-            closeBy: 'kt_aside_close_btn',
-            toggleBy: {
-                target: 'kt_aside_mobile_toggler',
-                state: 'kt-header-mobile__toolbar-toggler--active'
-            }
-        });
+	// Header Topbar
+	var initHeaderTopbar = function() {
+		asideToggler = new KTToggle('kt_header_mobile_topbar_toggler', {
+			target: 'body',
+			targetState: 'kt-header__topbar--mobile-on',
+			togglerState: 'kt-header-mobile__toolbar-topbar-toggler--active'
+		});
+	}
 
-        // Handle minimzied aside hover
-        if (KTUtil.hasClass(body, 'kt-aside--fixed')) {
-            var insideTm;
-            var outsideTm;
+	// Aside
+	var initAside = function() {
+		// init aside left offcanvas
+		var asidBrandHover = false;
+		var aside = KTUtil.get('kt_aside');
+		var asideBrand = KTUtil.get('kt_aside_brand');
+		var asideOffcanvasClass = KTUtil.hasClass(aside, 'kt-aside--offcanvas-default') ? 'kt-aside--offcanvas-default' : 'kt-aside';
 
-            KTUtil.addEvent(aside, 'mouseenter', function(e) {
-                e.preventDefault();
+		asideMenuOffcanvas = new KTOffcanvas('kt_aside', {
+			baseClass: asideOffcanvasClass,
+			overlay: true,
+			closeBy: 'kt_aside_close_btn',
+			toggleBy: {
+				target: 'kt_aside_mobile_toggler',
+				state: 'kt-header-mobile__toolbar-toggler--active'
+			}
+		});
 
-                if (KTUtil.isInResponsiveRange('desktop') === false) {
-                    return;
-                }
+		// Handle minimzied aside hover
+		if (KTUtil.hasClass(body, 'kt-aside--fixed')) {
+			var insideTm;
+			var outsideTm;
 
-                if (outsideTm) {
-                    clearTimeout(outsideTm);
-                    outsideTm = null;
-                }
+			KTUtil.addEvent(aside, 'mouseenter', function(e) {
+				e.preventDefault();
 
-                insideTm = setTimeout(function() {
-                    if (KTUtil.hasClass(body, 'kt-aside--minimize') && KTUtil.isInResponsiveRange('desktop')) {
-                        KTUtil.removeClass(body, 'kt-aside--minimize');
+				if (KTUtil.isInResponsiveRange('desktop') === false) {
+					return;
+				}
 
-                        // Minimizing class
-                        KTUtil.addClass(body, 'kt-aside--minimizing');
-                        KTUtil.transitionEnd(body, function() {
-                            KTUtil.removeClass(body, 'kt-aside--minimizing');
-                        });
+				if (outsideTm) {
+					clearTimeout(outsideTm);
+					outsideTm = null;
+				}
 
-                        // Hover class
-                        KTUtil.addClass(body, 'kt-aside--minimize-hover');
-                        asideMenu.scrollUpdate();
-                        asideMenu.scrollTop();
-                    }
-                }, 50);
-            });
+				insideTm = setTimeout(function() {
+					if (KTUtil.hasClass(body, 'kt-aside--minimize') && KTUtil.isInResponsiveRange('desktop')) {
+						KTUtil.removeClass(body, 'kt-aside--minimize');
 
-            KTUtil.addEvent(aside, 'mouseleave', function(e) {
-                e.preventDefault();
+						// Minimizing class
+						KTUtil.addClass(body, 'kt-aside--minimizing');
+						KTUtil.transitionEnd(body, function() {
+							KTUtil.removeClass(body, 'kt-aside--minimizing');
+						});
 
-                if (KTUtil.isInResponsiveRange('desktop') === false) {
-                    return;
-                }
+						// Hover class
+						KTUtil.addClass(body, 'kt-aside--minimize-hover');
+						asideMenu.scrollUpdate();
+						asideMenu.scrollTop();
+					}
+				}, 50);
+			});
 
-                if (insideTm) {
-                    clearTimeout(insideTm);
-                    insideTm = null;
-                }
+			KTUtil.addEvent(aside, 'mouseleave', function(e) {
+				e.preventDefault();
 
-                outsideTm = setTimeout(function() {
-                    if (KTUtil.hasClass(body, 'kt-aside--minimize-hover') && KTUtil.isInResponsiveRange('desktop')) {
-                        KTUtil.removeClass(body, 'kt-aside--minimize-hover');
-                        KTUtil.addClass(body, 'kt-aside--minimize');
+				if (KTUtil.isInResponsiveRange('desktop') === false) {
+					return;
+				}
 
-                        // Minimizing class
-                        KTUtil.addClass(body, 'kt-aside--minimizing');
-                        KTUtil.transitionEnd(body, function() {
-                            KTUtil.removeClass(body, 'kt-aside--minimizing');
-                        });
+				if (insideTm) {
+					clearTimeout(insideTm);
+					insideTm = null;
+				}
 
-                        // Hover class
-                        asideMenu.scrollUpdate();
-                        asideMenu.scrollTop();
-                    }
-                }, 100);
-            });
-        }
-    }
+				outsideTm = setTimeout(function() {
+					if (KTUtil.hasClass(body, 'kt-aside--minimize-hover') && KTUtil.isInResponsiveRange('desktop')) {
+						KTUtil.removeClass(body, 'kt-aside--minimize-hover');
+						KTUtil.addClass(body, 'kt-aside--minimize');
 
-    // Aside menu
-    var initAsideMenu = function() {
-        // Init aside menu
-        var menu = KTUtil.get('kt_aside_menu');
-        var menuDesktopMode = (KTUtil.attr(menu, 'data-ktmenu-dropdown') === '1' ? 'dropdown' : 'accordion');
+						// Minimizing class
+						KTUtil.addClass(body, 'kt-aside--minimizing');
+						KTUtil.transitionEnd(body, function() {
+							KTUtil.removeClass(body, 'kt-aside--minimizing');
+						});
 
-        // Init scrollable menu container
-        var scroll;
-        if (KTUtil.attr(menu, 'data-ktmenu-scroll') === '1') {
-            scroll = {
-                rememberPosition: true, // remember position on page reload
-                height: function() {  // calculate available scrollable area height
-                    var height;
+						// Hover class
+						asideMenu.scrollUpdate();
+						asideMenu.scrollTop();
+					}
+				}, 100);
+			});
+		}
+	}
 
-                    if (KTUtil.isInResponsiveRange('desktop')) {
-                        height = parseInt(KTUtil.getViewPort().height) - parseInt(KTUtil.actualHeight('kt_header', false)) - parseInt(KTUtil.actualHeight('kt_footer', false));
-                        height = height - parseInt(KTUtil.css(menu, 'marginTop')) - parseInt(KTUtil.css(menu, 'marginBottom'));
-                    } else {
-                        height = parseInt(KTUtil.getViewPort().height);
-                    }
+	// Aside menu
+	var initAsideMenu = function() {
+		// Init aside menu
+		var menu = KTUtil.get('kt_aside_menu');
+		var menuDesktopMode = (KTUtil.attr(menu, 'data-ktmenu-dropdown') === '1' ? 'dropdown' : 'accordion');
 
-                    return height;
-                }
-            };
-        }
+		var scroll;
+		if (KTUtil.attr(menu, 'data-ktmenu-scroll') === '1') {
+			scroll = {
+				rememberPosition: true, // remember position on page reload
+				height: function() { // calculate available scrollable area height
+					var height;
 
-        // Init aside menu
-        asideMenu = new KTMenu('kt_aside_menu', {
-            // vertical scroll
-            scroll: scroll,
+					if (KTUtil.isInResponsiveRange('desktop')) {
+						height =
+							parseInt(KTUtil.getViewPort().height) -
+							parseInt(KTUtil.actualHeight('kt_aside_brand')) -
+							parseInt(KTUtil.getByID('kt_aside_footer') ? KTUtil.actualHeight('kt_aside_footer') : 0);
+					} else {
+						height =
+							parseInt(KTUtil.getViewPort().height) -
+							parseInt(KTUtil.getByID('kt_aside_footer') ? KTUtil.actualHeight('kt_aside_footer') : 0);
+					}
 
-            // submenu setup
-            submenu: {
-                desktop: menuDesktopMode,
-                tablet: 'accordion', // menu set to accordion in tablet mode
-                mobile: 'accordion' // menu set to accordion in mobile mode
-            },
+					height = height - (parseInt(KTUtil.css(menu, 'marginBottom')) + parseInt(KTUtil.css(menu, 'marginTop')));
 
-            //accordion setup
-            accordion: {
-                expandAll: false // allow having multiple expanded accordions in the menu
-            }
-        });
-    }
+					return height;
+				}
+			};
+		}
 
-    // Scrolltop
-    var initScrolltop = function() {
-        var scrolltop = new KTScrolltop('kt_scrolltop', {
-            offset: 200,
-            speed: 400
-        });
-    }
+		asideMenu = new KTMenu('kt_aside_menu', {
+			// vertical scroll
+			scroll: scroll,
 
-    // Init page sticky portlet
-    var initPageStickyPortlet = function() {
-        return new KTPortlet('kt_page_portlet', {
-            sticky: {
-                offset: parseInt(KTUtil.css( KTUtil.get('kt_header'), 'height')) + 200,
-                zIndex: 90,
-                position: {
-                    top: function() {
-                        var pos;
-                        if (KTUtil.isInResponsiveRange('desktop')) {
-                            pos = parseInt(KTUtil.actualHeight( KTUtil.get('kt_header'), 'height') );
-                        } else {
-                            pos = parseInt(KTUtil.css( KTUtil.get('kt_header_mobile'), 'height') );
-                        }
+			// submenu setup
+			submenu: {
+				desktop: menuDesktopMode,
+				tablet: 'accordion', // menu set to accordion in tablet mode
+				mobile: 'accordion' // menu set to accordion in mobile mode
+			},
 
-                        return pos;
-                    },
-                    left: function(portlet) {
+			//accordion setup
+			accordion: {
+				expandAll: false // allow having multiple expanded accordions in the menu
+			}
+		});
+
+		// sample set active menu
+		// asideMenu.setActiveItem($('a[href="?page=custom/pages/pricing/pricing-1&demo=demo1"]').closest('.kt-menu__item')[0]);
+	}
+
+	// Sidebar toggle
+	var initAsideToggler = function() {
+		if (!KTUtil.get('kt_aside_toggler')) {
+			return;
+		}
+
+		asideToggler = new KTToggle('kt_aside_toggler', {
+			target: 'body',
+			targetState: 'kt-aside--minimize',
+			togglerState: 'kt-aside__brand-aside-toggler--active'
+		});
+
+		asideToggler.on('toggle', function(toggle) {
+			KTUtil.addClass(body, 'kt-aside--minimizing');
+
+			if (KTUtil.get('kt_page_portlet')) {
+				pageStickyPortlet.updateSticky();
+			}
+
+			KTUtil.transitionEnd(body, function() {
+				KTUtil.removeClass(body, 'kt-aside--minimizing');
+			});
+
+			headerMenu.pauseDropdownHover(800);
+			asideMenu.pauseDropdownHover(800);
+
+			// Remember state in cookie
+			Cookies.set('kt_aside_toggle_state', toggle.getState());
+			// to set default minimized left aside use this cookie value in your
+			// server side code and add "kt-brand--minimize kt-aside--minimize" classes to
+			// the body tag in order to initialize the minimized left aside mode during page loading.
+		});
+
+		asideToggler.on('beforeToggle', function(toggle) {
+			var body = KTUtil.get('body');
+			if (KTUtil.hasClass(body, 'kt-aside--minimize') === false && KTUtil.hasClass(body, 'kt-aside--minimize-hover')) {
+				KTUtil.removeClass(body, 'kt-aside--minimize-hover');
+			}
+		});
+	}
+
+	// Aside secondary
+	var initAsideSecondary = function() {
+		if (!KTUtil.get('kt_aside_secondary')) {
+			return;
+		}
+
+		asideSecondaryToggler = new KTToggle('kt_aside_secondary_toggler', {
+			target: 'body',
+			targetState: 'kt-aside-secondary--expanded'
+		});
+
+		asideSecondaryToggler.on('toggle', function(toggle) {
+			if (KTUtil.get('kt_page_portlet')) {
+				pageStickyPortlet.updateSticky();
+			}
+		});
+	}
+
+	// Scrolltop
+	var initScrolltop = function() {
+		var scrolltop = new KTScrolltop('kt_scrolltop', {
+			offset: 300,
+			speed: 600
+		});
+	}
+
+	// Init page sticky portlet
+	var initPageStickyPortlet = function() {
+		return new KTPortlet('kt_page_portlet', {
+			sticky: {
+				offset: parseInt(KTUtil.css(KTUtil.get('kt_header'), 'height')),
+				zIndex: 90,
+				position: {
+					top: function() {
+						var pos = 0;
+
+						if (KTUtil.isInResponsiveRange('desktop')) {
+							if (KTUtil.hasClass(body, 'kt-header--fixed')) {
+								pos = pos + parseInt(KTUtil.css(KTUtil.get('kt_header'), 'height'));
+							}
+
+							if (KTUtil.hasClass(body, 'kt-subheader--fixed') && KTUtil.get('kt_subheader')) {
+								pos = pos + parseInt(KTUtil.css(KTUtil.get('kt_subheader'), 'height'));
+							}
+						} else {
+							if (KTUtil.hasClass(body, 'kt-header-mobile--fixed')) {
+								pos = pos + parseInt(KTUtil.css(KTUtil.get('kt_header_mobile'), 'height'));
+							}
+						}
+
+						return pos;
+					},
+					left: function(portlet) {
 						var porletEl = portlet.getSelf();
 
 						return KTUtil.offset(porletEl).left;
 					},
 					right: function(portlet) {
-                        var porletEl = portlet.getSelf();
+						var porletEl = portlet.getSelf();
 
-                        var portletWidth = parseInt(KTUtil.css(porletEl, 'width'));
+						var portletWidth = parseInt(KTUtil.css(porletEl, 'width'));
 						var bodyWidth = parseInt(KTUtil.css(KTUtil.get('body'), 'width'));
 						var portletOffsetLeft = KTUtil.offset(porletEl).left;
 
 						return bodyWidth - portletWidth - portletOffsetLeft;
 					}
-                }
-            }
-        });
-    }
+				}
+			}
+		});
+	}
 
 	// Calculate content available full height
 	var getContentHeight = function() {
@@ -9427,78 +9517,127 @@ var KTLayout = function() {
 		return height;
 	}
 
-    return {
-        init: function() {
-            body = KTUtil.get('body');
+	return {
+		init: function() {
+			body = KTUtil.get('body');
 
-            this.initHeader();
-            this.initAside();
-            this.initPageStickyPortlet();
+			this.initHeader();
+			this.initAside();
+			this.initAsideSecondary();
+			this.initPageStickyPortlet();
 
-            // Non functional links notice(can be removed in production)
+			// Non functional links notice(can be removed in production)
 			$('#kt_aside_menu, #kt_header_menu').on('click', '.kt-menu__link[href="#"]', function(e) {
 				swal.fire("", "You have clicked on a non-functional dummy link!");
 
 				e.preventDefault();
 			});
-        },
+		},
 
-        initHeader: function() {
-            initHeader();
-            initHeaderMenu();
-            initHeaderTopbar();
-            initScrolltop();
-        },
+		initHeader: function() {
+			initHeader();
+			initHeaderMenu();
+			initHeaderTopbar();
+			initScrolltop();
+		},
 
-        initAside: function() {
-            initAside();
-            initAsideMenu();
-        },
+		initAside: function() {
+			initAside();
+			initAsideMenu();
+			initAsideToggler();
 
-        getAsideMenu: function() {
-            return asideMenu;
-        },
+			this.onAsideToggle(function(e) {
+				// Update sticky portlet
+				if (pageStickyPortlet) {
+					pageStickyPortlet.updateSticky();
+				}
 
-        initPageStickyPortlet: function() {
-            if (!KTUtil.get('kt_page_portlet')) {
-                return;
-            }
+				// Reload datatable
+				var datatables = $('.kt-datatable');
+				if (datatables) {
+					datatables.each(function() {
+						$(this).KTDatatable('redraw');
+					});
+				}
+			});
+		},
 
-            pageStickyPortlet = initPageStickyPortlet();
-            pageStickyPortlet.initSticky();
+		initAsideSecondary: function() {
+			initAsideSecondary();
+		},
 
-            KTUtil.addResizeHandler(function(){
-                pageStickyPortlet.updateSticky();
-            });
+		initPageStickyPortlet: function() {
+			if (!KTUtil.get('kt_page_portlet')) {
+				return;
+			}
 
-            initPageStickyPortlet();
-        },
+			pageStickyPortlet = initPageStickyPortlet();
+			pageStickyPortlet.initSticky();
 
-        closeMobileAsideMenuOffcanvas: function() {
-            if (KTUtil.isMobileDevice()) {
-                asideMenuOffcanvas.hide();
-            }
-        },
+			KTUtil.addResizeHandler(function() {
+				pageStickyPortlet.updateSticky();
+			});
 
-        closeMobileHeaderMenuOffcanvas: function() {
-            if (KTUtil.isMobileDevice()) {
-                headerMenuOffcanvas.hide();
-            }
-        },
+			initPageStickyPortlet();
+		},
 
-        getContentHeight: function() {
+		getAsideMenu: function() {
+			return asideMenu;
+		},
+
+		onAsideToggle: function(handler) {
+			if (typeof asideToggler.element !== 'undefined') {
+				asideToggler.on('toggle', handler);
+			}
+		},
+
+		getAsideToggler: function() {
+			return asideToggler;
+		},
+
+		openAsideSecondary: function() {
+			asideSecondaryToggler.toggleOn();
+		},
+
+		closeAsideSecondary: function() {
+			asideSecondaryToggler.toggleOff();
+		},
+
+		getAsideSecondaryToggler: function() {
+			return asideSecondaryToggler;
+		},
+
+		onAsideSecondaryToggle: function(handler) {
+			if (asideSecondaryToggler) {
+				asideSecondaryToggler.on('toggle', handler);
+			}
+		},
+
+		closeMobileAsideMenuOffcanvas: function() {
+			if (KTUtil.isMobileDevice()) {
+				asideMenuOffcanvas.hide();
+			}
+		},
+
+		closeMobileHeaderMenuOffcanvas: function() {
+			if (KTUtil.isMobileDevice()) {
+				headerMenuOffcanvas.hide();
+			}
+		},
+
+		getContentHeight: function() {
 			return getContentHeight();
 		}
-    };
+	};
 }();
 
 // webpack support
 if (typeof module !== 'undefined') {
-    module.exports = KTLayout;
+	module.exports = KTLayout;
 }
 
-$(document).ready(function() {
-    KTLayout.init();
+KTUtil.ready(function() {
+	KTLayout.init();
 });
 
 "use strict";

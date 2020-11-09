@@ -1,4 +1,4 @@
-﻿var articleModule = angular.module('gv.app.article.detail');
+﻿var articleModule = angular.module('gv.app.article.detail', ['gv.modal', 'ckeditor']);
 
 articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal, $q) {
     $scope.articles = [];
@@ -68,6 +68,8 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
         _.each($scope.articles, function (a) {
             a.Thumbnail = '';
         });
+
+        $scope.alertSvc.addSuccess('Thumbnail has been removed');
     };
 
     $scope.submit = function () {
@@ -82,12 +84,20 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
     };
 
     $scope.cancel = function () {
-        location.href = 'category/detail?id=' + $scope.articles[0].CategoryId;
+        var catId = $scope.articles[0].CategoryId;
+        if (_.startsWith(catId, 'cat_svc_'))
+            location.href = '/category?cid=cat_services';
+        else 
+            location.href = '/category/detail?cid=' + catId;
     };
 
     $scope.onLangChanged = function () {
         $scope.init();
     };
+
+    $scope.getArticle = function () {
+        return _.find($scope.articles, function (a) { return a.Language.toLowerCase() === $scope.selectedLanguage.value;});
+    }
 
     $scope.init = function () {
         var id = Utils.getParameterByName('id');
@@ -103,8 +113,7 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
             $q.all(promises).then(function (responses) {
                 _.each(responses, function (res) {
                     $scope.articles.push(res.data);
-                });
-                console.log($scope.articles);
+                });                
             });
         } else {
             _.each($scope.availableLanguages, function (lang) {

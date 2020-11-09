@@ -1,4 +1,4 @@
-﻿var categoryShareModule = angular.module('gv.app.category.share');
+﻿var categoryShareModule = angular.module('gv.app.category.share', ['ui.bootstrap']);
 categoryShareModule.controller('categoryModalCtrl', function ($scope, $uibModalInstance, categories, parentId) {
     $scope.categories = [];
     $scope.activeTab = $scope.selectedLanguage;

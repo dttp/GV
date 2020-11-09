@@ -1,105 +1,96 @@
-﻿<div ng-controller="categoryDetailCtrl">
-    <!-- BEGIN PAGE HEADER-->
-    <div class="page-bar">
-        <ul class="page-breadcrumb">
-            <li>
-                <a href="/">Home</a>
-                <i class="fa fa-circle"></i>
-            </li>
-            <li>
-                <a href="/category">Categories</a>
-                <i class="fa fa-circle"></i>
-            </li>
-            <li>
-                <span>{{category.Name}}</span>
-            </li>
-        </ul>
-    </div>
-    <!-- BEGIN PAGE TITLE-->
-    <h1 class="page-title">
-        {{category.Name}}
-        <small>{{category.Description}}</small>
-    </h1>
-    <!-- END PAGE TITLE-->
-    <!-- END PAGE HEADER-->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="btn-group">
-                <a class="btn blue dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                    <i class="fa fa-plus"></i>
-                    New 
-                    &nbsp;
-                    <i class="fa fa-angle-down"></i>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="javascript:;" ng-click="createCategory()">
-                            <i class="icon-grid"></i>
-                            &nbsp;
-                            Category
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" ng-click="createArticle()">
-                            <i class="icon-doc"></i>
-                            &nbsp;
-                            Article
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table-scrollable">
-                <table class="table table-hover table-condensed table-light">
-                    <thead>
-                        <tr>
-                            <th style="width: 30px"></th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th style="width: 200px">Type</th>
-                            <th style="width: 220px"> Actions </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-if="items.length == 0">
-                            <td colspan="5">There are no items</td>
-                        </tr>
-                        <tr ng-repeat="item in items">
-                            <td>
-                                <i class="icon-grid font-red" ng-if="item.type==='Category'"></i>
-                                <i class="icon-doc font-blue" ng-if="item.type==='Article'"></i>
-                            </td>
-                            <td>
-                                <a href="{{ item.type === 'Category' ? '/category/detail?id=' + item.data.Id : '/article?id=' + item.data.Id}}">
-                                    {{item.data.Name}}
-                                </a>
-                            </td>
-                            <td>{{item.data.Description}}</td>
-                            <td>{{item.type}}</td>
-                            <td>
-                                <button class="btn btn-xs blue-steel btn-outline"
-                                        ng-click="edit(item)">
-                                    <i class="fa fa-edit"></i>
-                                    Edit
-                                </button>
-                                <button class="btn btn-xs red-flamingo btn-outline"
-                                        ng-click="delete(item)">
-                                    <i class="fa fa-remove"></i>
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+﻿<style>
+    .table_col_text {
+        display: inline-block;
+        padding-top: 0.5rem;
+    }
+</style>
+
+<div ng-controller="categoryDetailCtrl">
+    <!-- begin:: Subheader -->
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">
+                    {{category.Name}}
+                    <small>{{category.Description}}</small>
+                </h3>
             </div>
         </div>
     </div>
 
+    <!-- end:: Subheader -->
+    <!-- begin:: Content -->
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="kt-portlet kt-portlet--mobile">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title kt-font-primary">
+                                Articles
+                            </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="kt-portlet__head-actions">
+                                <button ng-click="createArticle()" class="btn btn-outline-brand">
+                                    <i class="la la-plus"></i>
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th style="max-width: 150px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="items.length == 0">
+                                    <td colspan="3">There are no articles</td>
+                                </tr>
+                                <tr ng-repeat="a in items">
+                                    <td>
+                                        <span class="table_col_text">{{a.data.Name}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="table_col_text">{{a.data.Description}}</span>
+                                    </td>
+                                    <td>                                        
+                                        <button class="btn btn-elevate btn-sm btn-icon btn-icon-md btn-clean"
+                                                title="Edit"                                                
+                                                ng-click="edit(a)">
+                                            <i class="la la-edit"></i>
+                                        </button>
+                                        <button class="btn btn-elevate btn-sm btn-icon btn-icon-md btn-clean"
+                                                title="Delete"                                                
+                                                ng-click="delete(a)">
+                                            <i class="la la-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end:: Content -->
+
 </div>
-@section js {
+
+@section pluginJs {
+    <script src="~/app/assets/plugins/lodash/4.17.15/lodash.min.js"></script>
+}
+
+@section pageJs {
+    <script src="~/app/services/gv.modal.js"></script>
+    <script src="~/app/services/gv.rest.category.js"></script>
+    <script src="~/app/services/gv.rest.article.js"></script>
     <script src="~/app/components/category/category.share.js"></script>
     <script src="~/app/components/category/category.detail.js"></script>
 }

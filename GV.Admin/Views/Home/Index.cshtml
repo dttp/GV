@@ -1,34 +1,82 @@
-﻿<link href="~/app/assets/m4.7/pages/css/about.min.css" rel="stylesheet" />
+﻿<link href="~/app/components/home/css/home.css" rel="stylesheet" />
 <div ng-controller="dashboardCtrl">
-    
-    <!-- BEGIN PAGE TITLE-->
-    <h1 class="page-title">
-        Welcome {{currentUser.Name}}
-    </h1>
-    <!-- END PAGE TITLE     -->
-    <!-- END PAGE HEADER    -->
-    <div class="row" >
-        <div class="col-md-3"
-             ng-repeat="item in features">
-            <div class="portlet light">
-                <div class="nonunderline">
-                    <div class="card-icon">
-                        <a class="link" href="javascript:;" ng-click="onFeatureClick(item)">
-                            <i class="{{item.icon}}"></i> <br />
-                            <span class="card-title">
-                                <span>{{item.title}}</span>
-                            </span>
+
+    <!-- begin:: Subheader -->
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">
+                    Dashboard
+                </h3>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- end:: Subheader -->
+    <!-- begin:: Content -->
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="kt-portlet kt-portlet--mobile">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                File <small>Manage files/images in the system</small>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <a class="link-page"
+                           href="/filemanager">
+                            <span class="link-page__icon flaticon-layer"></span>
+                            <span class="link-page__text"> File Manager</span>
                         </a>
                     </div>
-                    <div class="card-desc">
-                        <span ng-bind-html="item.Description"></span>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12">
+                <div class="kt-portlet kt-portlet--mobile">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                Category <small>Manage categories</small>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <div class="col">
+                                <a class="link-page"
+                                   href="/category?cid=cat_services">
+                                    <span class="link-page__icon la la-bar-chart"></span>
+                                    <span class="link-page__text">Service</span>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="link-page" href="/category?cid=cat_news">
+                                    <span class="link-page__icon flaticon2-menu-4"></span>
+                                    <span class="link-page__text">News</span>
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="link-page" href="/category?cid=cat_regulation">
+                                    <span class="link-page__icon la la-balance-scale"></span>
+                                    <span class="link-page__text">Regulation</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
+
+    <!-- end:: Content -->
 </div>
 
-@section js {
+@section pageJs {
     <script src="~/app/components/home/home.js"></script>
 } 

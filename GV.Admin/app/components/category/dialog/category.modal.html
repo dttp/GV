@@ -1,57 +1,67 @@
-﻿<div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()"></button>
-    <h3 class="modal-title">Category!</h3>
+﻿<style>
+    a.nav-link span img {
+        width: 18px;
+        object-fit: contain;
+    }
+</style>
+<div class="modal-header">
+    <h5 class="modal-title">Category!</h5>
+    <button type="button" class="close" ng-click="cancel()"></button>    
 </div>
 <div class="modal-body">
-    <div class="tabbable-custom ">
-        <ul class="nav nav-tabs ">
-            <li ng-class="{'active': activeTab.value == lang.value }" ng-repeat="lang in availableLanguages">
-                <a ng-click="setActiveTab(lang)" data-toggle="tab">
-                    <span class="{{lang.icon}}"></span>
-                    {{lang.name}}
-                </a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane " ng-class="{'active': activeTab.value == lang.value }" id="category_{{lang.value}}" ng-repeat="lang in availableLanguages">
-                <form name="forms.categoryForm_{{lang.value}}" class="form form-horizontal" novalidate>
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">
-                                {{labels.categoryName[lang.value]}}
-                            </label>
-                            <div class="col-md-8" ng-class="{'has-error': hasError(forms.categoryForm_{{lang.value}}.name, 'required')}">
-                                <div class="input-icon right">
-                                    <i class="fa fa-warning" ng-show="hasError(forms.categoryForm_{{lang.value}}.name, 'required')"></i>
-                                    <input type="text" 
-                                           maxlength="100" 
-                                           class="form-control" 
-                                           name="name" 
-                                           placeholder="{{labels.namePlaceHolder[lang.value]}}" 
-                                           ng-model="categories[$index].Name" 
-                                           required />
-                                </div>
-                                <span class="help-block"
-                                      ng-show="hasError(forms.categoryForm_{{lang.value}}.name, 'required')">
-                                    {{labels.nameErrorRequired[lang.value]}}
-                                </span>
-                            </div>
+    <ul class="nav nav-tabs  nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-primary" role="tablist">
+        <li class="nav-item" ng-repeat="lang in availableLanguages">
+            <a class="nav-link"
+               ng-class="{'active': activeTab.value == lang.value }" 
+               href="javascript:;"
+               ng-click="setActiveTab(lang)" data-toggle="tab">
+                <span>
+                    <img ng-if="lang.value == 'en'" src="app/assets/m618/assets/media/flags/226-united-states.svg" alt="" />
+                    <img ng-if="lang.value == 'vn'" src="app/assets/m618/assets/media/flags/220-vietnam.svg" alt="" />
+                </span>
+                {{lang.name}}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane " ng-class="{'active': activeTab.value == lang.value }" id="category_{{lang.value}}" ng-repeat="lang in availableLanguages">
+            <form name="forms.categoryForm_{{lang.value}}" class="form form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group"
+                         ng-class="{'has-error': hasError(forms.categoryForm_{{lang.value}}.name, 'required')}">
+                        <label>
+                            {{labels.categoryName[lang.value]}}
+                        </label>
+                        <div class="input-icon right">
+                            <i class="fa fa-warning" ng-show="hasError(forms.categoryForm_{{lang.value}}.name, 'required')"></i>
+                            <input type="text"
+                                    maxlength="100"
+                                    class="form-control"
+                                    name="name"
+                                    placeholder="{{labels.namePlaceHolder[lang.value]}}"
+                                    ng-model="categories[$index].Name"
+                                    required />
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">
-                                {{labels.categoryDesc[lang.value]}}
-                            </label>
-                            <div class="col-md-8">
-                                <input type="text" maxlength="500" class="form-control" name="desc" placeholder="{{labels.descPlaceHolder[lang.value]}}" ng-model="categories[$index].Description" />
-                            </div>
-                        </div>
+                        <span class="help-block"
+                                ng-show="hasError(forms.categoryForm_{{lang.value}}.name, 'required')">
+                            {{labels.nameErrorRequired[lang.value]}}
+                        </span>
                     </div>
-                </form>    
-            </div>
+                    <div class="form-group">
+                        <label>
+                            {{labels.categoryDesc[lang.value]}}
+                        </label>
+                        <input type="text" maxlength="500" 
+                               class="form-control" name="desc" 
+                               placeholder="{{labels.descPlaceHolder[lang.value]}}" 
+                               ng-model="categories[$index].Description" />
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn blue" type="button" ng-disabled="!allFormsValid()" ng-click="ok()">OK</button>
-    <button class="btn default" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary btn-elevate" type="button" ng-disabled="!allFormsValid()" ng-click="ok()">OK</button>
+    <button class="btn btn-default btn-elevate" type="button" ng-click="cancel()">Cancel</button>
 </div>

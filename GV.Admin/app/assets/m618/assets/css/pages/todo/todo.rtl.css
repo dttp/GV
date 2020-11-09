@@ -6,7 +6,7 @@
   width: 275px; }
   @media (min-width: 1025px) {
     .kt-todo .kt-todo__aside {
-      margin-left: 30px; } }
+      margin-left: 25px; } }
   .kt-todo .kt-todo__aside .kt-todo__nav .kt-nav .kt-nav__item {
     margin-bottom: 0.5rem; }
     .kt-todo .kt-todo__aside .kt-todo__nav .kt-nav .kt-nav__item .kt-nav__link-title {

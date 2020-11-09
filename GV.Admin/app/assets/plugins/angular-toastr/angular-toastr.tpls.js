@@ -417,6 +417,7 @@
       templateUrl: function() {
         return toastrConfig.templates.toast;
       },
+      replace: true,
       controller: 'ToastController',
       link: toastLinkFunction
     };
