@@ -54,6 +54,17 @@ namespace GV.Services
             catDA.Delete(cat.Id);
         }
 
+        public List<CategoryTreeNode> GetSidebarCategories(Language lang)
+        {
+            var result = GetCategories(null, lang).Select(c => new CategoryTreeNode(c)).ToList();
+            foreach(var c in result)
+            {
+                c.Items = GetCategories(c.Id, lang).Select(subItem => new CategoryTreeNode(subItem)).ToList();
+            }
+
+            return result;
+        }
+
         public List<Category> Create(List<Category> categories)
         {
             var id = IdHelper.Generate();

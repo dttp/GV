@@ -14,4 +14,24 @@ namespace GV.Model
         public string Description { get; set; }
         public string ParentId { get; set; }
     }
+
+    public class CategoryTreeNode : Category
+    {
+        public List<CategoryTreeNode> Items { get; set; }
+
+        public CategoryTreeNode()
+        {
+
+        }
+
+        public CategoryTreeNode(Category c)
+        {
+            this.Id = c.Id;
+            this.Lang = c.Lang;
+            this.Name = c.Name;
+            this.Description = c.Description;
+            this.ParentId = c.ParentId;
+            this.Items = new List<CategoryTreeNode>();
+        }
+    }
 }

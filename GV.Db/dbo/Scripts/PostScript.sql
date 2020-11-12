@@ -134,6 +134,6 @@ GO
 
 
 INSERT INTO [User](Id, Name, PASSWORD) 
-SELECT 'admin', 'admin', 'c89835394bff2daa496426ea4c36ebfa'
+SELECT 'admin', 'admin', 'a0997c8bf52cd6e3895310f5465dad5d' /*  GvCompany */
 WHERE NOT EXISTS (SELECT * FROM [User] WHERE Id ='admin')
 GO

@@ -8,6 +8,9 @@
                 if (!parentId) parentId = '';
                 return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getCategories?parentId=' + parentId + '&lang=' + lang);
             },
+            getSidebarCategories: function (lang) {
+                return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getSidebarCategories?lang=' + lang);
+            },
             delete: function (catId) {
                 return $xhttp.delete(WEBAPI_ENDPOINT + '/api/category/delete?catId=' + catId);
             },

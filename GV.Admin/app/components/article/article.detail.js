@@ -113,7 +113,9 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
             $q.all(promises).then(function (responses) {
                 _.each(responses, function (res) {
                     $scope.articles.push(res.data);
-                });                
+                });
+
+                updateSidebarActiveItem();
             });
         } else {
             _.each($scope.availableLanguages, function (lang) {
@@ -128,9 +130,20 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
                     Thumbnail: ''
                 });
             });
+
+            updateSidebarActiveItem();
         }
     };
 
+    function updateSidebarActiveItem() {
+        if ($scope.articles.length > 0) {
+            $scope.sidebarMenu.setActive($scope.articles[0].CategoryId);
+        }
+    }
+
+    $scope.$on('sidebarMenuReady', function () {
+        updateSidebarActiveItem();
+    });
     $scope.$on('languageChanged', function () { $scope.onLangChanged(); });
     $scope.$on('appInitialized', function () { $scope.init(); });
 

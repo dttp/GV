@@ -3,56 +3,91 @@ module.factory('$sidebarMenu', function ($category, $rootScope) {
 
     var sidebarMenu = null;
 
-    var dashboardMenuItem = {
-        "Id": "sb-dashboard",
-        "Name": "Home",
-        "Type": "MenuItem",
-        "Url": "/",
-        "Icon": "icon-home",
-        "SelectedPages": [
-            '/'
-        ]
-    };
-    var galleryMenuItem = {
-        "Id": "sb-gallery",
-        "Name": "File Manager",
-        "Type": "MenuItem",
-        "Url": "/fileManager",
-        "Icon": "icon-picture",
-        "SelectedPages": [
-            '/filemanager'
-        ]
+    var categoryIconMapping = {
+        'cat_services': 'la la-bar-chart',
+        'cat_news': 'flaticon2-menu-4',
+        'cat_regulation': 'la la-balance-scale'
     };
 
-    function refreshRootCategoryList(items) {
-        $category.getCategories(null, $rootScope.selectedLanguage.value).then(function (response) {
+    function refreshCategoriesList(items) {
+        $category.getSidebarCategories($rootScope.selectedLanguage.value).then(function (response) {
             if (response.data.length > 0) {
-                if (!_.find(items, { Id: 'sb-cat-heading' })) {
-                    items.push({
-                        "Id": "sb-cat-heading",
-                        "Name":"Category List",
-                        "Type":"Heading"
+
+                var categories = response.data;
+                _.each(categories, function (c) {
+
+                    var item = {
+                        Id: c.Id,
+                        Name: c.Name,
+                        Type: "MenuItemList",
+                        Url: '/category?cid=' + c.Id,
+                        Icon: categoryIconMapping[c.Id],
+                        Items: [],
+                        Selected: false
+                    };
+
+
+                    _.each(c.Items, function (subCat) {
+                        var subItem = {
+                            Id: subCat.Id,
+                            Name: subCat.Name,
+                            Type: "MenuItemList",
+                            Url: '/category/detail?cid=' + subCat.Id,
+                            Icon: categoryIconMapping[subCat.Id],
+                            Items: [],
+                            Selected: false
+                        };
+                        item.Items.push(subItem);
                     });
-                }
-                _.each(response.data, function (cat) {
-                    items.push({
-                        Id: 'cat-' + cat.Id,
-                        Name: cat.Name,
-                        Url: '/category/detail?id=' + cat.Id,
-                        Type: 'MenuItem',
-                        Icon: 'icon-grid',
-                        SelectedPages: []
-                    });
+
+                    items.push(item);
                 });
             }
+            $rootScope.$broadcast('sidebarMenuReady');
         });
     }
 
     function getSidebarMenu() {
-        var items = [];
-        items.push(dashboardMenuItem);
-        items.push(galleryMenuItem);
-        refreshRootCategoryList(items);
+        var items = [
+            {
+                Id: "sb-dashboard",
+                Name: "Dashboard",
+                Type: "MenuItem",
+                Url: "/",
+                Icon: "flaticon-home",
+                Items: [],
+                Selected: false
+            },
+            {
+                Id: "sb-file-section",
+                Name: "File",
+                Type: "Section",
+                Url: "",
+                Icon: "",
+                Items: [],
+                Selected: false
+            },
+            {
+                Id: "sb-filemanager",
+                Name: "File Manager",
+                Type: "MenuItem",
+                Url: "/filemanager",
+                Icon: "flaticon-layer",
+                Items: [],
+                Selected: false
+            },
+            {
+                Id: "sb-category-section",
+                Name: "Category",
+                Type: "Section",
+                Url: "",
+                Icon: "",
+                Items: [],
+                Selected: false
+            }
+        ];
+
+        refreshCategoriesList(items);
         return items;
     }
 
@@ -64,17 +99,21 @@ module.factory('$sidebarMenu', function ($category, $rootScope) {
             location.href = item.Url;
         };
 
-        self.refreshCategoryList = function () {
-            _.remove(self.items, function (item) {
-                return _.startsWith(item.Id, 'cat-');
-            });
-            refreshRootCategoryList(self.items);
-        };
-
         self.initialize = function () {
 
             /* getting items */
             self.items = getSidebarMenu();
+        };
+
+        self.setActive = function (id) {
+            _.each(self.items, function (item) {
+                item.Selected = item.Id === id;
+
+                _.each(item.Items, function (subItem) {
+                    subItem.Selected = subItem.Id == id;
+                    if (subItem.Selected) item.Selected = true;
+                });
+            });            
         };
     }
 

@@ -42,6 +42,16 @@ namespace GV.WebAPI.Controllers
             });
         }
 
+        [AcceptVerbs("GET")]
+        public List<CategoryTreeNode> GetSidebarCategories(Language lang)
+        {
+            return Execute(() =>
+            {
+                var svc = new CategoryService(Context);
+                return svc.GetSidebarCategories(lang);
+            });
+        }
+
         [AcceptVerbs("DELETE")]
         public HttpResponseMessage Delete(string catId)
         {

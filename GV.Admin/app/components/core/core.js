@@ -1,5 +1,5 @@
 ﻿angular.module('gv.app.core')
-    .controller('coreCtrl', function ($scope, ) {
+    .controller('coreCtrl', function ($scope, $sidebarMenu) {
         $scope.sidebarMenu = {};
 
         $scope.logout = function () {
@@ -12,7 +12,7 @@
         };
 
         $scope.init = function () {
-            
+            $scope.sidebarMenu = $sidebarMenu.create();
         };
 
         $scope.$on('languageChanged', function () {

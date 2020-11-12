@@ -74,6 +74,7 @@ galleryModule.controller('galleryCtrl', function ($scope, $modal, $fs, FileUploa
         $fs.getList($scope.currentPath).then(function (response) {
            $scope.items = response.data;
         });
+        $scope.sidebarMenu.setActive('sb-filemanager');
     };
 
     $scope.$on('languageChanged', function () { $scope.onLangChanged(); });

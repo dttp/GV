@@ -107,7 +107,10 @@ categoryListModule.controller('categoryCtrl', function ($scope, $category, $moda
     $scope.onLangChanged = function () {
         $scope.init();
     };
-
+    $scope.$on('sidebarMenuReady', function () {
+        var cid = Utils.getParameterByName("cid");
+        $scope.sidebarMenu.setActive(cid);
+    });
     $scope.$on('languageChanged', function () { $scope.onLangChanged(); });
     $scope.$on('appInitialized', function () { $scope.init(); });
 });
