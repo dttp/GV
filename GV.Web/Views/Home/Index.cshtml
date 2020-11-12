@@ -1,133 +1,15 @@
-﻿@section css
-{
-    <link href="~/app/assets/jango/plugins/owl-carousel/owl.carousel.css" rel="stylesheet" />
-    <link href="~/app/assets/jango/plugins/owl-carousel/owl.theme.css" rel="stylesheet" />
-    <link href="~/app/assets/jango/plugins/owl-carousel/owl.transitions.css" rel="stylesheet" />
-    <link href="~/app/assets/plugins/lightgallery/css/lightgallery.min.css" rel="stylesheet" />
-    <link href="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick.css" rel="stylesheet" />
-    <link href="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick-theme.css" rel="stylesheet" />
+﻿@section css {
     <link href="~/app/components/home/home.css" rel="stylesheet" />
 }
-<div class="c-layout-page" ng-controller="homeCtrl">
-    <!-- BEGIN: PAGE CONTENT -->
-    <!-- BEGIN: LAYOUT/SLIDERS/REVO-SLIDER-4 -->
-    <slick ng-if="dataLoaded" settings="slickConfig">
-        <div ng-repeat="item in homePageInfo.BannerSlides" class="slick__item">
-            <img src="{{item.Url}}" class="slick__item__img" />
-            <h3 id="banner-{{$index}}"
-                class="c-block-bordered c-font-48 c-font-bold c-font-center c-font-uppercase c-font-white c-block">
-                {{item.Description}}
-            </h3>
-        </div>
-    </slick>
-    <!-- END: LAYOUT/SLIDERS/REVO-SLIDER-4 -->
-    <!-- BEGIN: CONTENT/MISC/SERVICES-3 -->
-    <div class="c-content-box c-size-md c-bg-white">
-        <div class="container">
-            <div class="c-content-feature-2-grid">
-                <div class="c-content-title-1">
-                    <h3 class="c-font-uppercase c-center c-font-bold">{{labels[selectedLanguage.value].serviceTitle}}</h3>
-                    <div class="c-line-center">
-                    </div>
-                </div>
-                <div class="service-list">
-                    <div class="service-item"
-                         ng-repeat="c in categories" 
-                         ng-click="gotoCategory(c)">
-                        <div class="c-content-feature-2 c-option-2 c-theme-bg-parent-hover">
-                            <div class="c-icon-wrapper c-theme-bg-on-parent-hover">
-                                <div class="c-content-line-icon c-theme c-icon-13">
-                                </div>
-                            </div>
-                            <h3 class="c-font-uppercase c-title">{{c.Name}}</h3>
-                            <p>
-                                {{c.Description}}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- BEGIN CONTENT -->
+<div class="page-content" ng-controller="homeCtrl">
+    <div class="hero">        
+        <img src="~/app/assets/imgs/home-hero.jpg"  alt="hero image"/>
     </div>
-    <!-- BEGIN: CONTENT/SLIDERS/CLIENT-LOGOS-2 -->
-    <div class="c-content-box c-size-md c-bg-white">
-        <div class="container">
-            <!-- Begin: Testimonals 1 component -->
-            <div class="c-content-client-logos-slider-1 c-bordered" data-slider="owl" data-items="6" data-desktop-items="4" data-desktop-small-items="3" data-tablet-items="3" data-mobile-small-items="2" data-auto-play="5000">
-                <!-- Begin: Title 1 component -->
-                <div class="c-content-title-1">
-                    <h3 class="c-center c-font-uppercase c-font-bold">{{labels[selectedLanguage.value].sampleTitle}}</h3>
-                    <div class="c-line-center c-theme-bg">
-                    </div>
-                </div>
-                <!-- End-->
-                <!-- Begin: Owlcarousel -->
-                <div ng-if="dataLoaded" owl-carousel class="owl-carousel owl-theme c-theme owl-bordered1" options="{navigation: false, pagination: true, rewindNav : false}">
-                    <div owl-carousel-item="" light-gallery rel="sample" ng-repeat="item in homePageInfo.CertificateSamples" class="item">
-                        <a href="{{item.Url}}" class="lgItem">
-                            <img src="{{item.Url}}" alt="{{item.Name}}" />
-                            <span>{{item.Name}}</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- End-->
-            </div>
-            <!-- End-->
-        </div>
-    </div>
-    <!-- END: CONTENT/SLIDERS/CLIENT-LOGOS-2 -->
-    <!-- BEGIN: CONTENT/MISC/ABOUT-1 -->
-    <div class="c-content-box c-size-md c-bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <!-- Begin: Title 1 component -->
-                    <div class="c-content-title-1">
-                        <h3 class="c-font-uppercase c-font-bold">{{labels[selectedLanguage.value].aboutTitle}}</h3>
-                        <div class="c-line-left c-theme-bg">
-                        </div>
-                    </div>
-                    <!-- End-->
-                    <div ng-bind-html="aboutArticle.Data">
-
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="c-content-client-logos-1">
-                        <!-- Begin: Title 1 component -->
-                        <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold">{{labels[selectedLanguage.value].clientTitle}}</h3>
-                            <div class="c-line-left c-theme-bg">
-                            </div>
-                        </div>
-                        <!-- End-->
-                        <div class="c-logos">
-                            <div class="row">
-                                <div class="col-md-4 col-xs-6 c-logo c-logo-{{$index + 1}}"
-                                     ng-repeat="item in homePageInfo.ClientImages">
-                                    <a href="#">
-                                        <img class="c-img-pos" src="{{item.Url}}" alt="{{item.Name}}" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END: CONTENT/MISC/ABOUT-1 -->
-    <!-- END: PAGE CONTENT -->
-</div>
-<!-- END: PAGE CONTAINER -->
-@section js {
-    <script src="~/app/assets/jango/plugins/owl-carousel/owl.carousel.min.js"></script>
-    <script src="~/app/assets/plugins/lightgallery/js/lightgallery.min.js"></script>
-    <script src="~/app/assets/plugins/lightgallery/js/lg-thumbnail.min.js"></script>
-    <script src="~/app/assets/plugins/lightgallery/js/lg-fullscreen.min.js"></script>
-    <script src="~/app/assets/plugins/lightgallery/js/lg-zoom.min.js"></script>
-    <script src="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick.min.js"></script>
     
+</div>
+<!-- END CONTENT -->
+
+@section js {
     <script src="~/app/components/home/home.js"></script>
 }

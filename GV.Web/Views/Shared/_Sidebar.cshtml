@@ -1,0 +1,41 @@
+﻿<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar-wrapper">
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <div class="sidebar-logo">
+            <a href="/">
+                <img src="~/app/assets/imgs/gv-logo.png" />
+            </a>
+        </div>
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+            
+            <li ng-repeat="menuItem in sidebarMenu.items"
+                class="nav-item"
+                ng-class="{'start': $index == 0 ,
+                           'active': menuItem.Selected}">
+                <a href="{{menuItem.Url}}"
+                   class="nav-link"
+                   ng-class="{'nav-toggle': menuItem.Items.length > 0}">
+                    <i class="{{menuItem.Icon}}"></i>
+                    <span class="title">{{menuItem.Name}}</span>
+                    @*<span class="selected" ng-if="menuItem.Selected"></span>*@
+                    <span class="arrow" ng-if="menuItem.Items.length > 0"></span>
+                </a>
+                <ul class="sub-menu" ng-if="menuItem.Items.length > 0">
+                    <li ng-repeat="subItem in menuItem.Items">
+                        <a href="{{subItem.Url}}"
+                           class="nav-link">
+                            <i class="{{subItem.Icon}}"></i>
+                            {{subItem.Name}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+</div>
+<!-- END SIDEBAR -->

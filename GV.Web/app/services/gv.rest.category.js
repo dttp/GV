@@ -8,9 +8,8 @@
                 if (!parentId) parentId = '';
                 return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getCategories?parentId=' + parentId + '&lang=' + lang);
             },
-            getRootCategories: function (currentCatId, lang) {
-                if (!currentCatId) currentCatId = '';
-                return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getRootCategories?currentCatId=' + currentCatId + '&lang=' + lang);
+            getSidebarCategories: function (lang) {
+                return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getSidebarCategories?lang=' + lang);
             },
             delete: function (catId) {
                 return $xhttp.delete(WEBAPI_ENDPOINT + '/api/category/delete?catId=' + catId);
@@ -20,9 +19,6 @@
             },
             update: function (categories) {
                 return $xhttp.post(WEBAPI_ENDPOINT + '/api/category/update', categories);
-            },
-            getBreadcrumb: function (catId, lang) {
-                return $xhttp.get(WEBAPI_ENDPOINT + '/api/category/getbreadcrumb?catId=' + catId + '&lang=' + lang);
             }
         };
         return service;

@@ -1,5 +1,5 @@
 ﻿angular.module('gv.app.home')
-    .controller('homeCtrl', function ($scope, $setting, $article) {
+    .controller('homeCtrl', function ($scope) {
 
         $scope.slickConfig = {
             enabled: true,
@@ -75,14 +75,8 @@
         };
 
         $scope.init = function () {
+            $scope.sidebarMenu.setActive('sbHome');
             $scope.dataLoaded = false;
-            $setting.getHomePageInfo().then(function (response) {
-                $scope.homePageInfo = response.data;
-                $scope.dataLoaded = true;
-            });
-            $article.getByCategory('sys-about', $scope.selectedLanguage.value).then(function (response) {
-                $scope.aboutArticle = response.data[0];
-            });
         };
 
         $scope.onLangChanged = function () {

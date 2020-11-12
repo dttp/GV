@@ -1,14 +1,14 @@
 ﻿angular.module('gv.app.core', []);
 angular.module('gv.app.home', 
     [
-        'ngOwlCarousel', 
-        'ngLightGallery',
-        'slickCarousel'
+        //'ngOwlCarousel', 
+        //'ngLightGallery',
+        //'slickCarousel'
     ]);
 angular.module('gv.app.services', []);
 
 angular.module('gv.app.contact', [
-        'ngMap',
+        //'ngMap',
     ]);
 angular.module('gv.app.article', [
 ]);
@@ -17,7 +17,6 @@ angular.module('gv.app.category', [
 var gvWebApp = angular.module('gv.app',
     [
         'ngHttp',
-        'authService',
         'authInterceptor',
         'ngSanitize',
         'ngAnimate',
@@ -26,7 +25,6 @@ var gvWebApp = angular.module('gv.app',
         
         'gv.app.services',
         'angular-loading-bar',
-        'gv.modal',
         'toastr',
         'gv.app.core',
         'gv.app.home',
@@ -53,27 +51,23 @@ gvWebApp.config(function (cfpLoadingBarProvider, $httpProvider, toastrConfig) {
 
 gvWebApp.run(function ($rootScope, alertSvc, $localStorage) {
     $rootScope.alertSvc = alertSvc;
+
     $rootScope.availableLanguages = [
         {
             value: 'en',
             name: 'English',
-            icon: 'flag-icon flag-icon-us'
         },
         {
             value: 'vn',
             name: 'Tiếng Việt',
-            icon: 'flag-icon flag-icon-vn'
         }];
 
     $rootScope.selectedLanguage = $rootScope.availableLanguages[0];
+
     $rootScope.selectLanguage = function (lang) {
         $rootScope.selectedLanguage = lang;
         $localStorage.lang = lang;
         $rootScope.$broadcast('languageChanged');
-    };
-
-    $rootScope.currentUser = {
-        Name: 'Admin'
     };
 
     $rootScope.hasError = function (field, errorType) {

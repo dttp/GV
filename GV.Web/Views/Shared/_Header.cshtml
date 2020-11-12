@@ -1,63 +1,67 @@
-﻿<!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
-<!-- BEGIN: HEADER -->
-<header class="c-layout-header c-layout-header-4 c-layout-header-default-mobile">
-    <div class="c-navbar">
-        <div class="container">
-            <!-- BEGIN: BRAND -->
-            <div class="c-navbar-wrapper clearfix">
-                <div class="c-brand c-pull-left">
-                    <a href="/" class="c-logo">
-                        <img src="~/app/assets/imgs/gv-logo.png" height="60" alt="GV" class="c-desktop-logo">
-                        <img src="~/app/assets/imgs/gv-logo.png" height="50" alt="GV" class="c-desktop-logo-inverse">
-                        <img src="~/app/assets/imgs/gv-logo.png" height="25" alt="GV" class="c-mobile-logo">
-                    </a>
-                    <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
-                        <span class="c-line"></span>
-                        <span class="c-line"></span>
-                        <span class="c-line"></span>
-                    </button>
-                </div>
-                <!-- END: BRAND -->
-                <!-- BEGIN: HOR NAV -->
-                <!-- BEGIN: LAYOUT/HEADERS/MEGA-MENU -->
-                <!-- BEGIN: MEGA MENU -->
-                
-                <nav class="c-mega-menu c-pull-right c-mega-menu-light c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
-                    <!-- BEGIN: MEGA MENU -->
-                    <ul class="nav navbar-nav c-theme-nav">
-                        <li class="c-menu-type-classic"
-                            ng-repeat="item in headerMenu[selectedLanguage.value]">
-                            <a href="{{item.Url}}"
-                               class="c-link"
-                               ng-class="{'dropdown-toggle': item.Items.length > 0 }">{{item.Name}}</a>
-                            <ul class="dropdown-menu c-menu-type-classic c-pull-left" ng-if="item.Items.length > 0">
-                                <li ng-repeat="subItem in item.Items">
-                                    <a href="{{subItem.Url}}">{{subItem.Name}}</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="c-link dropdown-toggle">
-                                <i class="{{selectedLanguage.icon}}"></i>
-                            </a>
-                            <ul class="dropdown-menu c-menu-type-classic c-pull-left">
-                                <li ng-repeat="lang in availableLanguages">
-                                    <a href="javascript:;" ng-click="selectLanguage(lang)">
-                                        <i class="{{lang.icon}}"></i>
-                                        {{lang.name}}
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- END MEGA MENU -->
-                </nav>
-                <!-- END: MEGA MENU -->
-                <!-- END: LAYOUT/HEADERS/MEGA-MENU -->
-                <!-- END: HOR NAV -->
+﻿<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner container">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="/">
+                <img src="~/app/assets/imgs/gv-logo.png" alt="logo" class="logo--img" />
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                <span></span>
             </div>
         </div>
+        <!-- END LOGO -->
+        <!-- BEGIN HEADER SEARCH BOX -->
+        <form class="search-form search-form-expanded">
+            <div class="input-group">
+                <input type="text" class="form-control" 
+                       placeholder="{{text.headerSearchPlaceHolder[selectedLanguage.value]}}" name="query"
+                       ng-enter="invokeSearch()"
+                       ng-model="searchQuery.value">
+                <span class="input-group-btn">
+                    <a href="javascript:;" class="btn"
+                       ng-click="invokeSearch()">
+                        <i class="icon-magnifier"></i>
+                    </a>
+                </span>
+            </div>
+        </form>
+        <!-- END HEADER SEARCH BOX -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            <span></span>
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN LANGUAGE BAR -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-language">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img alt="{{selectedLanguage.name}}" src="~/app/assets/m4.7/global/img/flags/england.png" ng-if="selectedLanguage.value === 'en'">
+                        <img alt="{{selectedLanguage.name}}" src="~/app/assets/m4.7/global/img/flags/vn.png" ng-if="selectedLanguage.value === 'vn'">
+                        <span class="langname"> {{selectedLanguage.name}} </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li ng-repeat="lang in availableLanguages">
+                            <a href="javascript:;" ng-click="selectLanguage(lang)">
+                                <img alt="{{lang.name}}" src="~/app/assets/m4.7/global/img/flags/england.png" ng-if="lang.value === 'en'">
+                                <img alt="{{lang.name}}" src="~/app/assets/m4.7/global/img/flags/vn.png" ng-if="lang.value === 'vn'">
+                                {{lang.name}}
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
+                <!-- END LANGUAGE BAR -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
     </div>
-</header>
-<!-- END: HEADER -->
-<!-- END: LAYOUT/HEADERS/HEADER-1 -->
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->

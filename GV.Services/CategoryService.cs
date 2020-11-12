@@ -56,10 +56,10 @@ namespace GV.Services
 
         public List<CategoryTreeNode> GetSidebarCategories(Language lang)
         {
-            var result = GetCategories(null, lang).Select(c => new CategoryTreeNode(c)).ToList();
+            var result = GetCategories(null, lang).Select(c => new CategoryTreeNode(c)).OrderBy(cat => cat.Id).ToList();
             foreach(var c in result)
             {
-                c.Items = GetCategories(c.Id, lang).Select(subItem => new CategoryTreeNode(subItem)).ToList();
+                c.Items = GetCategories(c.Id, lang).Select(subItem => new CategoryTreeNode(subItem)).OrderBy(cat => cat.Id).ToList();
             }
 
             return result;

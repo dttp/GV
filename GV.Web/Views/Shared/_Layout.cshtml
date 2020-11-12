@@ -21,7 +21,7 @@
     <meta content="GVCompany Ltd " name="description" />
     <meta content="GVCompany.com" name="author" />
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700&subset=latin,cyrillic-ext,greek-ext,cyrillic,latin-ext,vietnamese,greek' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Hind:400,500,300,600,700' rel='stylesheet' type='text/css'>
+
     <link href="~/app/assets/plugins/flag-icon-css/css/flag-icon.min.css" rel="stylesheet" />
     <link href="~/app/assets/plugins/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/app/assets/plugins/simple-line-icons-2.3.2/css/simple-line-icons.css" rel="stylesheet" />
@@ -42,21 +42,52 @@
     <!-- BEGIN: PAGE STYLES -->
     <!-- END: PAGE STYLES -->
     <!-- BEGIN THEME STYLES -->
-    <link href="~/app/assets/jango/base/css/plugins.css" rel="stylesheet" />
-    <link href="~/app/assets/jango/base/css/components.css" rel="stylesheet" />
-    <link href="~/app/assets/jango/base/css/themes/default.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/global/css/components.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/global/css/plugins.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/layouts/layout/css/layout.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/layouts/layout/css/themes/light2.min.css" rel="stylesheet" />
+
     <link href="~/app/assets/css/custom.css" rel="stylesheet" />
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="~/app/assets/imgs/favicon.ico" />
 </head>
-<body class="c-layout-header-fixed" ng-app="gv.app" ng-controller="coreCtrl">
+
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-header-fixed page-sidebar-fixed page-content-white page-boxed" ng-app="gv.app" ng-controller="coreCtrl" ng-cloak>
     <div id="WEBAPI_ENDPOINT_ID" style="display:none;">@GV.Core.GVConfig.Instance.WebAPIEndpoint</div>
-    @Html.Partial("_Header")
+    <div class="page-wrapper">
+        @Html.Partial("_Header")
 
-    @RenderBody()
+        <div class="clearfix"></div>
+        <!-- BEGIN CONTAINER -->
+        <div class="container">
+            <div class="page-container">
+                <!-- BEGIN SIDEBAR -->
+                @Html.Partial("_Sidebar")
+                <!-- END SIDEBAR -->
+                <!-- BEGIN CONTENT -->
+                <div class="page-content-wrapper">
+                    @RenderBody()
+                </div>
+                <!-- END CONTENT -->
 
-    @Html.Partial("_Footer")
+                @Html.Partial("_Footer")
+            </div>
 
+
+        </div>
+        <!-- END CONTAINER -->
+
+    </div>
     <!-- BEGIN: LAYOUT/BASE/BOTTOM -->
     <!-- BEGIN: CORE PLUGINS -->
     <script src="~/app/assets/js/const.js"></script>
@@ -65,47 +96,40 @@
     <script src="~/app/assets/plugins/angularjs-1.6.4/angular.js"></script>
     <script src="~/app/assets/plugins/angularjs-1.6.4/angular-sanitize.min.js"></script>
     <script src="~/app/assets/plugins/angularjs-1.6.4/angular-animate.min.js"></script>
-    <script src="~/app/assets/plugins/lodash-4.13.1/lodash.js"></script>
-    <script src="~/app/assets/plugins/ngstorage/ngStorage.min.js"></script>
-    <script src="~/app/assets/plugins/UI Bootstrap/ui-bootstrap-tpls-1.3.3.min.js"></script>
-    <script src="~/app/assets/plugins/angular-toastr/angular-toastr.tpls.min.js"></script>
-    <script src="~/app/assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
+    <script src="~/app/assets/js/Base64.js"></script>
     <script src="~/app/assets/js/Util.js"></script>
+    <script src="~/app/assets/plugins/lodash/4.17.15/lodash.min.js"></script>
+
     <!-- END: CORE PLUGINS -->
     <!-- BEGIN: LAYOUT PLUGINS -->
-    @*<script src="assets/plugins/revo-slider/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/revo-slider/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
-        <script src="assets/plugins/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>*@
-    <!-- END: LAYOUT PLUGINS -->
-    <!-- BEGIN: THEME SCRIPTS -->
-    <script src="~/app/assets/jango/plugins/owl-carousel/angular.owlcarousel.directive.js"></script>
-    <script src="~/app/assets/plugins/lightgallery/ng-lightgallery.js"></script>
-    <script src="~/app/assets/plugins/angular-slick-carousel/angular-slick.min.js"></script>
-    <script src="~/app/assets/plugins/ngMap/ng-map.min.js"></script>
+    <script src="~/app/assets/plugins/angular-toastr/angular-toastr.tpls.js"></script>
+    @*<script src="~/app/assets/plugins/angular-cookie/angular-cookie.min.js"></script>*@
+    <script src="~/app/assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
+    <script src="~/app/assets/plugins/ngstorage/ngStorage.min.js"></script>
+    <script src="~/app/assets/plugins/angular-paging/paging.min.js"></script>
 
     <script src="~/app/services/alertService.js"></script>
     <script src="~/app/services/xhttpService.js"></script>
+    <script src="~/app/directives/ngEnter.js"></script>
     <script src="~/app/services/authInterceptorService.js"></script>
-    <script src="~/app/services/authService.js"></script>
-    <script src="~/app/app.js"></script>
-    <script src="~/app/services/gv.modal.js"></script>
-    <script src="~/app/services/gv.rest.article.js"></script>
-    <script src="~/app/services/gv.rest.category.js"></script>
-    <script src="~/app/services/gv.rest.fsSvc.js"></script>
-    <script src="~/app/services/gv.rest.setting.js"></script>
-    <script src="~/app/assets/jango/base/js/components.js"></script>
-    <script src="~/app/assets/jango/base/js/app.js"></script>
-    <script src="~/app/components/core/core.js"></script>
+    @RenderSection("plugin", required: false)
+    <!-- END: LAYOUT PLUGINS -->
+    <!-- BEGIN: THEME SCRIPTS -->
+    <script src="~/app/assets/m4.7/global/scripts/app.js"></script>
     <script>
         $(document).ready(function () {
             App.init(); // init core
         });
     </script>
+    <script src="~/app/app.js"></script>
+    <script src="~/app/services/gv.rest.category.js"></script>
+    <script src="~/app/services/gv.rest.fsSvc.js"></script>
+    <script src="~/app/services/sideBarMenuSvc.js"></script>
     @RenderSection("js", required: false)
+    <script src="~/app/components/core/core.js"></script>
+    <script src="~/app/assets/m4.7/layouts/layout/scripts/layout.js"></script>
+
+
     <!-- END: THEME SCRIPTS -->
     <!-- END: LAYOUT/BASE/BOTTOM -->
 </body>
