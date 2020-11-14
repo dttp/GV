@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hashids.net, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hashids.net.1.3.0\lib\net45\Hashids.net.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.7.5\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -66,6 +69,7 @@
     </Compile>
     <Compile Include="BaseHttpClient.cs" />
     <Compile Include="CryptoUtil.cs" />
+    <Compile Include="EmailHelper.cs" />
     <Compile Include="IdHelper.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +79,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GV.Model\GV.Model.csproj">
+      <Project>{885A3D71-6B4F-4B81-8973-4A4A3CE780E1}</Project>
+      <Name>GV.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

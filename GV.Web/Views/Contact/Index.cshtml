@@ -2,7 +2,7 @@
     <!-- BEGIN PAGE HEADER-->
     <!-- BEGIN PAGE TITLE-->
     <h1 class="page-title">
-        {{locale.pageTitle[selectedLanguage.value]}}        
+        {{locale.pageTitle[selectedLanguage.value]}}
     </h1>
     <!-- END PAGE TITLE-->
     <!-- END PAGE HEADER-->
@@ -43,35 +43,33 @@
 
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal" name="contact">
+                    <form class="form-horizontal" name="contact" novalidate>
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">{{locale.section.contactForm.label.yourName[selectedLanguage.value]}}</label>
                                 <div class="col-md-6">
                                     <input type="text" name="yourName" class="form-control" ng-model="contactInfo.YourName" required>
                                     <span class="help-block"
-                                          ng-show="hasError(contact.yourName, 'required')"> 
-                                        {{locale.section.contactForm.error.yourNameRequired[selectedLanguage.value]}} 
+                                          ng-show="hasError(contact.yourName, 'required')">
+                                        {{locale.section.contactForm.error.yourNameRequired[selectedLanguage.value]}}
                                     </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">{{locale.section.contactForm.label.yourEmail[selectedLanguage.value]}}</label>
                                 <div class="col-md-6">
-                                    <div class="input-group">
-                                        <input type="email" class="form-control" name="yourEmail" ng-model="contactInfo.YourEmail" required>
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-envelope"></i>
-                                        </span>
-                                        <span class="help-block"
-                                              ng-show="hasError(contact.yourEmail, 'required')">
-                                            {{locale.section.contactForm.error.yourEmailRequired[selectedLanguage.value]}}
-                                        </span>
-                                        <span class="help-block"
-                                              ng-show="hasError(contact.yourEmail, 'invalid')">
-                                            {{locale.section.contactForm.error.yourEmailInvalid[selectedLanguage.value]}}
-                                        </span>
-                                    </div>
+                                    <input type="email" class="form-control" name="yourEmail" 
+                                           ng-model="contactInfo.YourEmail" 
+                                           required 
+                                           ng-pattern="emailPattern">
+                                    <span class="help-block"
+                                          ng-show="hasError(contact.yourEmail, 'required')">
+                                        {{locale.section.contactForm.error.yourEmailRequired[selectedLanguage.value]}}
+                                    </span>
+                                    <span class="help-block"
+                                          ng-show="hasError(contact.yourEmail, 'pattern')">
+                                        {{locale.section.contactForm.error.yourEmailInvalid[selectedLanguage.value]}}
+                                    </span>
                                 </div>
                             </div>
 
@@ -90,9 +88,10 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn green"
-                                            ng-click="submitForm()">
+                                            ng-disabled="contact.$invalid || !contact.$dirty"
+                                            ng-click="submitForm(contact)">
                                         {{locale.section.contactForm.label.submitButton[selectedLanguage.value]}}
-                                    </button>                                    
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -104,5 +103,6 @@
 </div>
 
 @section js {
+    <script src="~/app/services/gv.rest.contact.js"></script>
     <script src="~/app/components/contact/contact.js"></script>
 }

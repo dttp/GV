@@ -161,9 +161,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AcceptVerbAttribute.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\FSController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\UserController.cs" />

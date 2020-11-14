@@ -1,5 +1,6 @@
 ﻿angular.module('gv.app.contact')
-    .controller('contactCtrl', function ($scope) {
+    .controller('contactCtrl', function ($scope, $contact) {
+        $scope.emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         $scope.locale = {
             pageTitle: {
                 en: 'Contact Us',
@@ -58,6 +59,12 @@
                         }
                     }
                 }
+            },
+            message: {
+                sendSuccess: {
+                    en: 'Thank you for your message. We will check and feedback to you shortly.',
+                    vn: 'Cám ơn bạn đã gửi câu hỏi. Chúng tôi sẽ kiểm tra và phản hồi sớm nhất có thể.'
+                }
             }
         }
 
@@ -70,8 +77,15 @@
         };
         
 
-        $scope.submitForm = function () {
-            
+        $scope.submitForm = function (form) {
+            if (!form.$invalid) {
+                $contact.sendMessage($scope.contactInfo).then(function () {
+                    $scope.alertSvc.addSuccess($scope.locale.message.sendSuccess[$scope.selectedLanguage.value]);
+                    $scope.reset();
+                });
+            } else {
+                form.$dirty = true;
+            }
         };
 
         $scope.init = function () {

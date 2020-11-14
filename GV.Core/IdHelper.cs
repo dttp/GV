@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using HashidsNet;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -23,6 +24,18 @@ namespace GV.Core
             }
             return result.ToString();
         }
+        public static string Encode(string text)
+        {
+            var bytes = Encoding.UTF8.GetBytes(text);
+            var hashIds = new Hashids("GvCompany$2020");
+            return hashIds.Encode(bytes.Select(b => (int)b));
+        }
 
+        public static string Decode(string encodedText)
+        {
+            var hashIds = new Hashids("GvCompany$2020");
+            var intArr = hashIds.Decode(encodedText);
+            return Encoding.UTF8.GetString(intArr.Select(i => (byte)i).ToArray());
+        }
     }
 }
