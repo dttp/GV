@@ -57,6 +57,7 @@
     <Compile Include="Article.cs" />
     <Compile Include="Breadcrumb.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="ContactUsInfo.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="FileSystemObject.cs" />
     <Compile Include="ForbiddenException.cs" />

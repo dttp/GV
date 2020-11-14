@@ -1,12 +1,46 @@
 ﻿<!-- BEGIN FOOTER -->
 <div class="page-footer">
-    <div class="page-footer-inner">
-        2014 &copy; Metronic by keenthemes.
+    <div class="page-footer-upper">
+        <div class="footer-logo">
+            <img src="~/app/assets/imgs/footer-logo.png" />
+        </div>
+        <div class="footer-links">
+            <ul class="footer-links--wrapper">                
+                <li ng-repeat="c in sidebarMenu.items" ng-show="!$first && !$last" class="link-item">
+                    <a href="c.Url">
+                        {{c.Name}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <ul class="footer-contact--wrapper">
+                <li>
+                    <a href="javascript:;">
+                        <i class="fa fa-map-pin"></i>
+                        {{locale.footerContactAddress[selectedLanguage.value]}}
+                    </a>
+                </li>
+                <li>
+                    <a href="tel:+842462955377">
+                        <i class="fa fa-phone"></i>
+                        (+84 24) 62955377
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:info@gvcompany.com">
+                        <i class="fa fa-envelope"></i>
+                        info@gvcompany.com
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-cert">
+            <img src="~/app/assets/imgs/footer-cert.png" />
+        </div>
     </div>
-    <div class="page-footer-tools">
-        <span class="go-top">
-            <i class="fa fa-angle-up"></i>
-        </span>
-    </div>
+    <div class="page-footer-copyright">
+        &copy; Copyright GV Company LTD 2020
+    </div>    
 </div>
 <!-- END FOOTER -->

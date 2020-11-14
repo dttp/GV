@@ -111,7 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\assets\imgs\cat_svc_1.png" />
+    <Content Include="app\assets\imgs\cat_svc_2.png" />
+    <Content Include="app\assets\imgs\cat_svc_3.png" />
+    <Content Include="app\assets\imgs\cat_svc_4.png" />
+    <Content Include="app\assets\imgs\cat_svc_5.png" />
     <Content Include="app\assets\imgs\favicon.ico" />
+    <Content Include="app\assets\imgs\footer-cert.png" />
+    <Content Include="app\assets\imgs\footer-logo.png" />
     <Content Include="app\assets\imgs\gv-logo.png" />
     <Content Include="app\assets\imgs\home-hero.jpg" />
     <Content Include="app\assets\imgs\Spinner-1s-284px.png" />
@@ -1742,6 +1749,9 @@
     <Content Include="app\assets\plugins\simple-line-icons-2.3.2\.gitignore" />
     <Content Include="app\assets\plugins\simple-line-icons-2.3.2\css\simple-line-icons.css" />
     <Content Include="app\assets\plugins\simple-line-icons-2.3.2\fonts\Simple-Line-Icons.svg" />
+    <Content Include="app\assets\plugins\slimscroll\jquery.slimscroll.js" />
+    <Content Include="app\assets\plugins\socicon\fonts\Socicon.svg" />
+    <Content Include="app\assets\plugins\socicon\style.css" />
     <Content Include="app\assets\plugins\UI Bootstrap\ui-bootstrap-tpls-1.3.3.min.js" />
     <Content Include="app\components\article\article.js" />
     <Content Include="app\components\category\category.js" />
@@ -1856,6 +1866,10 @@
     <Content Include="app\assets\plugins\angular-slick-carousel\slick-1.8.1\slick\slick-theme.scss" />
     <Content Include="app\assets\plugins\angular-slick-carousel\slick-1.8.1\slick\slick.less" />
     <Content Include="app\assets\plugins\angular-slick-carousel\slick-1.8.1\slick\slick.scss" />
+    <Content Include="app\assets\plugins\socicon\fonts\Socicon.eot" />
+    <Content Include="app\assets\plugins\socicon\fonts\Socicon.ttf" />
+    <Content Include="app\assets\plugins\socicon\fonts\Socicon.woff" />
+    <Content Include="app\assets\plugins\socicon\fonts\Socicon.woff2" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />

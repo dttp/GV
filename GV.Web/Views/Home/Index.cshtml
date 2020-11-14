@@ -3,10 +3,45 @@
 }
 <!-- BEGIN CONTENT -->
 <div class="page-content" ng-controller="homeCtrl">
-    <div class="hero">        
-        <img src="~/app/assets/imgs/home-hero.jpg"  alt="hero image"/>
+    <div class="hero">
+        <img src="~/app/assets/imgs/home-hero.jpg" alt="hero image" />
     </div>
-    
+    <div class="home-section">
+        <div class="home-section--title">
+            {{locale.section.services.title[selectedLanguage.value]}}
+        </div>
+        <div class="home-section--body">
+            <ul class="service-categories">
+                <li ng-repeat="c in servicesCategories"
+                    class="service-item">
+                    <a>
+                        <span class="service-item--image">
+                            <img ng-src="{{c.Image}}" alt="Image"/>
+                        </span>
+                        <span class="service-item--text">
+                            {{c.Name}}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="home-section">
+        <div class="home-section--title">
+            {{locale.section.news.title[selectedLanguage.value]}}
+        </div>
+        <div class="home-section--body">
+
+        </div>
+    </div>
+    <div class="home-section">
+        <div class="home-section--title">
+            {{locale.section.clients.title[selectedLanguage.value]}}
+        </div>
+        <div class="home-section--body">
+
+        </div>
+    </div>
 </div>
 <!-- END CONTENT -->
 

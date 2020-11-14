@@ -19,7 +19,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
     var sidebarMenu = null;
 
     var categoryIconMapping = {
-        'cat_0_services': 'icon-bar-chart',
+        'cat_0_services': 'fa fa-bar-chart',
         'cat_1_news': 'icon-grid',
         'cat_2_regulation': 'fa fa-balance-scale'
     };
@@ -43,6 +43,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
                         Selected: false
                     };
 
+                    if (!item.Icon) item.Icon = 'fa fa-circle small';
 
                     _.each(c.Items, function (subCat) {
                         var subItem = {
@@ -54,6 +55,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
                             Items: [],
                             Selected: false
                         };
+                        if (!subItem.Icon) subItem.Icon = 'fa fa-circle small';
                         item.Items.push(subItem);
                     });
 
@@ -81,7 +83,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
                 Id: "sbAbout",
                 Name: "About Us",
                 Type: "MenuItem",
-                Url: "/aboutus",
+                Url: "/about",
                 Icon: "icon-speech",
                 Items: [],
                 Selected: false
@@ -90,7 +92,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
                 Id: "sbContact",
                 Name: "Contact Us",
                 Type: "MenuItem",
-                Url: "",
+                Url: "/contact",
                 Icon: "icon-envelope",
                 Items: [],
                 Selected: false

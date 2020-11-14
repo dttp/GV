@@ -1,86 +1,108 @@
-﻿<div class="c-layout-page" ng-controller="contactCtrl">
-    <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
-    <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
-        <div class="container">
-            <div class="c-page-title c-pull-left">
-                <h3 class="c-font-uppercase c-font-bold">{{labels[selectedLanguage.value].pageTitle}}</h3>
+﻿<div class="page-content" style="min-height: 1382px;" ng-controller="contactCtrl">
+    <!-- BEGIN PAGE HEADER-->
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title">
+        {{locale.pageTitle[selectedLanguage.value]}}        
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-green-sharp">
+                        <span class="caption-subject uppercase"> {{locale.section.contactInfo.caption[selectedLanguage.value]}}</span>
+                    </div>
+
+                </div>
+                <div class="portlet-body">
+                    <address>
+                        <i class="icon-location-pin"></i>
+                        {{locale.section.contactInfo.address[selectedLanguage.value]}}
+                    </address>
+                    <address>
+                        <a href="tel:+842462955377">
+                            <i class="fa fa-phone"></i>
+                            (+84 24) 62955377
+                        </a>
+                    </address>
+                    <address>
+                        <a href="mailto:info@gvcompany.com">
+                            <i class="fa fa-envelope"></i>
+                            info@gvcompany.com
+                        </a>
+                    </address>
+                </div>
             </div>
-            <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
-                <li>
-                    <a href="/">{{labels[selectedLanguage.value].homeTitle}}</a>
-                </li>
-                <li>
-                    /
-                </li>
-                <li class="c-state_active">
-                    {{labels[selectedLanguage.value].pageTitle}}
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
 
-    <div class="c-content-box c-size-md">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="c-content-blog-post-1-view">
-                        <div class="c-content-blog-post-1">
-                            <div class="c-content-title-1">
-                                <h3 class="c-title c-font-uppercase c-font-bold">{{labels[selectedLanguage.value].mapTitle}}</h3>
-                                <div class="c-line-left">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-yellow-gold">
+                        <span class="caption-subject uppercase"> {{locale.section.contactForm.caption[selectedLanguage.value]}}</span>
+                    </div>
+
+                </div>
+                <div class="portlet-body form">
+                    <form class="form-horizontal" name="contact">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.yourName[selectedLanguage.value]}}</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="yourName" class="form-control" ng-model="contactInfo.YourName" required>
+                                    <span class="help-block"
+                                          ng-show="hasError(contact.yourName, 'required')"> 
+                                        {{locale.section.contactForm.error.yourNameRequired[selectedLanguage.value]}} 
+                                    </span>
                                 </div>
                             </div>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.7434056884963!2d105.82331641546976!3d21.042950585990727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab08f2f5b6a3%3A0x70c989d575621c99!2zNDcgTmd1eeG7hW4gxJDDrG5oIFRoaSwgVGh14bu1IEtodcOqLCBUw6J5IEjhu5MsIEjDoCBO4buZaSAxMjQzMTYsIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1586749168292!5m2!1sen!2s"  frameborder="0" style="border:0; width: 100%; height: 300px" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-
-                            <div class="c-title c-font-bold c-font-uppercase">
-                                <a href="#">{{contactArticle.Name}}</a>
-                            </div>
-
-                            <div class="c-desc" ng-bind-html="contactArticle.Data">
-                            </div>
-                            <div class="c-comments">
-                                <div class="c-content-title-1">
-                                    <h3 class="c-font-uppercase c-font-bold">{{labels[selectedLanguage.value].leaveMsgTitle}}</h3>
-                                    <div class="c-line-left">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.yourEmail[selectedLanguage.value]}}</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" name="yourEmail" ng-model="contactInfo.YourEmail" required>
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-envelope"></i>
+                                        </span>
+                                        <span class="help-block"
+                                              ng-show="hasError(contact.yourEmail, 'required')">
+                                            {{locale.section.contactForm.error.yourEmailRequired[selectedLanguage.value]}}
+                                        </span>
+                                        <span class="help-block"
+                                              ng-show="hasError(contact.yourEmail, 'invalid')">
+                                            {{locale.section.contactForm.error.yourEmailInvalid[selectedLanguage.value]}}
+                                        </span>
                                     </div>
                                 </div>
-                                <form novalidate name="msgForm">
-                                    <div class="form-group">
-                                        <input type="text"
-                                               placeholder="{{labels[selectedLanguage.value].phName}}"
-                                               class="form-control c-square"
-                                               ng-model="message.Name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text"
-                                               placeholder="{{labels[selectedLanguage.value].phEmail}}"
-                                               class="form-control c-square"
-                                               required
-                                               ng-model="message.Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea rows="8" name="message" placeholder="{{labels[selectedLanguage.value].phMsg}}" ng-model="message.Data" class="form-control c-square"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button"
-                                                ng-disabled="msgForm.$invalid"
-                                                class="btn c-theme-btn c-btn-uppercase btn-md c-btn-sbold btn-block c-btn-square"
-                                                ng-click="sendMessage()">
-                                            {{labels[selectedLanguage.value].submitBtnText}}
-                                        </button>
-                                    </div>
-                                </form>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.message[selectedLanguage.value]}}</label>
+                                <div class="col-md-6">
+                                    <textarea cols="1" rows="5" class="form-control " name="message" ng-model="contactInfo.Message" required>><</textarea>
+                                    <span class="help-block"
+                                          ng-show="hasError(contact.message, 'required')">
+                                        {{locale.section.contactForm.error.messageRequired[selectedLanguage.value]}}
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button type="submit" class="btn green"
+                                            ng-click="submitForm()">
+                                        {{locale.section.contactForm.label.submitButton[selectedLanguage.value]}}
+                                    </button>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
+
 @section js {
-    <script src="https://maps.google.com/maps/api/js?key=AIzaSyB6c87L55s5Pirs1zQFS3hZafYygDGw64c"></script>
     <script src="~/app/components/contact/contact.js"></script>
 }

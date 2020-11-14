@@ -1,11 +1,15 @@
 ﻿angular.module('gv.app.core', ['ngEnter'])
     .controller('coreCtrl', function ($scope, $category, $sidebarMenu) {
 
-        $scope.text = {
+        $scope.locale = {
             headerSearchPlaceHolder: {
                 en: 'Search',
                 vn: 'Tìm kiếm'
-            }
+            },
+            footerContactAddress: {
+                en: 'No 60/61 Pham Tuan Tai Street North Tu Liem District, Hanoi, Vietnam',
+                vn: 'Số 60/61 Phạm Tuấn Tài, Quận Bắc Từ Liêm, Hà Nội, Việt Nam'
+            }            
         };
 
         $scope.sidebarMenu = {};
