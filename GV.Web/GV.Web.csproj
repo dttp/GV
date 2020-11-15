@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -111,11 +112,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\assets\imgs\about-hero.jpg" />
+    <Content Include="app\assets\imgs\about-history.jpg" />
+    <Content Include="app\assets\imgs\about-mission.png" />
+    <Content Include="app\assets\imgs\about-vision.png" />
     <Content Include="app\assets\imgs\cat_svc_1.png" />
     <Content Include="app\assets\imgs\cat_svc_2.png" />
     <Content Include="app\assets\imgs\cat_svc_3.png" />
     <Content Include="app\assets\imgs\cat_svc_4.png" />
     <Content Include="app\assets\imgs\cat_svc_5.png" />
+    <Content Include="app\assets\imgs\core-value-efficiency.png" />
+    <Content Include="app\assets\imgs\core-value-humanity.png" />
+    <Content Include="app\assets\imgs\core-value-quality.png" />
     <Content Include="app\assets\imgs\favicon.ico" />
     <Content Include="app\assets\imgs\footer-cert.png" />
     <Content Include="app\assets\imgs\footer-logo.png" />
@@ -1753,6 +1761,8 @@
     <Content Include="app\assets\plugins\socicon\fonts\Socicon.svg" />
     <Content Include="app\assets\plugins\socicon\style.css" />
     <Content Include="app\assets\plugins\UI Bootstrap\ui-bootstrap-tpls-1.3.3.min.js" />
+    <Content Include="app\components\about\about.css" />
+    <Content Include="app\components\about\about.js" />
     <Content Include="app\components\article\article.js" />
     <Content Include="app\components\category\category.js" />
     <Content Include="app\components\contact\contact.js" />
@@ -1871,6 +1881,7 @@
     <Content Include="app\assets\plugins\socicon\fonts\Socicon.ttf" />
     <Content Include="app\assets\plugins\socicon\fonts\Socicon.woff" />
     <Content Include="app\assets\plugins\socicon\fonts\Socicon.woff2" />
+    <Content Include="app\assets\m4.7\global\css\components.min.css.map" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
@@ -1879,6 +1890,7 @@
     <Content Include="Views\Article\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Pub.pubxml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GV.Core\GV.Core.csproj">

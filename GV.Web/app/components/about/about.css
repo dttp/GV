@@ -1,0 +1,132 @@
+﻿.hero {
+    border-bottom: 1px solid #ececec;
+    color: #11584a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.hero--text {
+    padding: 20px;
+    width: 55%;
+}
+.hero--img {
+    width: 45%;
+}
+
+.hero--text > h1 {    
+    font-size: 50px;
+    font-weight: 500;
+}
+.hero--text > small {
+    font-size: 24px;
+    padding: 15px 0;
+    display: block;
+}
+.hero--text > .introduce {
+    font-weight: 500;
+    font-size: 15px;
+    color: black;
+}
+
+.hero--img > img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.about-vision--wrapper {
+    margin: 15px 5px;
+}
+.about-vision {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+.about-vision:first-child {
+    border-right: 1px solid #ececec;
+}
+
+.about-vision--image {
+    padding: 0 20px;    
+}
+
+.about-vision--image > img {
+    object-fit: contain;    
+    width: 168px;
+}
+
+.about-vision--text {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.core-value {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.core-value--item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #11584a;
+}
+
+.core-value--item-text {
+    font-size: 22px;
+    padding: 15px 0;
+}
+
+.about-history {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+
+    .hero {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .hero--text, .hero--img {
+        width: 100%;
+    }
+    .hero--text{ 
+        padding: 0 0 20px 0;
+    }
+    .hero--text > h1 {
+        font-size: 36px;
+    }
+
+   .about-vision {
+       flex-direction: column;
+       align-items: center;       
+   }
+    .about-vision:first-child {
+        border-right: none;
+        border-bottom: 1px solid #ececec;
+        padding-bottom: 20px;
+    }
+   .about-vision--image {
+       margin-bottom: 20px;
+   }
+   .about-vision--image > img {
+       width: 120px;
+   }
+
+   .core-value {
+       flex-direction: column;
+       align-items: center;
+   }
+
+   .about-history > img {       
+       width: 120%;
+   }
+}
+

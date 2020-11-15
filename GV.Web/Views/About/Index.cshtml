@@ -1,0 +1,91 @@
+﻿@section css {
+    <link href="~/app/components/about/about.css" rel="stylesheet" />
+}
+<div class="page-content" style="min-height: 1382px;" ng-controller="aboutCtrl">
+    <div class="hero">
+        <div class="hero--text">
+            <h1>
+                {{locale.hero.title[selectedLanguage.value]}}
+            </h1>
+            <small>
+                {{locale.hero.small[selectedLanguage.value]}}
+            </small>
+            <div class="introduce">
+                {{locale.hero.introduce[selectedLanguage.value]}}
+            </div>
+        </div>
+        <div class="hero--img">
+            <img src="~/app/assets/imgs/about-hero.jpg" />
+        </div>
+    </div>
+    <div class="gv-section">
+        <div class="gv-section--title">
+            {{locale.section.history.title[selectedLanguage.value]}}
+        </div>
+        <div class="gv-section--body about-history">            
+            <img src="~/app/assets/imgs/about-history.jpg" />
+        </div>
+    </div>
+
+    <div class="gv-section">
+        <div class="gv-section--title">
+            {{locale.section.visionMission.title[selectedLanguage.value]}}
+        </div>
+        <div class="gv-section--body">
+            <div class="row about-vision--wrapper">
+                <div class="col-md-6 col-sm-12 about-vision">
+                    <div class="about-vision--image">
+                        <img src="~/app/assets/imgs/about-vision.png" />
+                    </div>
+                    <div class="about-vision--text">
+                        {{locale.section.visionMission.vision[selectedLanguage.value]}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 about-vision">
+                    <div class="about-vision--image">
+                        <img src="~/app/assets/imgs/about-mission.png" />
+                    </div>
+                    <div class="about-vision--text">
+                        {{locale.section.visionMission.mission[selectedLanguage.value]}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gv-section">
+        <div class="gv-section--title">
+            {{locale.section.coreValue.title[selectedLanguage.value]}}
+        </div>
+        <div class="gv-section--body">
+            <div class="core-value">
+                <div class="core-value--item">
+                    <img src="~/app/assets/imgs/core-value-quality.png" />
+                    <span class="core-value--item-text">
+                        {{locale.section.coreValue.item.quality[selectedLanguage.value]}}
+                    </span>
+                </div>
+                <div class="core-value--item">
+                    <img src="~/app/assets/imgs/core-value-efficiency.png" />
+                    <span class="core-value--item-text">
+                        {{locale.section.coreValue.item.efficiency[selectedLanguage.value]}}
+                    </span>
+                </div>
+                <div class="core-value--item">
+                    <img src="~/app/assets/imgs/core-value-humanity.png" />
+                    <span class="core-value--item-text">
+                        {{locale.section.coreValue.item.humanity[selectedLanguage.value]}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section plugin {
+
+}
+
+@section js {
+    <script src="~/app/components/about/about.js"></script>
+}

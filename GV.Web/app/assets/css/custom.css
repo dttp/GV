@@ -216,3 +216,18 @@ a.gv-social:hover {
     .footer-logo img {width: auto !important;}
 }
 /* -- FOOTER --*/
+
+
+.gv-section {
+    margin: 10px 20px;
+    border-bottom: 1px solid #ececec;
+}
+
+.gv-section--title {
+    padding: 10px 0 15px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #11584a;
+    font-size: 20px;
+    font-weight: bold;
+}

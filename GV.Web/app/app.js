@@ -5,15 +5,11 @@ angular.module('gv.app.home',
         //'ngLightGallery',
         //'slickCarousel'
     ]);
+angular.module('gv.app.about', []);
 angular.module('gv.app.services', []);
-
-angular.module('gv.app.contact', [
-        //'ngMap',
-    ]);
-angular.module('gv.app.article', [
-]);
-angular.module('gv.app.category', [
-]);
+angular.module('gv.app.contact', []);
+angular.module('gv.app.article', []);
+angular.module('gv.app.category', []);
 var gvWebApp = angular.module('gv.app',
     [
         'ngHttp',
@@ -28,6 +24,7 @@ var gvWebApp = angular.module('gv.app',
         'toastr',
         'gv.app.core',
         'gv.app.home',
+        'gv.app.about',
         'gv.app.contact',
         'gv.app.category',
         'gv.app.article'

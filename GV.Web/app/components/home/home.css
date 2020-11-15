@@ -6,20 +6,6 @@
     object-fit: contain;
 }
 
-.home-section {
-    margin: 10px 20px;
-    border-bottom: 1px solid #ececec;
-}
-
-.home-section--title {
-    padding: 10px 0;
-    text-align: center;
-    text-transform: uppercase;
-    color: #11584a;
-    font-size: 18px;
-    font-weight: bold;
-}
-
 .service-categories {
     list-style: none;
     margin: 0;
