@@ -1,5 +1,5 @@
 ﻿var module = angular.module('gv.app.services');
-module.factory('$sidebarMenu', function ($category, $rootScope) {
+module.factory('$sidebarMenu', function ($category, $rootScope, $article) {
 
     var sidebarMenu = null;
 
@@ -96,7 +96,14 @@ module.factory('$sidebarMenu', function ($category, $rootScope) {
         self.items = [];
 
         self.onItemClick = function (item) {
-            location.href = item.Url;
+            if (_.startsWith(item.Id, 'cat_svc_')) {
+                $article.getByCategory(item.Id, $rootScope.selectedLanguage.value, true, false).then(function (response) {
+                    var article = response.data.Items[0];
+                    location.href = '/article?id=' + article.Id;
+                });
+            } else {
+                location.href = item.Url;
+            }
         };
 
         self.initialize = function () {

@@ -22,22 +22,12 @@ namespace GV.WebAPI.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public List<Article> GetByCategory(string catId, Language lang)
+        public PaginationResult<Article> GetByCategory(string catId, Language lang, bool createNew = false, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = false)
         {
             return Execute(() =>
             {
                 var svc = new ArticleService(Context);
-                return svc.GetByCategory(catId, lang);
-            });
-        }
-
-        [AcceptVerbs("GET")]
-        public List<Article> GetAllByCategory(string catId, Language lang)
-        {
-            return Execute(() =>
-            {
-                var svc = new ArticleService(Context);
-                return svc.GetAllByCategory(catId, lang);
+                return svc.GetByCategory(catId, lang, createNew, detail, startIndex, pageSize, sortBy, sortAsc);
             });
         }
 

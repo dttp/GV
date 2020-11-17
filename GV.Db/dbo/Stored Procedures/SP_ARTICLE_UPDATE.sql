@@ -1,17 +1,17 @@
 ﻿CREATE PROCEDURE [dbo].[SP_ARTICLE_UPDATE]
-	@id nvarchar(25),
-	@lang nvarchar(3),
-	@name nvarchar(100),
-	@description nvarchar(500) = null,
-	@data nvarchar(max) = null,	
-	@thumbnail nvarchar(1000)
+	@p_id nvarchar(25),
+	@p_lang nvarchar(3),
+	@p_name nvarchar(100),
+	@p_description nvarchar(500) = null,
+	@p_data nvarchar(max) = null,	
+	@p_thumbnail nvarchar(1000)
 AS
 	UPDATE Article
 	SET
-		Name = @name,
-		Description = @description,
-		Data = @data,
+		Name = @p_name,
+		Description = @p_description,
+		Data = @p_data,
 		LastModifiedDate = GETDATE(),
-		Thumbnail = @thumbnail
+		Thumbnail = @p_thumbnail
 	WHERE 
-		Id = @id AND Lang = @lang
+		Id = @p_id AND Lang = @p_lang

@@ -7,10 +7,8 @@
     [Data] NVARCHAR(MAX) NULL, 
     [CreatedDate] DATETIME NOT NULL, 
     [CategoryId] NVARCHAR(25) NOT NULL, 
-    [Visible] BIT NOT NULL DEFAULT 1, 
     [Thumbnail] NVARCHAR(1000) NULL, 
     [LastModifiedDate] DATETIME NOT NULL, 
-    [CategotyId] NVARCHAR(25) NULL, 
     PRIMARY KEY ([Id], [Lang])
 )
 

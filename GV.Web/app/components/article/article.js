@@ -1,46 +1,37 @@
-﻿angular.module('gv.app.article')
-    .controller('articleCtrl', function ($scope, $article, $category, $sce) {
+﻿var module = angular.module('gv.app.article',[]);
+module.controller('articleCtrl', function ($scope, $article, $category, $sce) {
         
-        $scope.labels = {
-            'en': {
-                pageTitle: 'Post',
-                homeTitle: 'Home',
-                categoriesTitle: 'Categories',
-            },
-            'vn': {
-                pageTitle: 'Bài viết',
-                homeTitle: 'Trang chủ',
-                categoriesTitle: 'Danh mục',
-            }
-        };
+    $scope.locale = {        
+    };
 
-        $scope.article = {};
-        $scope.breadcrumb = {};
-        $scope.subCategories = [];
+    $scope.article = {};
 
-        $scope.trustArticleContent = function () {
-            return $sce.trustAsHtml($scope.article.Data);
-        };
+    $scope.trustArticleContent = function () {
+        return $sce.trustAsHtml($scope.article.Data);
+    };
 
-        $scope.init = function () {
-            var id = Utils.getParameterByName("id");
+    $scope.init = function () {
+        var id = Utils.getParameterByName("id");
 
-            $article.getById(id, $scope.selectedLanguage.value).then(function (response) {
-                $scope.article = response.data;
-                
-                $category.getRootCategories($scope.article.CategoryId, $scope.selectedLanguage.value).then(function (response) {
-                    $scope.subCategories = response.data;
-                });
-            });
-
-            $article.getBreadcrumb(id, $scope.selectedLanguage.value).then(function (response) {
-                $scope.breadcrumb = response.data;
-            });
-        };
-
-        $scope.$on('languageChanged', function () {
-            $scope.init();
+        $article.getById(id, $scope.selectedLanguage.value).then(function (response) {
+            $scope.article = response.data;
+            updateSidebar();
         });
+    };
 
-        $scope.$on('appInitialized', function () { $scope.init(); });
+    function updateSidebar() {
+        if ($scope.article) {
+            $scope.sidebarMenu.setActive($scope.article.CategoryId);
+        }
+    }
+
+    $scope.$on('sidebarMenuReady', function () {
+        updateSidebar();
     });
+
+    $scope.$on('languageChanged', function () {
+        $scope.init();
+    });
+
+    $scope.$on('appInitialized', function () { $scope.init(); });
+});

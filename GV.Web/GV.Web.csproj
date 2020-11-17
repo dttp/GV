@@ -116,6 +116,7 @@
     <Content Include="app\assets\imgs\about-history.jpg" />
     <Content Include="app\assets\imgs\about-mission.png" />
     <Content Include="app\assets\imgs\about-vision.png" />
+    <Content Include="app\assets\imgs\banner1.jpg" />
     <Content Include="app\assets\imgs\cat_svc_1.png" />
     <Content Include="app\assets\imgs\cat_svc_2.png" />
     <Content Include="app\assets\imgs\cat_svc_3.png" />
@@ -1763,7 +1764,9 @@
     <Content Include="app\assets\plugins\UI Bootstrap\ui-bootstrap-tpls-1.3.3.min.js" />
     <Content Include="app\components\about\about.css" />
     <Content Include="app\components\about\about.js" />
+    <Content Include="app\components\article\article.css" />
     <Content Include="app\components\article\article.js" />
+    <Content Include="app\components\category\category.css" />
     <Content Include="app\components\category\category.js" />
     <Content Include="app\components\contact\contact.js" />
     <Content Include="app\components\core\core.js" />

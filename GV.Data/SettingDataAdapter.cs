@@ -23,7 +23,7 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", id), 
+                new SqlParameter("@p_id", id), 
             };
             return Call(SP_SETTING_GETSETTING, p, DataHelper.ReadSetting)?.Value;
         }
@@ -32,8 +32,8 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", setting.Id),
-                new SqlParameter("@value", setting.Value),
+                new SqlParameter("@p_id", setting.Id),
+                new SqlParameter("@p_value", setting.Value),
             };
             Call(SP_SETTING_SETSETTING, p);
         }

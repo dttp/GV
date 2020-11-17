@@ -17,6 +17,7 @@
                            'active': menuItem.Selected}">
                 <a href="{{menuItem.Url}}"
                    class="nav-link"
+                   title="{{menuItem.Name}}"
                    ng-class="{'nav-toggle': menuItem.Items.length > 0}">
                     <i class="{{menuItem.Icon}}"></i>
                     <span class="title">{{menuItem.Name}}</span>
@@ -25,7 +26,9 @@
                 </a>
                 <ul class="sub-menu" ng-if="menuItem.Items.length > 0">
                     <li ng-repeat="subItem in menuItem.Items">
-                        <a href="{{subItem.Url}}"
+                        <a href="javascript:;"
+                           ng-click="sidebarMenu.onItemClick(subItem)"
+                           title="{{subItem.Name}}"
                            class="nav-link">
                             <i class="{{subItem.Icon}}"></i>
                             {{subItem.Name}}

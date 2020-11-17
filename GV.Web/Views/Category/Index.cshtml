@@ -1,106 +1,58 @@
-﻿<style>
-    .flex-parent {
-        display: flex;
-        align-items: center;
-    }
-    li.flex-parent:before {
-        height: initial !important;
-    }
-   
-    .long-and-truncated {
-        flex: 1;
-  
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .article__thumbnail {
-        width: 100%;
-        height: 250px;
-        object-fit: contain;
-    }
-    .c-desc a {
-        font-weight: bold;
-        color: orangered;
-    }
-</style>
-<div class="c-layout-page" ng-controller="categoryCtrl">
-    <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
-    <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
-        <div class="container">
-            <div class="c-page-title c-pull-left">
-            </div>
-            <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
-                <li ng-repeat-start="item in breadcrumb.Items"
-                    ng-class="{'c-state_active' : $last}">
-                    <a href="{{ item.Id == 'home' ? '/' : '/category?id=' + item.Id }}">{{item.Name}}</a>
-                </li>
-                <li ng-repeat-end>
-                    <span ng-if="!$last">/</span>
-                </li>
-            </ul>
+﻿@section css {
+    <link href="~/app/components/category/category.css" rel="stylesheet" />
+}
+<div class="page-content" style="min-height: 1382px;" ng-controller="categoryCtrl">
+    <div class="hero">
+        <div class="hero--image">
+            <img src="~/app/assets/imgs/banner1.jpg" />
         </div>
     </div>
-    <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
-
-    <div class="c-content-box c-size-md">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="c-content-blog-post-1-list">
-                        <div class="c-content-blog-post-1" ng-repeat="a in filterArticles()">
-                            <div class="c-media" ng-if="a.Thumbnail.length > 0">
-                                <img class="article__thumbnail" src="{{a.Thumbnail}}" alt="{{a.Name}}"/>
-                            </div>
-                            <div class="c-title c-font-bold c-font-uppercase">
-                                <a href="/article?id={{a.Id}}">{{a.Name}}</a>
-                            </div>
-                            <div class="c-desc">
-                                {{a.Description}}
-                                <a href="/article?id={{a.Id}}">Read More...</a>
-                            </div>
-                        </div>
-                        
-                        <div class="c-pagination" ng-if="paging.pageCount > 1">
-                            <ul class="c-content-pagination c-theme">
-                                <li class="c-prev">
-                                    <a href="javascript:;" ng-click="gotoPage(paging.currentPage -1)"><i class="fa fa-angle-left"></i></a>
-                                </li>
-                                <li ng-repeat="i in paging.range"
-                                    ng-class="{'c-active': i + 1 === paging.currentPage}">
-                                    <a href="javascript:;" ng-click="gotoPage(i+1)">{{i + 1}}</a>
-                                </li>
-                                <li class="c-next">
-                                    <a href="javascript:;" ng-click="gotoPage(paging.currentPage + 1)"><i class="fa fa-angle-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <!-- BEGIN: CONTENT/BLOG/BLOG-SIDEBAR-1 -->
-
-                    <div class="c-content-ver-nav">
-                        <div class="c-content-title-1 c-theme c-title-md c-margin-t-40">
-                            <h3 class="c-font-bold c-font-uppercase">{{labels[selectedLanguage.value].categoriesTitle}}</h3>
-                            <div class="c-line-left c-theme-bg">
-                            </div>
-                        </div>
-                        <ul class="c-menu c-arrow-dot1 c-theme">
-                            <li ng-repeat="c in subCategories" 
-                                class="flex-parent">
-                                <a href="/category?id={{c.Id}}" title="{{c.Name}}"
-                                   class="long-and-truncated">{{c.Name}}</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- END: CONTENT/BLOG/BLOG-SIDEBAR-1 -->
-                </div>
+    <div class="article-list">
+        <p ng-show="articles.length == 0">
+            {{locale.articleList.noArticle[selectedLanguage.value]}}
+        </p>
+        <div class="article" ng-repeat="a in articles">
+            <div class="article--thumbnail">
+                <img ng-src="{{a.Thumbnail}}" />
             </div>
+            <div class="article--info">
+                <div class="title">
+                    {{a.Name}}
+                </div>
+                <div class="thumbnail-responsive">
+                    <img ng-src="{{a.Thumbnail}}" />
+                </div>
+                <div class="modified-date">
+                    <i class="fa fa-calendar">
+
+                    </i>
+                    {{a.LastModifiedDate}}
+                </div>
+                <div class="desc">
+                    <span>
+                        {{a.Description}}
+                    </span>
+
+                    <button class="btn green-dark" ng-click="gotoArticle(a)">{{locale.articleList.detailButton[selectedLanguage.value]}}</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="paging">
+            <paging page="filter.pageIndex"
+                    page-size="filter.itemsPerPage"
+                    total="filter.Total"
+                    show-first-last="false"
+                    active-class="pagingItem"
+                    show-prev-next="false"
+                    paging-action="onPagingAction(page)">
+            </paging>
         </div>
     </div>
 </div>
+@section plugin {
+    <script src="~/app/assets/plugins/angular-paging/paging.min.js"></script>
+}
 @section js {
     <script src="~/app/components/category/category.js"></script>
 }

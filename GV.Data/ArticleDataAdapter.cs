@@ -27,33 +27,39 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", SqlDbType.NVarChar) {Value = id},
-                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = lang.ToString()}
+                new SqlParameter("@p_id", SqlDbType.NVarChar) {Value = id},
+                new SqlParameter("@p_lang", SqlDbType.NVarChar) {Value = lang.ToString()}
             };
-            return Call<List<Article>>(SP_ARTICLE_GETBYID, p, DataHelper.ReadArticle).FirstOrDefault();
+            return Call<PaginationResult<Article>>(SP_ARTICLE_GETBYID, p, DataHelper.ReadArticle).Items.FirstOrDefault();
         }
 
-        public List<Article> GetByCategory(string categoryId, Language lang)
+        public PaginationResult<Article> GetByCategory(string categoryId, Language lang, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = true)
         {
             var p = new []
             {
-                new SqlParameter("@categoryId", SqlDbType.NVarChar) {Value = categoryId},
-                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = lang.ToString()}
+                new SqlParameter("@p_categoryId", SqlDbType.NVarChar) {Value = categoryId},
+                new SqlParameter("@p_lang", SqlDbType.NVarChar) {Value = lang.ToString()},
+                new SqlParameter("@p_detail", SqlDbType.Int) {Value = detail ? 1 : 0 },
+                new SqlParameter("@p_startIndex", SqlDbType.Int) {Value = startIndex},
+                new SqlParameter("@p_pageSize", SqlDbType.Int) {Value = pageSize},
+                new SqlParameter("@p_sortBy", SqlDbType.NVarChar) {Value = sortBy},
+                new SqlParameter("@p_sortAsc", SqlDbType.Int) {Value = sortAsc ? 1 : 0 },
             };
-            return Call<List<Article>>(SP_ARTICLE_GETBYCATEGORY, p, DataHelper.ReadArticle);
+
+            return Call<PaginationResult<Article>>(SP_ARTICLE_GETBYCATEGORY, p, DataHelper.ReadArticle);
         }
 
         public void Insert(Article article)
         {
             var p = new []
             {
-                new SqlParameter("@id", SqlDbType.NVarChar) {Value = article.Id},
-                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = article.Language.ToString()},
-                new SqlParameter("@name", SqlDbType.NVarChar) {Value = article.Name},
-                new SqlParameter("@description", SqlDbType.NVarChar) {Value = article.Description},
-                new SqlParameter("@data", SqlDbType.NVarChar) {Value = article.Data},
-                new SqlParameter("@categoryId", SqlDbType.NVarChar) {Value = article.CategoryId},                
-                new SqlParameter("@thumbnail", SqlDbType.NVarChar) {Value = article.Thumbnail}
+                new SqlParameter("@p_id", SqlDbType.NVarChar) {Value = article.Id},
+                new SqlParameter("@p_lang", SqlDbType.NVarChar) {Value = article.Language.ToString()},
+                new SqlParameter("@p_name", SqlDbType.NVarChar) {Value = article.Name},
+                new SqlParameter("@p_description", SqlDbType.NVarChar) {Value = article.Description},
+                new SqlParameter("@p_data", SqlDbType.NVarChar) {Value = article.Data},
+                new SqlParameter("@p_categoryId", SqlDbType.NVarChar) {Value = article.CategoryId},
+                new SqlParameter("@p_thumbnail", SqlDbType.NVarChar) {Value = string.IsNullOrEmpty(article.Thumbnail) ? "" : article.Thumbnail}
             };
             Call(SP_ARTICLE_INSERT, p);
         }
@@ -62,12 +68,12 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", SqlDbType.NVarChar) {Value = article.Id},
-                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = article.Language.ToString()},
-                new SqlParameter("@name", SqlDbType.NVarChar) {Value = article.Name},
-                new SqlParameter("@description", SqlDbType.NVarChar) {Value = article.Description},
-                new SqlParameter("@data", SqlDbType.NVarChar) {Value = article.Data},
-                new SqlParameter("@thumbnail", SqlDbType.NVarChar) {Value = article.Thumbnail}
+                new SqlParameter("@p_id", SqlDbType.NVarChar) {Value = article.Id},
+                new SqlParameter("@p_lang", SqlDbType.NVarChar) {Value = article.Language.ToString()},
+                new SqlParameter("@p_name", SqlDbType.NVarChar) {Value = article.Name},
+                new SqlParameter("@p_description", SqlDbType.NVarChar) {Value = article.Description},
+                new SqlParameter("@p_data", SqlDbType.NVarChar) {Value = article.Data},
+                new SqlParameter("@p_thumbnail", SqlDbType.NVarChar) {Value = article.Thumbnail}
             };
             Call(SP_ARTICLE_UPDATE, p);
         }
@@ -76,7 +82,7 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", SqlDbType.NVarChar) {Value = id},
+                new SqlParameter("@p_id", SqlDbType.NVarChar) {Value = id},
             };
             Call(SP_ARTICLE_DELETE, p);
         }
@@ -85,7 +91,7 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@categoryId", SqlDbType.NVarChar) {Value = catId},
+                new SqlParameter("@p_categoryId", SqlDbType.NVarChar) {Value = catId},
             };
             Call(SP_ARTICLE_DELETEBYCATEGORY, p);
         }

@@ -27,11 +27,11 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", SqlDbType.NVarChar)          {Value = c.Id},
-                new SqlParameter("@lang", SqlDbType.NVarChar)        {Value = c.Lang.ToString()},
-                new SqlParameter("@name", SqlDbType.NVarChar)        {Value = c.Name},
-                new SqlParameter("@description", SqlDbType.NVarChar) {Value = c.Description},
-                new SqlParameter("@parentId", SqlDbType.NVarChar)    {Value = (object)c.ParentId ?? DBNull.Value},
+                new SqlParameter("@p_id", SqlDbType.NVarChar)          {Value = c.Id},
+                new SqlParameter("@p_lang", SqlDbType.NVarChar)        {Value = c.Lang.ToString()},
+                new SqlParameter("@p_name", SqlDbType.NVarChar)        {Value = c.Name},
+                new SqlParameter("@p_description", SqlDbType.NVarChar) {Value = c.Description},
+                new SqlParameter("@p_parentId", SqlDbType.NVarChar)    {Value = (object)c.ParentId ?? DBNull.Value},
             };
             Call(SP_CATEGORY_INSERT, p);
             return c;
@@ -41,10 +41,10 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", SqlDbType.NVarChar)          {Value = c.Id},
-                new SqlParameter("@lang", SqlDbType.NVarChar)        {Value = c.Lang.ToString()},
-                new SqlParameter("@name", SqlDbType.NVarChar)        {Value = c.Name},
-                new SqlParameter("@description", SqlDbType.NVarChar) {Value = c.Description},
+                new SqlParameter("@p_id", SqlDbType.NVarChar)          {Value = c.Id},
+                new SqlParameter("@p_lang", SqlDbType.NVarChar)        {Value = c.Lang.ToString()},
+                new SqlParameter("@p_name", SqlDbType.NVarChar)        {Value = c.Name},
+                new SqlParameter("@p_description", SqlDbType.NVarChar) {Value = c.Description},
             };
             Call(SP_CATEGORY_UPDATE, p);
         }
@@ -53,7 +53,7 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", SqlDbType.NVarChar) {Value = id}, 
+                new SqlParameter("@p_id", SqlDbType.NVarChar) {Value = id}, 
             };
             Call(SP_CATEGORY_DELETE, p);
         }
@@ -62,8 +62,8 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@id", SqlDbType.NVarChar) {Value = id}, 
-                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = lang.ToString()}, 
+                new SqlParameter("@p_id", SqlDbType.NVarChar) {Value = id}, 
+                new SqlParameter("@p_lang", SqlDbType.NVarChar) {Value = lang.ToString()}, 
             };
             return Call(SP_CATEGORY_GETBYID, p, DataHelper.ReadCategories).FirstOrDefault();
         }
@@ -72,8 +72,8 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@parentId", SqlDbType.NVarChar) {Value = (object) parentId ?? DBNull.Value}, 
-                new SqlParameter("@lang", SqlDbType.NVarChar) {Value = lang.ToString()}, 
+                new SqlParameter("@p_parentId", SqlDbType.NVarChar) {Value = (object) parentId ?? DBNull.Value}, 
+                new SqlParameter("@p_lang", SqlDbType.NVarChar) {Value = lang.ToString()}, 
             };
             return Call(SP_CATEGORY_GETBYPARENTID, p, DataHelper.ReadCategories);
         }

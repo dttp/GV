@@ -1,68 +1,73 @@
-﻿angular.module('gv.app.category')
-    .controller('categoryCtrl', function ($scope, $article, $category, $sce) {
-        
-        $scope.labels = {
-            'en': {
-                pageTitle: 'Post',
-                homeTitle: 'Home',
-                categoriesTitle: 'Categories',
+﻿var module = angular.module('gv.app.category', ['bw.paging']);
+module.controller('categoryCtrl', function ($scope, $article, $category) {
+
+    $scope.locale = {
+        articleList: {
+            noArticle: {
+                en: 'There are no articles',
+                vn: 'Chưa có bài viết nào'
             },
-            'vn': {
-                pageTitle: 'Bài viết',
-                homeTitle: 'Trang chủ',
-                categoriesTitle: 'Danh mục',
+            detailButton: {
+                en: 'View Detail',
+                vn: 'Xem chi tiết'
             }
-        };
+        }
+    };
 
-        $scope.paging = {
-            currentPage: 1,
-            pageCount: 0,
-            itemsPerPage: 4,
-            range: []
-        };
-        $scope.gotoPage = function (p) {
-            if (p > $scope.paging.pageCount) return;
-            if (p <= 0) return;
+    $scope.filter = {
+        pageIndex: 1,
+        pageCount: 0,
+        itemsPerPage: 10,        
+        sortBy: 'LastModifiedDate',
+        sortAsc: false,
+        Total: 0
+    };
 
-            $scope.paging.currentPage = p;
-        };
-        $scope.filterArticles = function () {
-            var startIndex = ($scope.paging.currentPage - 1) * $scope.paging.itemsPerPage;
-            var endIndex = startIndex + $scope.paging.itemsPerPage;
-            return $scope.articles.slice(startIndex, endIndex);
-        };
+    $scope.onPagingAction = function (p) {
+        $scope.pageIndex.pageIndex = p;
+        refreshArticleList();
+    };
 
-        $scope.category = {};
-        $scope.articles = [];
-        $scope.subCategories = [];
-        $scope.breadcrumb = {};
+    $scope.category = {};
+    $scope.articles = [];
 
-        $scope.init = function () {
-            var id = Utils.getParameterByName("id");
-            $category.getById(id, $scope.selectedLanguage.value).then(function (response) {
-                $scope.category = response.data;
-            });
+    $scope.gotoArticle = function (a) {
+        location.href = '/article?id=' + a.Id;
+    };
 
-            $category.getRootCategories(id, $scope.selectedLanguage.value).then(function (response) {
-                $scope.subCategories = response.data;
-            });
+    function refreshArticleList() {
+        var startIndex = ($scope.filter.pageIndex - 1) * $scope.filter.itemsPerPage;
+        var id = Utils.getParameterByName("id");
 
-            $article.getAllByCategory(id, $scope.selectedLanguage.value).then(function (response) {
-                $scope.articles = response.data;
-                $scope.paging.pageCount = Math.floor($scope.articles.length / $scope.paging.itemsPerPage);
-                if ($scope.paging.pageCount * $scope.paging.itemsPerPage < $scope.articles.length) $scope.paging.pageCount ++;
-                $scope.paging.range = _.range($scope.paging.pageCount);
-                console.log($scope.paging);
-            });
+        $article.getByCategory(id, $scope.selectedLanguage.value, false, false, startIndex, $scope.filter.itemsPerPage, $scope.filter.sortBy, $scope.filter.sortAsc).then(function (response) {
+            $scope.articles = response.data.Items;
+            $scope.filter.Total = response.data.Total;
+        });
+    }
 
-            $category.getBreadcrumb(id, $scope.selectedLanguage.value).then(function (response) {
-                $scope.breadcrumb = response.data;
-            });
-        };
+    $scope.init = function () {
+        updateSidebar();
 
-        $scope.$on('languageChanged', function () {
-            $scope.init();
+        var id = Utils.getParameterByName("id");
+        $category.getById(id, $scope.selectedLanguage.value).then(function (response) {
+            $scope.category = response.data;
         });
 
-        $scope.$on('appInitialized', function () { $scope.init(); });
+        refreshArticleList();
+    };
+
+    function updateSidebar() {
+        var id = Utils.getParameterByName("id");
+        $scope.sidebarMenu.setActive(id);
+    }
+
+    $scope.$on('sidebarMenuReady', function () {
+        updateSidebar();
     });
+
+    $scope.$on('languageChanged', function () {
+        $scope.init();
+    });
+
+    $scope.$on('appInitialized', function () { $scope.init(); });
+});

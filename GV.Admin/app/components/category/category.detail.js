@@ -101,7 +101,7 @@ categoryDetailModule.controller('categoryDetailCtrl', function ($scope, $categor
             //    };
             //    items.push(item);
             //});
-            _.each(responses[0].data, function (article) {
+            _.each(responses[0].data.Items, function (article) {
                 var item = {
                     type: 'Article',
                     data: article

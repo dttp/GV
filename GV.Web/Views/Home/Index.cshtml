@@ -1,11 +1,23 @@
 ﻿@section css {
     <link href="~/app/components/home/home.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick-theme.css" rel="stylesheet" />
 }
 <!-- BEGIN CONTENT -->
 <div class="page-content" ng-controller="homeCtrl">
     <div class="hero">
-        <img src="~/app/assets/imgs/home-hero.jpg" alt="hero image" />
+        <div class="hero--image">
+            <img src="~/app/assets/imgs/home-hero.jpg" alt="hero image" />
+        </div>
+        <div class="hero--text">
+            <h1 class="title" ng-bind-html="locale.hero.title[selectedLanguage.value]">                
+            </h1>
+            <p class="desc">
+                {{locale.hero.desc[selectedLanguage.value]}}
+            </p>
+        </div>
     </div>
+
     <div class="gv-section">
         <div class="gv-section--title">
             {{locale.section.services.title[selectedLanguage.value]}}
@@ -14,9 +26,11 @@
             <ul class="service-categories">
                 <li ng-repeat="c in servicesCategories"
                     class="service-item">
-                    <a>
+                    <a title="{{c.Name}}"
+                       href="javascript:;"
+                       ng-click="gotoCategory(c)">
                         <span class="service-item--image">
-                            <img ng-src="{{c.Image}}" alt="Image"/>
+                            <img ng-src="{{c.Image}}" alt="Image" />
                         </span>
                         <span class="service-item--text">
                             {{c.Name}}
@@ -38,12 +52,21 @@
         <div class="gv-section--title">
             {{locale.section.clients.title[selectedLanguage.value]}}
         </div>
-        <div class="gv-section--body">
-
+        <div class="gv-section--body clients-section--wrapper">
+            <div slick settings="slickConfig" ng-if="clientLoaded" class="clients-section">                
+                <div ng-repeat="c in clients" class="client-item">
+                    <img ng-src="{{c.Url}}" class="client-item--image" />
+                </div>                
+            </div>
         </div>
     </div>
 </div>
 <!-- END CONTENT -->
+
+@section plugin {
+    <script src="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick.min.js"></script>
+    <script src="~/app/assets/plugins/angular-slick-carousel/angular-slick.min.js"></script>
+}
 
 @section js {
     <script src="~/app/components/home/home.js"></script>

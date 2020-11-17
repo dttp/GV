@@ -69,8 +69,9 @@ a.nav-link {
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a {
     background: #11584a;
-    font-weight: bold;
+    font-weight: 500;
     color: white;
+    font-size: 15px;
 }
 .page-sidebar .page-sidebar-menu > li.active.open > a > .arrow.open:before,
 .page-sidebar .page-sidebar-menu > li.active.open > a > .arrow:before,
@@ -85,6 +86,20 @@ a.nav-link {
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .arrow:before,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > i {
     color: white;
+}
+
+.page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a {
+    padding-left: 22px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.page-sidebar .page-sidebar-menu > li > a,
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a,
+.page-sidebar .page-sidebar-menu > li.open > a, 
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a {
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .social {
@@ -114,8 +129,9 @@ a.gv-social:hover {
 }
 
 .fa.fa-circle.small {
-    font-size: 9px !important;
+    font-size: 8px !important;
     color: #11584a !important;
+    margin-right: 8px;
 }
 
 /* FOOTER */

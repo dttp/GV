@@ -4,7 +4,7 @@
         $scope.locale = {
             hero: {
                 title: {
-                    en: 'Welcome to   GV Company Ltd',
+                    en: 'Welcome to <br> GV Company Ltd',
                     vn: ''
                 },
                 small: {

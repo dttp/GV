@@ -4,8 +4,14 @@
             getById: function (id, lang) {
                 return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getById?id=' + id+ '&lang=' + lang);
             },
-            getByCategory: function (catId, lang) {
-                return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getByCategory?catId=' + catId + '&lang=' + lang);
+            getByCategory: function (catId, lang, createNew, detail, startIndex, pageSize, sortBy, sortAsc) {
+                if (!createNew) createNew = false;
+                if (!sortAsc) sortAsc = false;
+                if (!detail) detail = false;
+                if (!startIndex) startIndex = 0;
+                if (!pageSize) pageSize = 100;
+                if (!sortBy) sortBy = 'LastModifiedDate';
+                return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getByCategory?catId=' + catId + '&lang=' + lang + '&createNew=' + createNew + '&detail=' + detail + '&startIndex=' + startIndex + '&pageSize=' + pageSize + '&sortBy=' + sortBy + '&sortAc=' + sortAsc);
             },
             delete: function (id) {
                 return $xhttp.delete(WEBAPI_ENDPOINT + '/api/article/delete?id=' + id);

@@ -22,7 +22,7 @@ namespace GV.Data
         {
             var p = new []
             {
-                new SqlParameter("@name", SqlDbType.NVarChar) {Value = name}
+                new SqlParameter("@p_name", SqlDbType.NVarChar) {Value = name}
             };
 
             return Call<User>(SP_USER_GETBYNAME, p, DataHelper.ReadUser);

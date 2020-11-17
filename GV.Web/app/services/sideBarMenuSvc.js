@@ -1,5 +1,5 @@
 ﻿var module = angular.module('gv.app.services');
-module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
+module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
 
     var locale = {
         sbHome: {
@@ -37,7 +37,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
                         Id: c.Id,
                         Name: c.Name,
                         Type: "MenuItemList",
-                        Url: '/category?cid=' + c.Id,
+                        Url: '/category?id=' + c.Id,
                         Icon: categoryIconMapping[c.Id],
                         Items: [],
                         Selected: false
@@ -50,7 +50,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
                             Id: subCat.Id,
                             Name: subCat.Name,
                             Type: "MenuItemList",
-                            Url: '/category/detail?cid=' + subCat.Id,
+                            Url: '/category?id=' + subCat.Id,
                             Icon: categoryIconMapping[subCat.Id],
                             Items: [],
                             Selected: false
@@ -120,7 +120,15 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q) {
         self.items = [];
 
         self.onItemClick = function (item) {
-            location.href = item.Url;
+            if (_.startsWith(item.Id, 'cat_svc_')) {
+                $article.getByCategory(item.Id, $rootScope.selectedLanguage.value, true, false).then(function (response) {
+                    var article = response.data.Items[0];
+                    location.href = '/article?id=' + article.Id;
+                });
+            } else {
+                location.href = item.Url;
+            }
+            
         };
 
         self.initialize = function () {

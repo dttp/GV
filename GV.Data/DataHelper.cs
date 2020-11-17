@@ -44,11 +44,34 @@ namespace GV.Data
             return result.FirstOrDefault();
         }
 
-        public static List<Article> ReadArticle(IDataReader reader)
+        private static bool ColumnExists(IDataReader reader, string columnName)
         {
-            var result = new List<Article>();
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if (reader.GetName(i).Equals(columnName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static PaginationResult<Article> ReadArticle(IDataReader reader)
+        {
+            var result = new PaginationResult<Article>
+            {
+                Items = new List<Article>(),
+                Total = 0
+            };
+
             while(reader.Read())
             {
+                bool hasDataColumn = ColumnExists(reader, "Data");
+                bool hasCountColumn = ColumnExists(reader, "Count");
+                var data = string.Empty;
+                if (hasDataColumn) data = reader["Data"].ToString();
+
                 var a = new Article
                 {
                     Id = reader["Id"].ToString(),
@@ -58,10 +81,11 @@ namespace GV.Data
                     CategoryId = reader["CategoryId"].ToString(),
                     CreatedDate = DateTime.Parse(reader["CreatedDate"].ToString()),
                     LastModifiedDate = DateTime.Parse(reader["LastModifiedDate"].ToString()),
-                    Data = reader["Data"].ToString(),
+                    Data = data,
                     Thumbnail = reader["Thumbnail"].ToString(),
                 };
-                result.Add(a);
+                if (hasCountColumn) result.Total = Convert.ToInt32(reader["Count"]);
+                result.Items.Add(a);
             }
             return result;
         }

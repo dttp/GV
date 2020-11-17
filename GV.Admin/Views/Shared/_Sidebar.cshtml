@@ -54,7 +54,8 @@
                                 class="kt-menu__item"
                                 ng-class="{'kt-menu__item--active' : subItem.Selected}"
                                 aira-haspopup="true">
-                                <a href="{{subItem.Url}}"
+                                <a href="javascript:;"
+                                   ng-click="sidebarMenu.onItemClick(subItem)"
                                    class="kt-menu__link">
                                     <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                     <span class="kt-menu__link-text">{{subItem.Name}}</span>

@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[SP_CATEGORY_DELETE]
-	@id NVARCHAR(25)
+	@p_id NVARCHAR(25)
 AS
 	DELETE [Category]
-	WHERE Id = @id;
+	WHERE Id = @p_id;

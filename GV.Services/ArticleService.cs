@@ -34,26 +34,38 @@ namespace GV.Services
             return articleDA.GetById(id, lang);
         }
 
-        public List<Article> GetByCategory(string catId, Language lang)
+        public PaginationResult<Article> GetByCategory(string catId, Language lang, bool createNew = false, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = true)
         {
             var articleDA = new ArticleDataAdapter(Context);
-            return articleDA.GetByCategory(catId, lang);
-        }
-
-        public List<Article> GetAllByCategory(string catId, Language lang)
-        {
-            var articles = new List<Article>();
-
-            articles.AddRange(GetByCategory(catId, lang));
-
-            var catDA = new CategoryDataAdapter(Context);
-            var subCat = catDA.GetByParentId(catId, lang);
-
-            foreach (var category in subCat)
+            var articles = articleDA.GetByCategory(catId, lang, detail, startIndex, pageSize, sortBy, sortAsc);
+            if (articles.Total == 0 && createNew)
             {
-                articles.AddRange(GetAllByCategory(category.Id, lang));
+                var newArticles = new List<Article>()
+                {
+                    new Article
+                    {
+                        CategoryId = catId,
+                        Language = Language.En,
+                        Name = "Default article",
+                        Description = "",
+                        Thumbnail = string.Empty
+                    },
+                    new Article
+                    {
+                        CategoryId = catId,
+                        Language = Language.Vn,
+                        Name = "Default article",
+                        Description = "",
+                        Thumbnail = string.Empty
+                    },
+                };
+                articles = new PaginationResult<Article>
+                {
+                    Items = Insert(newArticles),
+                    Total = 1
+                };
             }
-            
+
             return articles;
         }
 

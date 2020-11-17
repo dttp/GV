@@ -4,8 +4,7 @@
 <div class="page-content" style="min-height: 1382px;" ng-controller="aboutCtrl">
     <div class="hero">
         <div class="hero--text">
-            <h1>
-                {{locale.hero.title[selectedLanguage.value]}}
+            <h1 ng-bind-html="locale.hero.title[selectedLanguage.value]">
             </h1>
             <small>
                 {{locale.hero.small[selectedLanguage.value]}}
