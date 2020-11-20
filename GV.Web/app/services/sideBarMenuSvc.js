@@ -10,6 +10,10 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
             en: 'About us',
             vn: 'Về chúng tôi'
         },
+        sbRegisterProduct: {
+            en: 'Register',
+            vn: 'Đăng ký'
+        },
         sbContact: {
             en: 'Contact us',
             vn: 'Liên hệ'
@@ -89,6 +93,15 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
                 Selected: false
             },
             {
+                Id: 'sbRegisterProduct',
+                Name: 'Register',
+                Type: 'MenuItem',
+                Url: '/product/register',
+                Icon: 'icon-note',
+                Items: [],
+                Selected: false
+            },
+            {
                 Id: "sbContact",
                 Name: "Contact Us",
                 Type: "MenuItem",
@@ -104,7 +117,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
         });
 
         refreshCategoriesList().then(function (catItems) {
-            var startIndex = 2;
+            var startIndex = 3;
             _.each(catItems, function (c) {
                 items.splice(startIndex,0, c);
                 startIndex++;

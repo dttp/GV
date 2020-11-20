@@ -86,4 +86,7 @@
     <Build Include="dbo\Tables\Service.sql" />
     <PostDeploy Include="dbo\Scripts\PostScript.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="GV.Db.GvCom-Test.xml" />
+  </ItemGroup>
 </Project>

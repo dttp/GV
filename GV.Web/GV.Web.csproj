@@ -105,6 +105,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1163,6 +1164,8 @@
     <Content Include="app\assets\m4.7\pages\scripts\ui-tree.min.js" />
     <Content Include="app\assets\m4.7\pages\scripts\widgets.js" />
     <Content Include="app\assets\m4.7\pages\scripts\widgets.min.js" />
+    <Content Include="app\assets\plugins\angular-file-upload\angular-file-upload.min.js" />
+    <Content Include="app\assets\plugins\angular-file-upload\controllers.js" />
     <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.css" />
     <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.js" />
     <Content Include="app\assets\plugins\angular-loading-bar\loading-bar.min.css" />
@@ -1772,6 +1775,8 @@
     <Content Include="app\components\core\core.js" />
     <Content Include="app\components\home\home.css" />
     <Content Include="app\components\home\home.js" />
+    <Content Include="app\components\product\product.css" />
+    <Content Include="app\components\product\product.js" />
     <Content Include="app\directives\ngEnter.js" />
     <Content Include="app\services\alertService.js" />
     <Content Include="app\services\authInterceptorService.js" />
@@ -1885,6 +1890,7 @@
     <Content Include="app\assets\plugins\socicon\fonts\Socicon.woff" />
     <Content Include="app\assets\plugins\socicon\fonts\Socicon.woff2" />
     <Content Include="app\assets\m4.7\global\css\components.min.css.map" />
+    <Content Include="app\assets\plugins\angular-file-upload\angular-file-upload.min.js.map" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
@@ -1894,6 +1900,7 @@
     <None Include="Properties\PublishProfiles\Pub.pubxml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Product\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GV.Core\GV.Core.csproj">
