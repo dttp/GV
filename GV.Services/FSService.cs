@@ -91,6 +91,23 @@ namespace GV.Services
             }
         }
 
+        public void UploadProductPhotos(FormData formData)
+        {
+            var pidField = formData.Fields.FirstOrDefault(f => f.Name.Equals("productId", StringComparison.InvariantCultureIgnoreCase));
+            if (pidField == null) 
+                throw new Exception("Missing product id field");
+
+            var pid = pidField.Value;
+            var folderPath = Path.Combine(RootFolder, "Product", pid);
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+
+            foreach (var file in formData.Files)
+            {
+                var filePath = Path.Combine(folderPath, file.Value.FileName);
+                File.WriteAllBytes(filePath, file.Value.Buffer);
+            }
+        }
+
         private string GetWebPath(string localPath)
         {
             localPath = localPath.Replace(ServerPath, "");

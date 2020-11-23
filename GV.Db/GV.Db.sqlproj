@@ -66,7 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Category.sql" />
-    <Build Include="dbo\Stored Procedures\sp_category_insert.sql" />
+    <Build Include="dbo\Stored Procedures\SP_CATEGOTY_INSERT.sql" />
     <Build Include="dbo\Stored Procedures\SP_CATEGORY_UPDATE.sql" />
     <Build Include="dbo\Stored Procedures\SP_CATEGORY_GETBYID.sql" />
     <Build Include="dbo\Stored Procedures\SP_CATEGORY_GETBYPARENTID.sql" />
@@ -85,8 +85,16 @@
     <Build Include="dbo\Stored Procedures\SP_SETTING_SETSETTING.sql" />
     <Build Include="dbo\Tables\Service.sql" />
     <PostDeploy Include="dbo\Scripts\PostScript.sql" />
+    <Build Include="dbo\Tables\Product.sql" />
+    <Build Include="dbo\Stored Procedures\SP_PRODUCT_INSERT.sql" />
+    <Build Include="dbo\Stored Procedures\SP_PRODUCT_FILTER.sql" />
+    <Build Include="dbo\Stored Procedures\SP_PRODUCT_UPDATE.sql" />
+    <Build Include="dbo\Stored Procedures\SP_PRODUCT_GETBYID.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GV.Db.GvCom-Test.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="GV.Db.refactorlog" />
   </ItemGroup>
 </Project>

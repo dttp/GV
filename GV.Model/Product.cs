@@ -24,6 +24,7 @@ namespace GV.Model
         public string Capacity { get; set; }
         public string SpuriousEmissionLevel { get; set; }
         public string Others { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 
     public class Company

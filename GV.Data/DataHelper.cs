@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GV.Core;
 using GV.Model;
 
 namespace GV.Data
@@ -87,6 +88,53 @@ namespace GV.Data
                 if (hasCountColumn) result.Total = Convert.ToInt32(reader["Count"]);
                 result.Items.Add(a);
             }
+            return result;
+        }
+
+        public static PaginationResult<Product> ReadProduct(IDataReader reader)
+        {
+            var result = new PaginationResult<Product>
+            {
+                Items = new List<Product>(),
+                Total = 0
+            };
+
+            while (reader.Read())
+            {
+                var p = new Product
+                {
+                    Id = reader["Id"].ToString(),
+                    Name = reader["Name"].ToString(),
+                    Type = reader["Type"].ToString(),
+                    Manufacturer = reader["Manufacturer"].ToString(),
+                    PlaceOfManufacturing = reader["PlaceOfManufacturing"].ToString(),
+                    TechnicalSpecs = reader["TechnicalSpecs"].ToString().ParseAs<List<string>>(),
+                    ManufacturerISO9000CertNumber = reader["ManufacturerISO9000CertNumber"].ToString(),
+                    ISO9000CertVerifyLink = reader["ISO9000CertVerifyLink"].ToString(),
+                    SerialPhotos = reader["SerialPhotos"].ToString().ParseAs<List<string>>(),
+                    Capacity = reader["Capacity"].ToString(),
+                    Model = reader["Model"].ToString(),
+                    Others = reader["Others"].ToString(),
+                    SpuriousEmissionLevel = reader["SpuriousEmissionLevel"].ToString(),
+                    WorkingFrequency = reader["WorkingFrequency"].ToString(),
+                    ImporterDomesticManufacturer = new Company
+                    {
+                        Name = reader["ImporterName"].ToString(),
+                        Address = reader["ImporterAddress"].ToString(),
+                        Phone = reader["ImporterPhone"].ToString(),
+                        Tax = reader["ImporterTax"].ToString(),
+                        Fax = reader["ImporterFax"].ToString()
+                    },
+                    CreatedDate = DateTime.Parse(reader["CreatedDate"].ToString())
+                };
+                result.Items.Add(p);
+                bool hasCountColumn = ColumnExists(reader, "Count");
+                if (hasCountColumn)
+                    result.Total = int.Parse(reader["Count"].ToString());
+                else
+                    result.Total = result.Items.Count;
+            }
+
             return result;
         }
 

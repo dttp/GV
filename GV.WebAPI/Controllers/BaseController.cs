@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Http;
+using GV.Core;
 using GV.Services;
 
 namespace GV.WebAPI.Controllers
@@ -76,7 +77,7 @@ namespace GV.WebAPI.Controllers
             }
             catch (Exception e)
             {
-                
+                Log.WriteException($"Exception while executing method. RequestUrl: {Request.RequestUri.ToString()}", e);
                 throw;
             }
             finally

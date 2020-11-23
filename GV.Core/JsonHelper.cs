@@ -16,6 +16,7 @@ namespace GV.Core
 
         public static T ParseAs<T>(this string jsonString)
         {
+            if (string.IsNullOrEmpty(jsonString)) return default(T);
             return JsonSerializer.Deserialize<T>(jsonString);
         }
 

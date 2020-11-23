@@ -1782,6 +1782,7 @@
     <Content Include="app\services\authInterceptorService.js" />
     <Content Include="app\services\authService.js" />
     <Content Include="app\services\gv.modal.js" />
+    <Content Include="app\services\gv.rest.product.js" />
     <Content Include="app\services\gv.rest.contact.js" />
     <Content Include="app\services\gv.rest.article.js" />
     <Content Include="app\services\gv.rest.category.js" />

@@ -1,5 +1,5 @@
 ﻿var module = angular.module('gv.app.product', ['angularFileUpload']);
-module.controller('productRegisterCtrl', function ($scope, FileUploader) {
+module.controller('productRegisterCtrl', function ($scope, FileUploader, $product) {
 
     $scope.locale = {
         title: {
@@ -59,6 +59,10 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader) {
                 en: 'Tax',
                 vn: 'Mã số thuế'
             },
+            importerFax: {
+                en: 'Fax',
+                vn: 'Số fax'
+            },
             serialPhotos: {
                 en: 'Serial number of the template or a photo of the label with the serial number of the template',
                 vn: 'Số serial của mẫu hoặc ảnh chụp tem nhãn có serial của mẫu'
@@ -113,18 +117,60 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader) {
                 en: 'Tax is required',
                 vn: 'Bạn chưa nhập mã số thuế'
             }
+        },
+        message: {
+            success: {
+                en: 'Your product information has been submited successfully. GV will check and feedback to you asap',
+                vn: 'Thông tin sản phẩm của bạn đã được tiếp nhận. Chúng tôi sẽ kiểm tra và liên hệ với bạn sớm nhất có thể'
+            }
         }
     };
 
      var uploader = $scope.uploader = new FileUploader({
-        //headers: {
-        //    Authorization: 'Basic ' + $localStorage.authData
-        //},
-        url: WEBAPI_ENDPOINT + '/api/fs/upload',
+        headers: {
+            "X-GV-Context": 'web'
+        },
+        url: WEBAPI_ENDPOINT + '/api/product/uploadPhotos',
         autoUpload: false
     });
 
-    $scope.product = {
+     uploader.onErrorItem = function(fileItem, response, status, headers) {
+         $scope.alertSvc.addError(response.data);
+     };
+
+     uploader.onBeforeUploadItem = function(item) {
+         var formDataItem = new FormData();
+         formDataItem.append('ProductId', $scope.product.Id);
+         item.formData.push(formDataItem);
+     };
+
+     uploader.onCompleteAll = function() {
+         $scope.alertSvc.addSuccess($scope.locale.message.success[$scope.selectedLanguage.value]);
+         location.href = '/';
+     };
+
+     $scope.product = {
+        Id : '',
+        Name : '',
+        Model : '',
+        Type : '',
+        Manufacturer : '',
+        PlaceOfManufacturing : '',
+        TechnicalSpecs : [],
+        ManufacturerISO9000CertNumber : '',
+        ISO9000CertVerifyLink : '',
+        ImporterDomesticManufacturer : {
+            Name: '',
+            Address: '',
+            Phone: '',
+            Fax: '',
+            Tax: ''
+        },
+        SerialPhotos : [],
+        WorkingFrequency : '',
+        Capacity : '',
+        SpuriousEmissionLevel : '',
+        Others : '',
         technicalSpecs: []
     };
 
@@ -145,7 +191,7 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader) {
         var hasSpecs = $scope.product.technicalSpecs && $scope.product.technicalSpecs.length > 0;
 
         if (hasSpecs) {
-            hasSpecs = hasSpecs && _.findIndex($scope.product.technicalSpecs, (s) => _.trim(s.value).length > 0) >= 0;
+            hasSpecs = _.findIndex($scope.product.technicalSpecs, (s) => _.trim(s.value).length > 0) >= 0;
         }
 
         return hasSpecs;
@@ -168,9 +214,16 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader) {
                 });
             });
         } else {
+            var product = _.cloneDeep($scope.product);
+            product.TechnicalSpecs = _.map(product.technicalSpecs, (spec) => spec.value);
+            delete product.technicalSpecs;
+            delete product.specAdded;
 
+            $product.create(product).then(function(response) {
+                $scope.product.Id = response.data.Id;
+                uploader.uploadAll();
+            });
         }
-
     };
 
     $scope.init = function () {

@@ -15,6 +15,8 @@ BEGIN
 		SET @v_query = @v_query + ', a.Data';
 	END;
 
+	SET @v_query = @v_query + ', COUNT(*) OVER() AS Count';
+
 	SET @v_query = @v_query + ' FROM Article a WHERE a.CategoryId = ''' + @p_categoryId + ''' AND a.Lang = '''  + @p_lang + '''';
 	SET @v_query = @v_query + ' ORDER BY a.' + @p_sortBy;
 	IF (@p_sortAsc = 1)

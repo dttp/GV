@@ -13,6 +13,7 @@ namespace GV.WebAPI
             GlobalConfiguration.Configure(WebApiConfig.Register);
             var currentDir = Server.MapPath("~");
             GVConfig.Initialize(currentDir);
+            Log.Initialize(currentDir, "WebApi");
             var fsRootPath = Path.Combine(currentDir, "fs");
             FSService.Instance.Initialize(fsRootPath, currentDir);
         }

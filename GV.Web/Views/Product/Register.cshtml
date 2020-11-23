@@ -48,7 +48,7 @@
                         <div class="form-group" ng-class="{'has-error': hasError(productForm.placeOfManufacturing, 'invalid')}">
                             <label class="col-md-4 control-label">{{locale.fields.placeOfManufacturing[selectedLanguage.value]}}</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="placeOfManufacturing" required ng-model="product.placeOfManufacturing">
+                                <input type="text" class="form-control" name="placeOfManufacturing" required ng-model="product.PlaceOfManufacturing">
                                 <span class="help-block" ng-show="hasError(productForm.placeOfManufacturing, 'required')">{{locale.errors.placeOfManufacturingRequired[selectedLanguage.value]}}</span>
                             </div>
                         </div>
@@ -75,14 +75,14 @@
                         <div class="form-group" ng-class="{'has-error': hasError(productForm.manufacturerISO9000CertNumber, 'invalid')}">
                             <label class="col-md-4 control-label">{{locale.fields.manufacturerISO9000CertNumber[selectedLanguage.value]}}</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="manufacturerISO9000CertNumber" required ng-model="product.manufacturerISO9000CertNumber">
+                                <input type="text" class="form-control" name="manufacturerISO9000CertNumber" required ng-model="product.ManufacturerISO9000CertNumber">
                                 <span class="help-block" ng-show="hasError(productForm.manufacturerISO9000CertNumber, 'required')">{{locale.errors.manufacturerISO9000CertNumberRequired[selectedLanguage.value]}}</span>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error': hasError(productForm.iSO9000CertVerifyLink, 'invalid')}">
                             <label class="col-md-4 control-label">{{locale.fields.iSO9000CertVerifyLink[selectedLanguage.value]}}</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="iSO9000CertVerifyLink" required ng-model="product.iSO9000CertVerifyLink">
+                                <input type="text" class="form-control" name="iSO9000CertVerifyLink" required ng-model="product.ISO9000CertVerifyLink">
                                 <span class="help-block" ng-show="hasError(productForm.iSO9000CertVerifyLink, 'required')">{{locale.errors.iSO9000CertVerifyLinkRequired[selectedLanguage.value]}}</span>
                             </div>
                         </div>
@@ -92,28 +92,34 @@
                         <div class="form-group" ng-class="{'has-error': hasError(productForm.importerName, 'invalid')}">
                             <label class="col-md-4 control-label">{{locale.fields.importerName[selectedLanguage.value]}}</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="importerName" ng-model="product.importerDomesticManufacturer.Name" required>
+                                <input type="text" class="form-control" name="importerName" ng-model="product.ImporterDomesticManufacturer.Name" required>
                                 <span class="help-block" ng-show="hasError(productForm.importerName, 'required')">{{locale.errors.importerNameRequired[selectedLanguage.value]}}</span>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error': hasError(productForm.importerAddress, 'invalid')}">
                             <label class="col-md-4 control-label">{{locale.fields.importerAddress[selectedLanguage.value]}}</label>
                             <div class="col-md-6">
-                                <textarea cols="1" rows="3" class="form-control" name="importerAddress" ng-model="product.importerDomesticManufacturer.Address" required></textarea>
+                                <textarea cols="1" rows="3" class="form-control" name="importerAddress" ng-model="product.ImporterDomesticManufacturer.Address" required></textarea>
                                 <span class="help-block" ng-show="hasError(productForm.importerAddress, 'required')">{{locale.errors.importerAddressRequired[selectedLanguage.value]}}</span>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error': hasError(productForm.importerPhone, 'invalid')}">
                             <label class="col-md-4 control-label">{{locale.fields.importerPhone[selectedLanguage.value]}}</label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="importerPhone" ng-model="product.importerDomesticManufacturer.Phone" required>
+                                <input type="text" class="form-control" name="importerPhone" ng-model="product.ImporterDomesticManufacturer.Phone" required>
                                 <span class="help-block" ng-show="hasError(productForm.importerPhone, 'required')">{{locale.errors.importerPhoneRequired[selectedLanguage.value]}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">{{locale.fields.importerFax[selectedLanguage.value]}}</label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="importerPhone" ng-model="product.ImporterDomesticManufacturer.Fax">
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error': hasError(productForm.importerTax, 'invalid')}">
                             <label class="col-md-4 control-label">{{locale.fields.importerTax[selectedLanguage.value]}}</label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="importerTax" ng-model="product.importerDomesticManufacturer.Tax" required>
+                                <input type="text" class="form-control" name="importerTax" ng-model="product.ImporterDomesticManufacturer.Tax" required>
                                 <span class="help-block" ng-show="hasError(productForm.importerTax, 'required')">{{locale.errors.importerTaxRequired[selectedLanguage.value]}}</span>
                             </div>
                         </div>
@@ -121,10 +127,10 @@
                             {{locale.fields.serialPhotos[selectedLanguage.value]}}
                         </h3>
                         <div class="photos--section">
-                            <input type="file" id="fileImport" multiple style="position:absolute; left: -1000px; top: -10000px; width: 0; height: 0" nv-file-select uploader="uploader" accept="image/*"/>
+                            <input type="file" id="fileImport" multiple style="position:absolute; left: -1000px; top: -10000px; width: 0; height: 0" nv-file-select uploader="uploader" accept="image/*" />
                             <div class="photos">
                                 <div class="photo--item" ng-repeat="item in uploader.queue">
-                                    <div ng-thumb="{ file: item._file, height: 100 }" >
+                                    <div ng-thumb="{ file: item._file, height: 100 }">
                                     </div>
                                     <span class="remove--button" ng-click="removePhoto(item)">
                                         <i class="fa fa-times">
@@ -132,7 +138,7 @@
                                         </i>
                                     </span>
                                 </div>
-                                
+
                             </div>
                             <button class="btn green-haze" ng-click="selectFile()">
                                 <i class="fa fa-upload">
@@ -159,5 +165,6 @@
     <script src="~/app/assets/plugins/angular-file-upload/angular-file-upload.min.js"></script>
 }
 @section js {
+    <script src="~/app/services/gv.rest.product.js"></script>
     <script src="~/app/components/product/product.js"></script>
 }
