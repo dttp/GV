@@ -52,5 +52,16 @@ namespace GV.WebAPI.Controllers
                 return svc.Filter(startIndex, pageSize, sortBy, sortAsc);
             });
         }
+
+        [AcceptVerbs("POST")]
+        public HttpResponseMessage GenerateProductRequestForm(string productId, Language lang)
+        {
+            return Execute(() =>
+            {
+                var svc = new ProductService(Context);
+                svc.GenerateProductRequestForm(productId, lang);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            });
+        }
     }
 }

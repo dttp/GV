@@ -3,14 +3,14 @@
         $scope.emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         $scope.locale = {
             pageTitle: {
-                en: 'Contact Us',
-                vn: 'Liên hệ với chúng tôi'
+                en: 'Contact Info',
+                vn: 'Thông tin liên hệ'
             },
             section: {
                 contactInfo: {
                     caption: {
-                        en: 'Contact Info',
-                        vn: 'Thông tin liên hệ'
+                        en: 'GV COMPANY LTD',
+                        vn: 'Công ty TNHH GV'
                     },
                     address: {
                         en: 'Address: No 60/61 Pham Tuan Tai Street North Tu Liem District, Hanoi, Vietnam',
@@ -19,21 +19,37 @@
                 },
                 contactForm: {
                     caption: {
-                        en: 'Have a question',
-                        vn: 'Gửi câu hỏi tới chúng tôi'
+                        en: 'Contact Us',
+                        vn: 'Liên hệ với chúng tôi'
                     },
                     label: {
-                        yourName: {
-                            en: 'Your Name',
-                            vn: 'Tên của bạn'
+                        company: {
+                            en: 'Company',
+                            vn: 'Công ty',
                         },
-                        yourEmail: {
-                            en: 'Your Email',
-                            vn: 'Email của bạn'
+                        contact: {
+                            en: 'Contact',
+                            vn: 'Người liên hệ'
+                        },
+                        phone: {
+                            en: 'Tel',
+                            vn: 'Điện thoại'
+                        },
+                        fax: {
+                            en: 'Fax',
+                            vn: 'Số Fax'
+                        },
+                        email: {
+                            en: 'Email',
+                            vn: 'Email'
+                        },
+                        address: {
+                            en: 'Address',
+                            vn: 'Địa chỉ'
                         },
                         message: {
                             en: 'Message',
-                            vn: 'Câu hỏi của bạn'
+                            vn: 'Nội dung'
                         },
                         submitButton: {
                             en: 'Submit',
@@ -41,21 +57,33 @@
                         }
                     },
                     error: {
-                        yourNameRequired: {
-                            en: 'Your Name is required',
-                            vn: 'Bạn chưa nhập tên của bạn'
+                        companyRequired: {
+                            en: 'Company is required',
+                            vn: 'Bạn chưa nhập tên công ty'
                         },
-                        yourEmailRequired: {
-                            en: 'Your Email is required',
-                            vn: 'Bạn chưa nhập địa chỉ email'
+                        contactRequired: {
+                            en: 'Contact is required',
+                            vn: 'Bạn chưa nhập người liên hệ'
                         },
-                        yourEmailInvalid: {
-                            en: 'Your Email is invalid',
-                            vn: 'Địa chỉ email của bạn chưa chính xác'
+                        phoneRequired: {
+                            en: 'Tel is required',
+                            vn: 'Bạn chưa nhập số điện thoại'
+                        },
+                        emailRequired: {
+                            en: 'Email is required',
+                            vn: 'Bạn chưa nhập email',
+                        },
+                        emailInvalid: {
+                            en: 'Invalid email address',
+                            vn: 'Địa chỉ email chưa chính xác'
+                        },
+                        addressRequired: {
+                            en: 'Address is required',
+                            vn: 'Bạn chưa nhập địa chỉ'
                         },
                         messageRequired: {
                             en: 'Message is required',
-                            vn: 'Bạn chưa nhập câu hỏi'
+                            vn: 'Bạn chưa nhập nội dung'
                         }
                     }
                 }
@@ -75,7 +103,12 @@
                 Message: ''
             };
         };
-        
+
+        $scope.setVerified = function(value) {
+            $scope.reCaptchaVerified = value;
+        };
+
+        $scope.reCaptchaVerified = false;
 
         $scope.submitForm = function (form) {
             if (!form.$invalid) {

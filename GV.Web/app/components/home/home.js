@@ -5,11 +5,11 @@ module.controller('homeCtrl', function ($scope, $fs) {
         hero: {
             title: {
                 en: 'Welcome to <br> GV Company Ltd',
-                vn: 'Chào mừng bàn đến với CTy TNHH GV'
+                vn: 'Chào mừng bạn đến <br/> Công ty TNHH GV'
             },
             desc: {
                 en: 'We have more than a decade of experience in consulting, in testing, certifying and update regulatory for the above telecommunications and Information technology companies around the world. We have a strong belief that our experts will make your business easier. Thank you for taking the time to visit us. Please give us the opportunity to advise you more.',
-                vn: ''
+                vn: 'Chúng tôi có hơn một thập kỷ kinh nghiệm trong việc tư vấn, kiểm tra, chứng nhận và cập nhật quy định cho các công ty viễn thông và công nghệ thông tin trên khắp thế giới. Chúng tôi tin tưởng mạnh mẽ rằng các chuyên gia của chúng tôi sẽ giúp công việc kinh doanh của bạn trở nên dễ dàng hơn. Cảm ơn bạn đã dành thời gian đến thăm chúng tôi. Hãy cho chúng tôi cơ hội để tư vấn thêm cho bạn.'
             }
         },
         section: {
@@ -37,7 +37,7 @@ module.controller('homeCtrl', function ($scope, $fs) {
     $scope.slickConfig = {
         method: {},
         dots: false,
-        infinite: false,
+        infinite: true,
         speed: 300,
         arrows: true,
         variableWidth: true,
@@ -74,8 +74,7 @@ module.controller('homeCtrl', function ($scope, $fs) {
     $scope.servicesCategories = [];
 
     $scope.gotoCategory = function (c) {
-
-
+        $scope.sidebarMenu.onItemClick(c);
     };
 
 
@@ -84,7 +83,6 @@ module.controller('homeCtrl', function ($scope, $fs) {
         $scope.clientLoaded = false;
         $fs.getList('clients').then(function (response) {
             $scope.clients = response.data;
-            console.log($scope.clients);
             $scope.clientLoaded = true;
         });
     };

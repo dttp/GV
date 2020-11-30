@@ -66,6 +66,10 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
             serialPhotos: {
                 en: 'Serial number of the template or a photo of the label with the serial number of the template',
                 vn: 'Số serial của mẫu hoặc ảnh chụp tem nhãn có serial của mẫu'
+            },
+            serialNumber: {
+                en: 'Serial Number',
+                vn: 'Số serial'
             }
         },
         errors: {
@@ -125,6 +129,8 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
             }
         }
     };
+    
+     var uploadError = false;
 
      var uploader = $scope.uploader = new FileUploader({
         headers: {
@@ -135,7 +141,8 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
     });
 
      uploader.onErrorItem = function(fileItem, response, status, headers) {
-         $scope.alertSvc.addError(response.data);
+         uploadError = true;
+         $scope.alertSvc.addError('Something wrong when uploading product photos');
      };
 
      uploader.onBeforeUploadItem = function(item) {
@@ -145,9 +152,17 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
      };
 
      uploader.onCompleteAll = function() {
-         $scope.alertSvc.addSuccess($scope.locale.message.success[$scope.selectedLanguage.value]);
-         location.href = '/';
+         if (!uploadError) {
+             finishProcess();
+         }
      };
+
+     function finishProcess() {
+         $product.generateProductRequestForm($scope.product.Id, $scope.selectedLanguage.value).then(function() {
+             $scope.alertSvc.addSuccess($scope.locale.message.success[$scope.selectedLanguage.value]);
+             location.href = '/';
+         });
+     }
 
      $scope.product = {
         Id : '',
@@ -221,7 +236,11 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
 
             $product.create(product).then(function(response) {
                 $scope.product.Id = response.data.Id;
-                uploader.uploadAll();
+                if (uploader.queue.length > 0)
+                    uploader.uploadAll();
+                else {
+                    finishProcess();
+                }
             });
         }
     };

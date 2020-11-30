@@ -30,6 +30,14 @@ namespace GV.Services
             }
         }
 
+        public byte[] ReadFile(string path)
+        {
+            if (path.StartsWith("\\")) path = path.TrimStart('\\');
+            var filePath = Path.Combine(RootFolder, path);
+            return File.ReadAllBytes(filePath);
+        }
+
+
         public List<FileSystemObject> GetList(string path = "")
         {
             var folder = string.IsNullOrEmpty(path) ? RootFolder : Path.Combine(RootFolder, path);
@@ -106,6 +114,16 @@ namespace GV.Services
                 var filePath = Path.Combine(folderPath, file.Value.FileName);
                 File.WriteAllBytes(filePath, file.Value.Buffer);
             }
+        }
+
+        public string SaveProductFile(string pid, string fileName, byte[] data)
+        {
+            string filePath = Path.Combine(RootFolder, "Product", pid, fileName);
+            var folderPath = Path.Combine(RootFolder, "Product", pid);
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+
+            File.WriteAllBytes(filePath, data);
+            return filePath;
         }
 
         private string GetWebPath(string localPath)

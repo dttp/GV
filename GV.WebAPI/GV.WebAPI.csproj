@@ -195,6 +195,8 @@
     <Content Include="Config\gvLog.Config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Pub.pubxml" />
+    <Content Include="Templates\product-form-en.docx" />
+    <Content Include="Templates\product-form-vn.docx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GV.Core\GV.Core.csproj">

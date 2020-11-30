@@ -1,0 +1,21 @@
+﻿.page-content-white .page-title {
+    font-weight: bold !important;
+    color: #11584a !important;
+    font-size: 24px !important;
+    margin-left: 20px !important;
+}
+
+.portlet > .portlet-title {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+}
+.font-green-gv {
+    color: #11584a !important;
+}
+.green-gv {
+    background: #11584a !important;
+}
+
+.portlet.light > .portlet-title > .caption {
+    font-size: 14px !important;
+}

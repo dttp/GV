@@ -1,4 +1,6 @@
-﻿<div class="page-content" style="min-height: 1382px;" ng-controller="contactCtrl">
+﻿<link href="~/app/components/contact/contact.css" rel="stylesheet" />
+
+<div class="page-content" style="min-height: 1382px;" ng-controller="contactCtrl">
     <!-- BEGIN PAGE HEADER-->
     <!-- BEGIN PAGE TITLE-->
     <h1 class="page-title">
@@ -7,13 +9,12 @@
     <!-- END PAGE TITLE-->
     <!-- END PAGE HEADER-->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="portlet light">
                 <div class="portlet-title">
-                    <div class="caption font-green-sharp">
+                    <div class="caption font-green-gv bold">
                         <span class="caption-subject uppercase"> {{locale.section.contactInfo.caption[selectedLanguage.value]}}</span>
                     </div>
-
                 </div>
                 <div class="portlet-body">
                     <address>
@@ -37,58 +38,103 @@
 
             <div class="portlet light">
                 <div class="portlet-title">
-                    <div class="caption font-yellow-gold">
+                    <div class="caption font-green-gv bold">
                         <span class="caption-subject uppercase"> {{locale.section.contactForm.caption[selectedLanguage.value]}}</span>
                     </div>
 
                 </div>
-                <div class="portlet-body form">
+                <div class="portlet-body form row">
                     <form class="form-horizontal" name="contact" novalidate>
                         <div class="form-body">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.yourName[selectedLanguage.value]}}</label>
-                                <div class="col-md-6">
-                                    <input type="text" name="yourName" class="form-control" ng-model="contactInfo.YourName" required>
+                            <div class="form-group" ng-class="{'has-error': hasError(contact.company, 'invalid')}">
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.company[selectedLanguage.value]}}</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="company" class="form-control" ng-model="contactInfo.Company" required>
                                     <span class="help-block"
-                                          ng-show="hasError(contact.yourName, 'required')">
-                                        {{locale.section.contactForm.error.yourNameRequired[selectedLanguage.value]}}
+                                          ng-show="hasError(contact.company, 'required')">
+                                        {{locale.section.contactForm.error.companyRequired[selectedLanguage.value]}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': hasError(contact.contact, 'invalid')}">
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.contact[selectedLanguage.value]}}</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="contact" class="form-control" ng-model="contactInfo.Contact" required>
+                                    <span class="help-block"
+                                          ng-show="hasError(contact.contact, 'required')">
+                                        {{locale.section.contactForm.error.contactRequired[selectedLanguage.value]}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': hasError(contact.phone, 'invalid')}">
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.phone[selectedLanguage.value]}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" name="phone" class="form-control" ng-model="contactInfo.Phone" required>
+                                    <span class="help-block"
+                                          ng-show="hasError(contact.phone, 'required')">
+                                        {{locale.section.contactForm.error.phoneRequired[selectedLanguage.value]}}
                                     </span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.yourEmail[selectedLanguage.value]}}</label>
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" name="yourEmail" 
-                                           ng-model="contactInfo.YourEmail" 
-                                           required 
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.fax[selectedLanguage.value]}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" name="fax" class="form-control" ng-model="contactInfo.Fax">
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': hasError(contact.email, 'invalid')}">
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.email[selectedLanguage.value]}}</label>
+                                <div class="col-md-8">
+                                    <input type="email" class="form-control" name="email"
+                                           ng-model="contactInfo.Email"
+                                           required
                                            ng-pattern="emailPattern">
                                     <span class="help-block"
-                                          ng-show="hasError(contact.yourEmail, 'required')">
-                                        {{locale.section.contactForm.error.yourEmailRequired[selectedLanguage.value]}}
+                                          ng-show="hasError(contact.email, 'required')">
+                                        {{locale.section.contactForm.error.emailRequired[selectedLanguage.value]}}
                                     </span>
                                     <span class="help-block"
-                                          ng-show="hasError(contact.yourEmail, 'pattern')">
-                                        {{locale.section.contactForm.error.yourEmailInvalid[selectedLanguage.value]}}
+                                          ng-show="hasError(contact.email, 'pattern')">
+                                        {{locale.section.contactForm.error.emailInvalid[selectedLanguage.value]}}
                                     </span>
                                 </div>
                             </div>
-
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error': hasError(contact.address, 'invalid')}">
+                                <label class="col-md-3 control-label">{{locale.section.contactForm.label.address[selectedLanguage.value]}}</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="address" class="form-control" ng-model="contactInfo.Address" required>
+                                    <span class="help-block"
+                                          ng-show="hasError(contact.address, 'required')">
+                                        {{locale.section.contactForm.error.addressRequired[selectedLanguage.value]}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': hasError(contact.message, 'invalid')}">
                                 <label class="col-md-3 control-label">{{locale.section.contactForm.label.message[selectedLanguage.value]}}</label>
-                                <div class="col-md-6">
-                                    <textarea cols="1" rows="5" class="form-control " name="message" ng-model="contactInfo.Message" required>><</textarea>
+                                <div class="col-md-8">
+                                    <textarea cols="1" rows="5" class="form-control " name="message" ng-model="contactInfo.Message" required></textarea>
                                     <span class="help-block"
                                           ng-show="hasError(contact.message, 'required')">
                                         {{locale.section.contactForm.error.messageRequired[selectedLanguage.value]}}
                                     </span>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-3">
+                                    <div class="g-recaptcha" data-sitekey="6LeP6e0ZAAAAAMq7E8Q6kOxaBtp_DSzDwbB9ArNU" 
+                                         data-callback="onRecaptchaVerified" 
+                                         data-expired-callback="onExpiredRecaptcha"
+                                         data-error-callback ="onExpiredRecaptcha">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <button type="submit" class="btn green"
-                                            ng-disabled="contact.$invalid || !contact.$dirty"
+                                    <button type="submit" class="btn green-gv font-white"
+                                            id="submitButton"
+                                            ng-disabled="contact.$invalid || !contact.$dirty || !reCaptchaVerified"
                                             ng-click="submitForm(contact)">
                                         {{locale.section.contactForm.label.submitButton[selectedLanguage.value]}}
                                     </button>
@@ -99,10 +145,50 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="mapouter">
+
+                <div class="gmap_canvas">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59588.16764847702!2d105.86678493975838!3d21.022261163694257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab324a56a2e3%3A0x11e1823fbd4ff6f3!2zNjEgUGjhuqFtIFR14bqlbiBUw6BpLiwgROG7i2NoIFbhu41uZyBI4bqtdSwgQ-G6p3UgR2nhuqV5LCBIw6AgTuG7mWksIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1430248656018" width="300" height="650" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+                <style>
+                    .mapouter {
+                        position: relative;
+                        text-align: right;
+                        height: 650px;
+                        width: 300px;
+                    }
+
+                    .gmap_canvas {
+                        overflow: hidden;
+                        background: none !important;
+                        height: 650px;
+                        width: 300px;
+                    }
+                </style>
+            </div>
+        </div>
     </div>
 </div>
+
+@section plugin {
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+}
 
 @section js {
     <script src="~/app/services/gv.rest.contact.js"></script>
     <script src="~/app/components/contact/contact.js"></script>
+    <script>
+        function onRecaptchaVerified() {
+            var scope = angular.element(document.getElementById('submitButton')).scope();
+            scope.setVerified(true);
+            scope.$apply();
+        }
+
+        function onExpiredRecaptcha() {
+            var scope = angular.element(document.getElementById('submitButton')).scope();
+            scope.setVerified(false);
+            scope.$apply();
+        }
+    </script>
 }

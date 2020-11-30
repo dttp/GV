@@ -18,7 +18,7 @@ namespace GV.Model
         public string ManufacturerISO9000CertNumber { get; set; }
         public string ISO9000CertVerifyLink { get; set; }
         public Company ImporterDomesticManufacturer { get; set; }
-
+        public string SerialNumber { get; set; }
         public List<string> SerialPhotos { get; set; }
         public string WorkingFrequency { get; set; }
         public string Capacity { get; set; }

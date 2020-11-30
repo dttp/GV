@@ -18,10 +18,10 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>51339</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -1771,6 +1771,7 @@
     <Content Include="app\components\article\article.js" />
     <Content Include="app\components\category\category.css" />
     <Content Include="app\components\category\category.js" />
+    <Content Include="app\components\contact\contact.css" />
     <Content Include="app\components\contact\contact.js" />
     <Content Include="app\components\core\core.js" />
     <Content Include="app\components\home\home.css" />
@@ -1927,7 +1928,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51339</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51339/</IISUrl>
+          <IISUrl>http://localhost:20000/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

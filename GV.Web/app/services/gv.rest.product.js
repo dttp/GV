@@ -14,6 +14,10 @@
                 };
 
                 return $xhttp.get(url);
+            },
+            generateProductRequestForm: function(pid, lang) {
+                var url = WEBAPI_ENDPOINT + '/api/product/GenerateProductRequestForm?productId=' + pid + '&lang=' + lang;
+                return $xhttp.post(url);
             }
         };
         return service;

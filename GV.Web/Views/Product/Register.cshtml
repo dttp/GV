@@ -126,6 +126,12 @@
                         <h3 class="form-section">
                             {{locale.fields.serialPhotos[selectedLanguage.value]}}
                         </h3>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">{{locale.fields.serialNumber[selectedLanguage.value]}}</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="serialNumber" ng-model="product.SerialNumber">
+                            </div>
+                        </div>
                         <div class="photos--section">
                             <input type="file" id="fileImport" multiple style="position:absolute; left: -1000px; top: -10000px; width: 0; height: 0" nv-file-select uploader="uploader" accept="image/*" />
                             <div class="photos">
@@ -143,14 +149,14 @@
                             <button class="btn green-haze" ng-click="selectFile()">
                                 <i class="fa fa-upload">
                                 </i>
-                                Select file
+                                Select image to upload
                             </button>
                         </div>
                     </div>
 
                     <div class="form-actions">
                         <div class="row">
-                            <div class="col-md-offset-3 col-md-9">
+                            <div class="col-md-offset-4 col-md-8">
                                 <button type="submit" class="btn btn-primary" ng-click="submit(productForm)">Submit</button>
                             </div>
                         </div>

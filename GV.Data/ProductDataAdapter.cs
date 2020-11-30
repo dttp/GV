@@ -41,6 +41,7 @@ namespace GV.Data
                 new SqlParameter("@p_ImporterTax", SqlDbType.NVarChar) {Value = p.ImporterDomesticManufacturer.Tax},
                 new SqlParameter("@p_ImporterFax", SqlDbType.NVarChar) {Value = p.ImporterDomesticManufacturer.Fax},
                 new SqlParameter("@p_SerialPhotos", SqlDbType.NVarChar) {Value = p.SerialPhotos.ToJson()},
+                new SqlParameter("@p_SerialNumber", SqlDbType.NVarChar) {Value = p.SerialNumber },
             };
 
             Call(SP_PRODUCT_INSERT, param);
@@ -67,6 +68,7 @@ namespace GV.Data
                 new SqlParameter("@p_ImporterTax", SqlDbType.NVarChar) {Value = p.ImporterDomesticManufacturer.Tax},
                 new SqlParameter("@p_ImporterFax", SqlDbType.NVarChar) {Value = p.ImporterDomesticManufacturer.Fax},
                 new SqlParameter("@p_SerialPhotos", SqlDbType.NVarChar) {Value = p.SerialPhotos.ToJson()},
+                new SqlParameter("@p_SerialNumber", SqlDbType.NVarChar) {Value = p.SerialNumber},
                 new SqlParameter("@p_Capacity", SqlDbType.NVarChar) {Value = p.Capacity},
                 new SqlParameter("@p_SpuriousEmissionLevel", SqlDbType.NVarChar) {Value = p.SpuriousEmissionLevel},
                 new SqlParameter("@p_Others", SqlDbType.NVarChar) {Value = p.Others},

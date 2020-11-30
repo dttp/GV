@@ -16,7 +16,7 @@
 }
 
 .hero--text > h1.title {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 500;
     margin-top: 0;
 }
@@ -63,9 +63,7 @@
     color: #6f6f6f;
     font-weight: 600;
     width: 144px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space:nowrap;
+    padding-top: 8px;
 }
 
 .service-item > a:hover > span.service-item--text {
@@ -97,7 +95,7 @@
 
 @media (max-width: 767px) {
     .hero {
-        height: 330px;
+        height: 400px;
     }
     .hero--image {
         height: 105px;
@@ -108,7 +106,7 @@
         color: #11584a;
     }
     .hero--text > h1.title {
-        font-size: 30px;
+        font-size: 27px;
         color: white;
         text-align: center;
         text-shadow: 2px 2px 1px #261F24;
