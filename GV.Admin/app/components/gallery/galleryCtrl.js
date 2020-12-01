@@ -3,6 +3,7 @@ galleryModule.controller('galleryCtrl', function ($scope, $modal, $fs, FileUploa
     $scope.items = [];
     $scope.currentPath = '';
 
+    $scope.breadcrumb = [];
     
     var uploader = $scope.uploader = new FileUploader({
         headers: {
@@ -39,12 +40,31 @@ galleryModule.controller('galleryCtrl', function ($scope, $modal, $fs, FileUploa
         });
     };
 
+    $scope.setPath = function(path) {
+        $scope.currentPath = path.substr(1);
+        if (path === '\\') path = '';
+        var parts = path.split('\\');
+        $scope.breadcrumb = [];
+        for (var i = 0; i < parts.length; i ++) {
+            var part = parts[i];
+            $scope.breadcrumb.push({
+                Name: part,
+                Path: (i === 0) ? '\\' + part : parts[i - 1] + '\\' + part
+            });
+        }
+        refresh();
+    };
+
     $scope.selectItem = function (item) {
-        var selected = !item.selected;
-        _.each($scope.items, function (item) {
-            item.selected = false;
-        });
-        item.selected = selected;
+        if (item.Type === 'Folder') {
+            $scope.setPath(item.Path);
+        } else {
+            var selected = !item.selected;
+            _.each($scope.items, function (item) {
+                item.selected = false;
+            });
+            item.selected = selected;
+        }
     };
 
     $scope.copyUrl = function (item) {
@@ -70,10 +90,15 @@ galleryModule.controller('galleryCtrl', function ($scope, $modal, $fs, FileUploa
         return false;
     };
 
-    $scope.init = function () {
+    function refresh() {
+        $scope.items = [];
         $fs.getList($scope.currentPath).then(function (response) {
-           $scope.items = response.data;
+            $scope.items = response.data;
         });
+    }
+
+    $scope.init = function () {
+        $scope.setPath('\\');
         $scope.sidebarMenu.setActive('sb-filemanager');
     };
 

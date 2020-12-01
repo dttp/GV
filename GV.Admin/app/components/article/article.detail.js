@@ -86,7 +86,7 @@ articleModule.controller('articleDetailCtrl', function ($scope, $article, $modal
     $scope.cancel = function () {
         var catId = $scope.articles[0].CategoryId;
         if (_.startsWith(catId, 'cat_svc_'))
-            location.href = '/category?cid=cat_services';
+            location.href = '/category?cid=cat_0_services';
         else 
             location.href = '/category/detail?cid=' + catId;
     };

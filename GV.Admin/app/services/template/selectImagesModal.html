@@ -5,7 +5,7 @@
         overflow-y: auto;
         border: 1px solid #c0c0c0;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: flex-start;
         flex-wrap: wrap;
     }
@@ -36,19 +36,36 @@
         text-overflow: ellipsis;
         word-wrap: break-word;
     }
+    ul.breadcrumb {
+        list-style: none;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
 </style>
 <div class="modal-header">
     <h3 class="modal-title">Select images!</h3>
     <button type="button" class="close" ng-click="cancel()"></button>
 </div>
 <div class="modal-body">
+    <ul class="breadcrumb">
+        <li ng-repeat="item in breadcrumb" class="breadcrumb--item">
+            <a href="javascript:;" ng-click="setPath(item.Path)">
+                <i class="flaticon-home" ng-if="$first"> </i>
+                {{item.Name}}
+            </a>
+            <span class="breadcrumb--separator" ng-hide="$last">&nbsp;\&nbsp;</span>
+        </li>
+    </ul>
     <div class="gallery">
         <div class="g-item" ng-repeat="item in items"
              ng-class="{'g-item-selected': item.selected}"
              ng-click="selectItem(item)">
             <div class="g-thumb">
-                <img ng-if="canPreview(item)" class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
-                <img ng-if="!canPreview(item)" class="g-item-img" src="./app/assets/images/iconfinder_1-01_511561.png" alt="{{item.Name}}">
+                <img ng-if="item.Type == 'File' && canPreview(item)" class="g-item-img" src="{{item.Url}}" alt="{{item.Name}}">
+                <img ng-if="item.Type == 'File' && !canPreview(item)" class="g-item-img" src="./app/assets/images/iconfinder_1-01_511561.png" alt="{{item.Name}}">
+                <img ng-if="item.Type == 'Folder'" class="g-item-img" src="./app/assets/images/folder.png" alt="{{item.Name}}">
             </div>
             <div class="g-item-caption">{{item.Name}}</div>
         </div>

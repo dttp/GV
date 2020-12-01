@@ -6,9 +6,18 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    File Manager                    
+                    File Manager
                 </h3>
-
+                <span class="kt-subheader__separator kt-hidden"></span>
+                <div class="kt-subheader__breadcrumbs">
+                    <a href="javascript:;" class="kt-subheader__breadcrumbs-link"
+                       ng-repeat-start="item in breadcrumb"
+                       ng-click="setPath(item.Path)">
+                        <i class="flaticon-home" ng-show="$first"></i>
+                        {{item.Name}}
+                    </a>
+                    <span class="kt-subheader__breadcrumbs-separator" ng-repeat-end ng-hide="$last"></span>
+                </div>
             </div>
             <div class="kt-subheader__toolbar">
                 <button class="btn btn-label-brand btn-bold"
@@ -49,8 +58,9 @@
                                         <i class="flaticon-delete">
                                         </i>
                                     </button>
-                                    <img ng-if="canPreview(item)" ng-click="selectItem(item)" class="g-item-img" ng-src="{{item.Url}}" alt="{{item.Name}}">
-                                    <img ng-if="!canPreview(item)" ng-click="selectItem(item)" class="g-item-img" src="~/app/assets/images/iconfinder_1-01_511561(1).png" alt="{{item.Name}}">
+                                    <img ng-if="item.Type == 'File' && canPreview(item)" ng-click="selectItem(item)" class="g-item-img" ng-src="{{item.Url}}" alt="{{item.Name}}">
+                                    <img ng-if="item.Type == 'File' && !canPreview(item)" ng-click="selectItem(item)" class="g-item-img" src="~/app/assets/images/iconfinder_1-01_511561(1).png" alt="{{item.Name}}">
+                                    <img ng-if="item.Type =='Folder'" ng-click="selectItem(item)" class="g-item-img" src="~/app/assets/images/folder.png"/>
                                     <div class="g-item__thumb__actions">
                                         <button class="btn btn-success" ng-click="copyUrl(item)">Copy Url</button>
                                     </div>

@@ -17,15 +17,36 @@
 .controller('selectImagesModalCtrl', function ($scope, $fs, multiple, $uibModalInstance) {
     $scope.items = [];
     $scope.mode = multiple ? 'multiple' : 'single';
+    $scope.currentPath = "";
+    $scope.breadcrumb = [];
 
     $scope.selectItem = function (item) {
-        var selected = item.selected;
-        if ($scope.mode === 'single') {
-            _.each($scope.items, function (x) {
-                x.selected = false;
+        if (item.Type === 'Folder') {
+            $scope.setPath(item.Path);
+        } else {
+            var selected = item.selected;
+            if ($scope.mode === 'single') {
+                _.each($scope.items, function (x) {
+                    x.selected = false;
+                });
+            }
+            item.selected = !selected;
+        }
+    };
+
+    $scope.setPath = function(path) {
+        $scope.currentPath = path.substr(1);
+        if (path === '\\') path = '';
+        var parts = path.split('\\');
+        $scope.breadcrumb = [];
+        for (var i = 0; i < parts.length; i ++) {
+            var part = parts[i];
+            $scope.breadcrumb.push({
+                Name: part,
+                Path: (i === 0) ? '\\' + part : parts[i - 1] + '\\' + part
             });
         }
-        item.selected = !selected;
+        refresh();
     };
 
     $scope.ok = function () {
@@ -37,10 +58,14 @@
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.init = function () {
-        $fs.getList().then(function (response) {
+    function refresh() {
+        $fs.getList($scope.currentPath).then(function (response) {
             $scope.items = response.data;
         });
+    }
+
+    $scope.init = function () {
+        $scope.setPath('\\');
     };
 
     $scope.canPreview = function (item) {

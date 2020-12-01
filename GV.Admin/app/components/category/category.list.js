@@ -42,30 +42,10 @@ categoryListModule.controller('categoryCtrl', function ($scope, $category, $moda
     };
 
     $scope.manage = function (c) {
-        if (c.ParentId === 'cat_services') {
-            $article.getByCategory(c.Id, $scope.selectedLanguage.value).then(function (response) {
-                if (response.data.length > 0) {
-                    var article = _.find(response.data, function (a) {
-                        return a.Language.toLowerCase() === $scope.selectedLanguage.value;
-                    });
-                    location.href = '/article?id=' + article.Id;
-                } else {
-                    var articles = _.map($scope.availableLanguages, function (lang) {
-                        return {
-                            Id: Utils.uniqueId(),
-                            CategoryId: c.Id,
-                            Language: lang.value,
-                            Name: c.Name,
-                            Desccription: c.Desccription,
-                            Data: '',                            
-                            Thumbnail: ''
-                        };
-                    });
-                    $article.create(articles).then(function (response) {
-                        location.href = '/article?id=' + response.data[0].Id;
-                    });
-
-                }
+        if (c.ParentId === 'cat_0_services') {
+            $article.getByCategory(c.Id, $scope.selectedLanguage.value, true, false).then(function (response) {
+                var article = response.data.Items[0];
+                location.href = '/article?id=' + article.Id;
             });
         } else {
             location.href = '/category/detail?cid=' + c.Id;

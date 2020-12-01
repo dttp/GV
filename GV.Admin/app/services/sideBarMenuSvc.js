@@ -4,9 +4,9 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $article) {
     var sidebarMenu = null;
 
     var categoryIconMapping = {
-        'cat_services': 'la la-bar-chart',
-        'cat_news': 'flaticon2-menu-4',
-        'cat_regulation': 'la la-balance-scale'
+        'cat_0_services': 'la la-bar-chart',
+        'cat_1_news': 'flaticon2-menu-4',
+        'cat_2_regulation': 'la la-balance-scale'
     };
 
     function refreshCategoriesList(items) {
