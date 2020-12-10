@@ -53,7 +53,7 @@
 
 .about-vision--image > img {
     object-fit: contain;    
-    width: 168px;
+    width: 135px;
 }
 
 .about-vision--text {
@@ -73,7 +73,10 @@
     align-items: center;
     justify-content: center;
     padding: 10px;
-    color: #11584a;
+    color: #11584a; 
+}
+.core-value--item > img {
+    width: 75px;
 }
 
 .core-value--item-text {

@@ -9,7 +9,8 @@
     [CategoryId] NVARCHAR(25) NOT NULL, 
     [Thumbnail] NVARCHAR(1000) NULL, 
     [LastModifiedDate] DATETIME NOT NULL, 
-    PRIMARY KEY ([Id], [Lang])
+    [UniqueId] INT NOT NULL IDENTITY, 
+    CONSTRAINT PK_Article PRIMARY KEY ([UniqueId]) 
 )
 
 GO

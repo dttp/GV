@@ -1,0 +1,57 @@
+﻿@section css {
+    <link href="~/app/components/article/search.css" rel="stylesheet" />
+}
+<div class="page-content" style="min-height: 1382px;" ng-controller="searchCtrl">
+    <h1 class="page-title"> 
+        {{locale.title[selectedLanguage.value]}}
+        <small>{{locale.subTitle[selectedLanguage.value]}}: <strong>{{searchQuery.keyword}}</strong></small>
+    </h1>
+    <div class="article-list">
+        <p ng-show="articles.length == 0">
+            {{locale.articleList.noArticle[selectedLanguage.value]}}
+        </p>
+        <div class="article" ng-repeat="a in articles">
+            <div class="article--thumbnail">
+                <img ng-src="{{a.Thumbnail}}" />
+            </div>
+            <div class="article--info">
+                <div class="title">
+                    {{a.Name}}
+                </div>
+                <div class="thumbnail-responsive" ng-hide="!a.Thumbnail">
+                    <img ng-src="{{a.Thumbnail}}" />
+                </div>
+                <div class="modified-date">
+                    <i class="fa fa-calendar">
+
+                    </i>
+                    {{a.LastModifiedDate}}
+                </div>
+                <div class="desc">
+                    <span>
+                        {{a.Description}}
+                    </span>
+
+                    <button class="btn green-dark" ng-click="gotoArticle(a)">{{locale.articleList.detailButton[selectedLanguage.value]}}</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="paging" ng-if="articles.length > 0">
+            <paging page="searchQuery.pageIndex"
+                    page-size="searchQuery.pageSize"
+                    total="searchQuery.Total"
+                    show-first-last="false"
+                    active-class="pagingItem"
+                    show-prev-next="false"
+                    paging-action="onPagingAction(page)">
+            </paging>
+        </div>
+    </div>
+</div>
+@section plugin {
+    <script src="~/app/assets/plugins/angular-paging/paging.min.js"></script>
+}
+@section js {
+    <script src="~/app/components/article/search.js"></script>
+}

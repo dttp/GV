@@ -9,6 +9,7 @@ angular.module('gv.app.about', []);
 angular.module('gv.app.services', []);
 angular.module('gv.app.contact', []);
 angular.module('gv.app.article', []);
+angular.module('gv.app.article.search', []);
 angular.module('gv.app.category', []);
 angular.module('gv.app.product', []);
 var gvWebApp = angular.module('gv.app',
@@ -29,6 +30,7 @@ var gvWebApp = angular.module('gv.app',
         'gv.app.contact',
         'gv.app.category',
         'gv.app.article',
+        'gv.app.article.search',
         'gv.app.product'
     ]);
 gvWebApp.config(function (cfpLoadingBarProvider, $httpProvider, toastrConfig) {

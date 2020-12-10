@@ -6,7 +6,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $article) {
     var categoryIconMapping = {
         'cat_0_services': 'la la-bar-chart',
         'cat_1_news': 'flaticon2-menu-4',
-        'cat_2_regulation': 'la la-balance-scale'
+        'cat_1_regulation': 'la la-balance-scale'
     };
 
     function refreshCategoriesList(items) {

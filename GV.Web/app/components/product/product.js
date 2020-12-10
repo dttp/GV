@@ -40,7 +40,7 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
                 vn: "Link để thẩm tra ISO"
             },
             importerDomesticManufacturerSection: {
-                en: 'Name of the importer or domestic manufacturer',
+                en: 'Importer or Civil manufacturer information',
                 vn: 'Đơn vị nhập khẩu hoặc nhà  SX trong nước'
             },
             importerName: {
@@ -56,19 +56,19 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
                 vn: 'Số điện thoại'
             },
             importerTax: {
-                en: 'Tax',
+                en: 'Tax ID',
                 vn: 'Mã số thuế'
             },
-            importerFax: {
-                en: 'Fax',
-                vn: 'Số fax'
+            importerEmail: {
+                en: 'Email',
+                vn: 'Địa chỉ email'
             },
             serialPhotos: {
-                en: 'Serial number of the template or a photo of the label with the serial number of the template',
+                en: 'Serial number of the sample or a photo of the label with the serial number of the sample',
                 vn: 'Số serial của mẫu hoặc ảnh chụp tem nhãn có serial của mẫu'
             },
             serialNumber: {
-                en: 'Serial Number',
+                en: 'Sample Serial Number',
                 vn: 'Số serial'
             }
         },

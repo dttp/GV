@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using GV.Core;
@@ -34,10 +35,10 @@ namespace GV.Services
             return articleDA.GetById(id, lang);
         }
 
-        public PaginationResult<Article> GetByCategory(string catId, Language lang, bool createNew = false, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = true)
+        public PaginationResult<Article> GetByCategory(string catId, Language lang, bool createNew = false, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = true, bool recursive = false)
         {
             var articleDA = new ArticleDataAdapter(Context);
-            var articles = articleDA.GetByCategory(catId, lang, detail, startIndex, pageSize, sortBy, sortAsc);
+            var articles = articleDA.GetByCategory(catId, lang, detail, startIndex, pageSize, sortBy, sortAsc, recursive);
             if (articles.Total == 0 && createNew)
             {
                 var newArticles = new List<Article>()
@@ -67,6 +68,12 @@ namespace GV.Services
             }
 
             return articles;
+        }
+
+        public PaginationResult<Article> Search(string keyword, Language lang, int startIndex, int pageSize)
+        {
+            var adapter = new ArticleDataAdapter(Context);
+            return adapter.Search(keyword, lang, startIndex, pageSize);
         }
 
         public List<Article> Insert(List<Article> articles)

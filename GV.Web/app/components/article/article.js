@@ -6,6 +6,10 @@ module.controller('articleCtrl', function ($scope, $article, $category, $sce) {
 
     $scope.article = {};
 
+    $scope.isServiceArticle = function() {
+        return _.startsWith($scope.article.CategoryId, 'cat_svc_');
+    };
+
     $scope.trustArticleContent = function () {
         return $sce.trustAsHtml($scope.article.Data);
     };

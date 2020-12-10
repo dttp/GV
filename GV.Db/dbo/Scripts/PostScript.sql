@@ -12,6 +12,9 @@ Post-Deployment Script Template
 
 /* DEFAULT CATEGORIES  */
 
+DELETE FROM Category
+GO
+
 
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
 SELECT 'cat_0_services', 'En', 'Services', '', NULL
@@ -24,23 +27,13 @@ WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_0_services' AND Lang = 
 GO
 
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_1_news', 'En', N'News', '', NULL
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_news' AND Lang = 'En')
+SELECT 'cat_1_regulation', 'En', 'Regulation', '', NULL
+WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_regulation' AND Lang = 'En')
 GO
 
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_1_news', 'Vn', N'Tin tức', '', NULL
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_news' AND Lang = 'Vn')
-GO
-
-INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_2_regulation', 'En', 'Regulation', '', NULL
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_2_regulation' AND Lang = 'En')
-GO
-
-INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_2_regulation', 'Vn', N'Quy định', '', NULL
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_2_regulation' AND Lang = 'Vn')
+SELECT 'cat_1_regulation', 'Vn', N'Quy định', '', NULL
+WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_regulation' AND Lang = 'Vn')
 GO
 
 /* SERVICES */
@@ -86,49 +79,22 @@ SELECT 'cat_svc_5', 'Vn', N'Sản phẩm an ninh mạng', '', 'cat_0_services'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_svc_5' AND Lang = 'Vn')
 GO
 
-/* NEWS*/
-INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_1_news_1', 'En', N'Draft regulations and circulars', '', 'cat_1_news'
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_news_1' AND Lang = 'En')
-GO
-INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_1_news_2', 'En', N'Issued documents', '', 'cat_1_news'
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_news_2' AND Lang = 'En')
-GO
-INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_1_news_3', 'En', N'Updated News', '', 'cat_1_news'
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_news_3' AND Lang = 'En')
-GO
-
-INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_1_news_1', 'Vn', N'Dự thảo quy chuẩn, thông tư', '', 'cat_1_news'
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_news_1' AND Lang = 'Vn')
-GO
-INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_1_news_2', 'Vn', N'Văn bản ban hành', '', 'cat_1_news'
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_news_2' AND Lang = 'Vn')
-GO
-INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_1_news_3', 'Vn', N'Tin tức mới', '', 'cat_1_news'
-WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_1_news_3' AND Lang = 'Vn')
-GO
-
 /* REGULATION */
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_rel_1', 'En', N'Import procedures', '', 'cat_2_regulation'
+SELECT 'cat_rel_1', 'En', N'Notice', '', 'cat_1_regulation'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_rel_1' AND Lang = 'En')
 GO
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_rel_2', 'En', N'License sample seal', '', 'cat_2_regulation'
+SELECT 'cat_rel_2', 'En', N'Published regulation', '', 'cat_1_regulation'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_rel_2' AND Lang = 'En')
 GO
 
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_rel_1', 'Vn', N'Thủ tục nhập khẩu', '', 'cat_2_regulation'
+SELECT 'cat_rel_1', 'Vn', N'Thông cáo', '', 'cat_1_regulation'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_rel_1' AND Lang = 'Vn')
 GO
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_rel_2', 'Vn', N'Giấy phép mẫu dấu ', '', 'cat_2_regulation'
+SELECT 'cat_rel_2', 'Vn', N'Quy định đã ban hành', '', 'cat_1_regulation'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_rel_2' AND Lang = 'Vn')
 GO
 

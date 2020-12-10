@@ -11,11 +11,11 @@
         <div class="title">
             {{article.Name}}
         </div>
-        <div class="modified-date">
+        <div class="modified-date" ng-hide="isServiceArticle()">
             <i class="fa fa-calendar"></i>
             {{article.LastModifiedDate}}
         </div>
-        <div class="article--thumbnail">
+        <div class="article--thumbnail" ng-hide="!article.Thumbnail">
             <img ng-src="{{article.Thumbnail}}"/>
         </div>
         <div class="article--content" ng-bind-html="article.Data">

@@ -1,5 +1,5 @@
 ﻿var module = angular.module('gv.app.home', ['slickCarousel']);
-module.controller('homeCtrl', function ($scope, $fs) {
+module.controller('homeCtrl', function ($scope, $fs, $article) {
 
     $scope.locale = {
         hero: {
@@ -21,8 +21,16 @@ module.controller('homeCtrl', function ($scope, $fs) {
             },
             news: {
                 title: {
-                    en: 'News',
-                    vn: 'Tin tức'
+                    en: 'Regulation',
+                    vn: 'Quy định'
+                },
+                detailButton: {
+                    en: 'Detail',
+                    vn: 'Chi tiết'
+                },
+                noArticles: {
+                    en: 'There are no articles',
+                    vn: 'Chưa có bài viết nào.'
                 }
             },
             clients: {
@@ -37,6 +45,8 @@ module.controller('homeCtrl', function ($scope, $fs) {
     $scope.slickConfig = {
         method: {},
         dots: false,
+        autoplay: true,
+        autoplaySpeed: 2500,
         infinite: true,
         speed: 300,
         arrows: true,
@@ -72,6 +82,25 @@ module.controller('homeCtrl', function ($scope, $fs) {
     $scope.clientLoaded = false;
     $scope.clients = [];
     $scope.servicesCategories = [];
+    $scope.regulationArticles = [];
+
+    function getRegulationArticles() {
+        $article.getByCategory('cat_1_regulation',
+            $scope.selectedLanguage.value,
+            false,
+            false,
+            0,
+            2,
+            'LastModifiedDate',
+            false,
+            true).then(function(response) {
+            $scope.regulationArticles = response.data.Items;
+        });
+    }
+
+    $scope.gotoArticle = function(a) {
+        location.href = '/article?id=' + a.Id;
+    };
 
     $scope.gotoCategory = function (c) {
         $scope.sidebarMenu.onItemClick(c);
@@ -85,6 +114,7 @@ module.controller('homeCtrl', function ($scope, $fs) {
             $scope.clients = response.data;
             $scope.clientLoaded = true;
         });
+        getRegulationArticles();
     };
 
     $scope.onLangChanged = function () {

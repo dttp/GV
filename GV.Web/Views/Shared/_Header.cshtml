@@ -13,22 +13,7 @@
             </div>
         </div>
         <!-- END LOGO -->
-        <!-- BEGIN HEADER SEARCH BOX -->
-        <form class="search-form search-form-expanded">
-            <div class="input-group">
-                <input type="text" class="form-control" 
-                       placeholder="{{locale.headerSearchPlaceHolder[selectedLanguage.value]}}" name="query"
-                       ng-enter="invokeSearch()"
-                       ng-model="searchQuery.value">
-                <span class="input-group-btn">
-                    <a href="javascript:;" class="btn"
-                       ng-click="invokeSearch()">
-                        <i class="icon-magnifier"></i>
-                    </a>
-                </span>
-            </div>
-        </form>
-        <!-- END HEADER SEARCH BOX -->
+       
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
             <span></span>
@@ -37,6 +22,24 @@
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
+                <li>
+                    <!-- BEGIN HEADER SEARCH BOX -->
+                    <form class="form-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" 
+                                   placeholder="{{locale.headerSearchPlaceHolder[selectedLanguage.value]}}" name="query"
+                                   ng-enter="invokeSearch()"
+                                   ng-model="searchQuery.value">
+                            <span class="input-group-btn">
+                                <a href="javascript:;" class="btn"
+                                   ng-click="invokeSearch()">
+                                    <i class="icon-magnifier"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- END HEADER SEARCH BOX -->
+                </li>
                 <!-- BEGIN LANGUAGE BAR -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-language">
@@ -54,7 +57,7 @@
                                 {{lang.name}}
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
                 <!-- END LANGUAGE BAR -->

@@ -7,4 +7,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ImporterName" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="b4e7493e-7e91-4b00-baf9-02dab0ec0c44" ChangeDateTime="12/08/2020 08:45:06">
+    <Property Name="ElementName" Value="[dbo].[Product].[ImporterFax]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Product]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ImporterEmail" />
+  </Operation>
 </Operations>

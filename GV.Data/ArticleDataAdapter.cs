@@ -11,12 +11,13 @@ namespace GV.Data
 {
     public class ArticleDataAdapter : BaseAdapter
     {
-        private const string SP_ARTICLE_INSERT = "SP_ARTICLE_INSERT";
-        private const string SP_ARTICLE_UPDATE = "sp_article_update";
-        private const string SP_ARTICLE_DELETE = "sp_article_delete";
-        private const string SP_ARTICLE_GETBYID = "sp_article_getbyid";
-        private const string SP_ARTICLE_GETBYCATEGORY = "sp_article_getbycategory";
+        private const string SP_ARTICLE_INSERT           = "SP_ARTICLE_INSERT";
+        private const string SP_ARTICLE_UPDATE           = "sp_article_update";
+        private const string SP_ARTICLE_DELETE           = "sp_article_delete";
+        private const string SP_ARTICLE_GETBYID          = "sp_article_getbyid";
+        private const string SP_ARTICLE_GETBYCATEGORY    = "sp_article_getbycategory";
         private const string SP_ARTICLE_DELETEBYCATEGORY = "sp_article_deleteByCategory";
+        private const string SP_ARTICLE_SEARCH           = "sp_article_search";
 
         public ArticleDataAdapter(WebAPIContext context) : base (context)
         {
@@ -33,7 +34,7 @@ namespace GV.Data
             return Call<PaginationResult<Article>>(SP_ARTICLE_GETBYID, p, DataHelper.ReadArticle).Items.FirstOrDefault();
         }
 
-        public PaginationResult<Article> GetByCategory(string categoryId, Language lang, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = true)
+        public PaginationResult<Article> GetByCategory(string categoryId, Language lang, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = true, bool recursive = false)
         {
             var p = new []
             {
@@ -44,6 +45,7 @@ namespace GV.Data
                 new SqlParameter("@p_pageSize", SqlDbType.Int) {Value = pageSize},
                 new SqlParameter("@p_sortBy", SqlDbType.NVarChar) {Value = sortBy},
                 new SqlParameter("@p_sortAsc", SqlDbType.Int) {Value = sortAsc ? 1 : 0 },
+                new SqlParameter("@p_recursive", SqlDbType.Int) {Value = recursive ? 1 : 0 },
             };
 
             return Call<PaginationResult<Article>>(SP_ARTICLE_GETBYCATEGORY, p, DataHelper.ReadArticle);
@@ -94,6 +96,19 @@ namespace GV.Data
                 new SqlParameter("@p_categoryId", SqlDbType.NVarChar) {Value = catId},
             };
             Call(SP_ARTICLE_DELETEBYCATEGORY, p);
+        }
+
+        public PaginationResult<Article> Search(string keyword, Language lang, int startIndex, int pageSize)
+        {
+            var p = new[]
+            {
+                new SqlParameter("@keyword", SqlDbType.NVarChar) {Value = keyword},
+                new SqlParameter("@p_lang", SqlDbType.NVarChar) {Value = lang.ToString()},
+                new SqlParameter("@p_startIndex", SqlDbType.Int) {Value = startIndex},
+                new SqlParameter("@p_pageSize", SqlDbType.Int) {Value = pageSize}
+            };
+
+            return Call<PaginationResult<Article>>(SP_ARTICLE_SEARCH, p, DataHelper.ReadArticle);
         }
     }
 }

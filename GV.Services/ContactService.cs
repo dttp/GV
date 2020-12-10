@@ -23,7 +23,7 @@ namespace GV.Services
                 sb.AppendLine($" Company: {contactInfo.Company} <br/>");
                 sb.AppendLine($" Contact: {contactInfo.Contact} <br/>");
                 sb.AppendLine($" Tel: {contactInfo.Phone} <br/>");
-                sb.AppendLine($" Fax: {contactInfo.Fax} <br/>");
+                sb.AppendLine($" Email: {contactInfo.Fax} <br/>");
                 sb.AppendLine($" Email: {contactInfo.Email} <br/>");
                 sb.AppendLine($" Address: {contactInfo.Address} <br/>");
                 sb.AppendLine($"--------------------------------<br/>");

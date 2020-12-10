@@ -1769,6 +1769,8 @@
     <Content Include="app\components\about\about.js" />
     <Content Include="app\components\article\article.css" />
     <Content Include="app\components\article\article.js" />
+    <Content Include="app\components\article\search.css" />
+    <Content Include="app\components\article\search.js" />
     <Content Include="app\components\category\category.css" />
     <Content Include="app\components\category\category.js" />
     <Content Include="app\components\contact\contact.css" />
@@ -1903,6 +1905,7 @@
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Product\Register.cshtml" />
+    <Content Include="Views\Article\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GV.Core\GV.Core.csproj">

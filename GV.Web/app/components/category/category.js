@@ -24,7 +24,7 @@ module.controller('categoryCtrl', function ($scope, $article, $category) {
     };
 
     $scope.onPagingAction = function (p) {
-        $scope.pageIndex.pageIndex = p;
+        $scope.filter.pageIndex = p;
         refreshArticleList();
     };
 

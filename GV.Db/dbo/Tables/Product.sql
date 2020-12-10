@@ -13,7 +13,7 @@
     [ImporterAddress] NVARCHAR(512) NOT NULL, 
     [ImporterPhone] NVARCHAR(255) NOT NULL, 
     [ImporterTax] NVARCHAR(255) NULL, 
-    [ImporterFax] NVARCHAR(255) NULL, 
+    [ImporterEmail] NVARCHAR(255) NULL, 
     [SerialPhotos] NVARCHAR(MAX) NULL,
     [SerialNumber] NVARCHAR(255) NULL,
     [WorkingFrequency] NVARCHAR(255) NULL, 

@@ -22,10 +22,11 @@
                     <i class="{{menuItem.Icon}}"></i>
                     <span class="title">{{menuItem.Name}}</span>
                     @*<span class="selected" ng-if="menuItem.Selected"></span>*@
-                    <span class="arrow" ng-if="menuItem.Items.length > 0"></span>
+                    <span class="arrow" ng-class="{'open': menuItem.Selected }" ng-if="menuItem.Items.length > 0"></span>
                 </a>
                 <ul class="sub-menu" ng-if="menuItem.Items.length > 0">
-                    <li ng-repeat="subItem in menuItem.Items">
+                    <li ng-repeat="subItem in menuItem.Items"
+                        ng-class="{'active': subItem.Selected}">
                         <a href="javascript:;"
                            ng-click="sidebarMenu.onItemClick(subItem)"
                            title="{{subItem.Name}}"

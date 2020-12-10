@@ -73,7 +73,7 @@ namespace GV.Services
                 productFilePath = FSService.Instance.SaveProductFile(productId, "product-information.docx", ms.GetBuffer());
             }
 
-            EmailHelper.SendEmail("info@gvcompany.com", "New product register from web", "", productFilePath);
+            EmailHelper.SendEmail(GVConfig.Instance.ProductRegisterEmail, "New product register from web", "", productFilePath);
         }
 
         private Document MergeProduct(Product product, byte[] templateBytes)
@@ -111,7 +111,7 @@ namespace GV.Services
                 { "{!9}", p.ImporterDomesticManufacturer.Name },
                 { "{!10}", p.ImporterDomesticManufacturer.Address },
                 { "{!11}", p.ImporterDomesticManufacturer.Phone },
-                { "{!12}", p.ImporterDomesticManufacturer.Fax },
+                { "{!12}", p.ImporterDomesticManufacturer.Email },
                 { "{!13}", p.ImporterDomesticManufacturer.Tax },
                 { "{!14}", p.SerialNumber },
                 { "{!15}", p.SerialPhotos.ToJson() },

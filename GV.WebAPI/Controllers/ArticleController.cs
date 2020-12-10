@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using GV.Model;
 using GV.Services;
@@ -22,12 +23,23 @@ namespace GV.WebAPI.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public PaginationResult<Article> GetByCategory(string catId, Language lang, bool createNew = false, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = false)
+        public PaginationResult<Article> GetByCategory(string catId, Language lang, bool createNew = false, bool detail = true, int startIndex = 0, int pageSize = 100, string sortBy = "LastModifiedDate", bool sortAsc = false, bool recursive = false)
         {
             return Execute(() =>
             {
                 var svc = new ArticleService(Context);
-                return svc.GetByCategory(catId, lang, createNew, detail, startIndex, pageSize, sortBy, sortAsc);
+                return svc.GetByCategory(catId, lang, createNew, detail, startIndex, pageSize, sortBy, sortAsc, recursive);
+            });
+        }
+
+        [AcceptVerbs("GET")]
+        public PaginationResult<Article> Search(string keyword, Language lang, int startIndex = 0, int pageSize = 20)
+        {
+            return Execute(() =>
+            {
+                var svc = new ArticleService(Context);
+                keyword = HttpUtility.HtmlDecode(keyword);
+                return svc.Search(keyword, lang, startIndex, pageSize);
             });
         }
 

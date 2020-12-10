@@ -63,6 +63,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="dbo\Scripts" />
+    <Folder Include="dbo\Index" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Category.sql" />
@@ -90,9 +91,12 @@
     <Build Include="dbo\Stored Procedures\SP_PRODUCT_FILTER.sql" />
     <Build Include="dbo\Stored Procedures\SP_PRODUCT_UPDATE.sql" />
     <Build Include="dbo\Stored Procedures\SP_PRODUCT_GETBYID.sql" />
+    <Build Include="dbo\Index\IDX_ARTICLE_NAME_DESC_DATA_FULLTEXT.sql" />
+    <Build Include="dbo\Stored Procedures\SP_ARTICLE_SEARCH.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GV.Db.GvCom-Test.xml" />
+    <None Include="GV.Db.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="GV.Db.refactorlog" />

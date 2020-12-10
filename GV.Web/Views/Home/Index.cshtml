@@ -44,8 +44,26 @@
         <div class="gv-section--title">
             {{locale.section.news.title[selectedLanguage.value]}}
         </div>
-        <div class="gv-section--body">
-
+        <div class="gv-section--body article--wrapper">
+            <p ng-if="regulationArticles.length == 0">
+                {{locale.section.news.noArticles[selectedLanguage.value]}}
+            </p>
+            <div ng-repeat="article in regulationArticles"
+                 class="article"
+                 ng-if="regulationArticles.length > 0"
+                 ng-click="gotoArticle(article)">
+                <div class="article--thumbnail">
+                    <img ng-src="{{article.Thumbnail}}"/>
+                </div>
+                <div class="article--info">
+                    <div class="article--title">
+                        {{article.Name.toLowerCase()}}
+                    </div>
+                    <div class="article--description">
+                        {{article.Description}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="gv-section">

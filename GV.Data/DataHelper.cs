@@ -123,7 +123,7 @@ namespace GV.Data
                         Address = reader["ImporterAddress"].ToString(),
                         Phone = reader["ImporterPhone"].ToString(),
                         Tax = reader["ImporterTax"].ToString(),
-                        Fax = reader["ImporterFax"].ToString()
+                        Email = reader["ImporterEmail"].ToString()
                     },
                     CreatedDate = DateTime.Parse(reader["CreatedDate"].ToString())
                 };

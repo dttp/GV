@@ -5,7 +5,8 @@
 	@p_startIndex int,
 	@p_pageSize int,
 	@p_sortBy nvarchar(25),
-	@p_sortAsc int
+	@p_sortAsc int,
+	@p_recursive int
 AS	
 BEGIN
 	DECLARE @v_query nvarchar(max);
@@ -16,8 +17,15 @@ BEGIN
 	END;
 
 	SET @v_query = @v_query + ', COUNT(*) OVER() AS Count';
+	IF (@p_recursive = 1)
+	BEGIN
+		SET @v_query = @v_query + ' FROM Article a WHERE a.CategoryId IN (SELECT Id FROM Category WHERE Id = ''' + @p_categoryId + ''' OR ParentId=''' + @p_categoryId + ''') AND a.Lang = '''  + @p_lang + '''';
+	END
+	ELSE 
+	BEGIN
+		SET @v_query = @v_query + ' FROM Article a WHERE a.CategoryId = ''' + @p_categoryId + ''' AND a.Lang = '''  + @p_lang + '''';
+	END;
 
-	SET @v_query = @v_query + ' FROM Article a WHERE a.CategoryId = ''' + @p_categoryId + ''' AND a.Lang = '''  + @p_lang + '''';
 	SET @v_query = @v_query + ' ORDER BY a.' + @p_sortBy;
 	IF (@p_sortAsc = 1)
 	BEGIN

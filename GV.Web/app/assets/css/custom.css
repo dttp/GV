@@ -106,6 +106,10 @@ a.nav-link {
     content: "\f105";
 }
 
+.page-sidebar .page-sidebar-menu .sub-menu > li.active > a, .page-sidebar .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a {
+    background: #d0d0d0 !important;
+}
+
 .social {
     border-top: 1px solid #EEE;
     display: flex;
@@ -148,7 +152,7 @@ a.gv-social:hover {
     height: 150px;
     display:flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .footer-logo, .footer-links, .footer-contact, .footer-cert {
@@ -171,7 +175,7 @@ a.gv-social:hover {
     padding: 0 120px 0 30px;
 }
 .footer-contact {
-    width: 240px;
+    width: 40%;
 }
 .footer-logo {
     padding: 0 40px;
@@ -250,4 +254,11 @@ a.gv-social:hover {
     color: #11584a;
     font-size: 20px;
     font-weight: bold;
+}
+
+.form-search {
+    display: inline-block;
+    margin-top: 7px;
+    width: 250px;
+    margin-right: 8px;
 }

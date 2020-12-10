@@ -24,8 +24,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
 
     var categoryIconMapping = {
         'cat_0_services': 'fa fa-bar-chart',
-        'cat_1_news': 'icon-grid',
-        'cat_2_regulation': 'fa fa-balance-scale'
+        'cat_1_regulation': 'fa fa-balance-scale'
     };
 
     function refreshCategoriesList() {
@@ -117,7 +116,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
         });
 
         refreshCategoriesList().then(function (catItems) {
-            var startIndex = 3;
+            var startIndex = 2;
             _.each(catItems, function (c) {
                 items.splice(startIndex,0, c);
                 startIndex++;
@@ -155,7 +154,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
                 item.Selected = item.Id === id;
 
                 _.each(item.Items, function (subItem) {
-                    subItem.Selected = subItem.Id == id;
+                    subItem.Selected = subItem.Id === id;
                     if (subItem.Selected) item.Selected = true;
                 });
             });            
