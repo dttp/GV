@@ -122,10 +122,11 @@
                         <h3 class="form-section">
                             {{locale.fields.serialPhotos[selectedLanguage.value]}}
                         </h3>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': !hasSerialNumberOrPhotos() && productForm.serialNumber.$dirty}">
                             <label class="col-md-4 control-label">{{locale.fields.serialNumber[selectedLanguage.value]}}</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="serialNumber" ng-model="product.SerialNumber">
+                                <span class="help-block" ng-show="!hasSerialNumberOrPhotos() && productForm.serialNumber.$dirty">{{locale.errors.serialPhotoRequired[selectedLanguage.value]}}</span>
                             </div>
                         </div>
                         <div class="photos--section">

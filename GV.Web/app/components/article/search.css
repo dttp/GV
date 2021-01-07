@@ -1,4 +1,15 @@
-﻿.article-list {
+﻿.thumbnail-responsive {
+    display: none;
+    border: 1px solid #ececec;
+}
+
+.thumbnail-responsive > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.article-list {
     padding: 20px;
 }
 
@@ -10,13 +21,14 @@
 
 .article--thumbnail {
     width: 30%;
-/*    border: 1px solid #ececec;*/
+    height: 160px;
+    border: 1px solid #ececec !important;
 }
 
 .article--thumbnail > img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .article--info {

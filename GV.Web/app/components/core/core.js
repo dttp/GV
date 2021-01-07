@@ -40,6 +40,10 @@
             }
         };
 
+        $scope.getFooterUrl = function(c) {
+            return _.startsWith(c.Url, '/category') ? '' : c.Url;
+        };
+
         $scope.categories = [];
         $scope.init = function () {
             $scope.sidebarMenu = $sidebarMenu.create();

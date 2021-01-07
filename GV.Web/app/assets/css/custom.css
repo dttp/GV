@@ -191,7 +191,8 @@ a.gv-social:hover {
     padding: 5px;
 }
 
-.footer-links--wrapper .link-item a {
+.footer-links--wrapper .link-item a,
+.footer-links--wrapper .link-item span{
     text-transform: uppercase;
     color: white;
 }

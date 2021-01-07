@@ -71,7 +71,6 @@
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
                     {{getArticle().Name}}
-                    <small>{{getArticle().Description}}</small>
                 </h3>
             </div>
             <div class="kt-subheader__toolbar">
@@ -149,7 +148,7 @@
                                                 {{labels.aName[lang.value]}}
                                             </label>
                                             <input type="text"
-                                                   maxlength="100"
+                                                   maxlength="1024"
                                                    class="form-control"
                                                    ng-class="{'is-invalid': hasError(forms.articleForm_{{lang.value}}.name, 'required')}"
                                                    name="name"

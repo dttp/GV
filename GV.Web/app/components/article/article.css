@@ -28,12 +28,14 @@
 }
 .article--thumbnail > img {
     width: 100%;
-    object-fit: cover;
+    max-height: 200px;
+    object-fit: contain;
 }
 .article--thumbnail {
     margin: 10px 0;
 }
 
 .article > .article--content {
-
+    max-height: 600px;
+    overflow-y: scroll;
 }

@@ -86,6 +86,7 @@ namespace GV.Data
                     Thumbnail = reader["Thumbnail"].ToString(),
                 };
                 if (hasCountColumn) result.Total = Convert.ToInt32(reader["Count"]);
+                if (string.IsNullOrEmpty(a.Thumbnail)) a.Thumbnail = GVConfig.Instance.WebAPIEndpoint + "/fs/logo full-02.png";
                 result.Items.Add(a);
             }
             return result;

@@ -9,9 +9,10 @@
         <div class="footer-links">
             <ul class="footer-links--wrapper">                
                 <li ng-repeat="c in sidebarMenu.items" ng-show="!$first && !$last" class="link-item">
-                    <a href="{{c.Url}}">
+                    <a href="{{c.Url}}" ng-if="getFooterUrl(c)">
                         {{c.Name}}
                     </a>
+                    <span ng-if="!getFooterUrl(c)">{{c.Name}}</span>
                 </li>
             </ul>
         </div>

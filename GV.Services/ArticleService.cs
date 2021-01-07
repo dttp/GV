@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using GV.Core;
 using GV.Data;
@@ -73,7 +74,39 @@ namespace GV.Services
         public PaginationResult<Article> Search(string keyword, Language lang, int startIndex, int pageSize)
         {
             var adapter = new ArticleDataAdapter(Context);
+            keyword = ParseSearchKeywod(keyword);
             return adapter.Search(keyword, lang, startIndex, pageSize);
+        }
+
+        private string ParseSearchKeywod(string keyword)
+        {
+            keyword = keyword.Replace('_', ' ');
+            var regex = new Regex("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
+            var matches = regex.Matches(keyword.Replace("{", " ").Replace("}", " "));
+            var keywordBuilder = new StringBuilder();
+
+            for (var i = 0; i < matches.Count; i++)
+            {
+                var m = matches[i];
+                if (!string.IsNullOrEmpty(m.Value))
+                {
+                    var phrase = m.Value;
+                    if (phrase.StartsWith("\""))
+                        phrase = phrase.Remove(0, 1);
+                    if (phrase.EndsWith("\""))
+                        phrase = phrase.Remove(phrase.Length - 1, 1);
+                    /*
+                     * not put single keyword into double quote for wildcard query in the procedures
+                     */
+                    if (matches.Count == 1 && !phrase.Contains(" "))
+                        keywordBuilder.Append(phrase.Trim());
+                    else
+                        keywordBuilder.Append("\"" + phrase.Trim() + "\"");
+                    if (i < matches.Count - 1)
+                        keywordBuilder.Append(" AND ");
+                }
+            }
+            return keywordBuilder.ToString();
         }
 
         public List<Article> Insert(List<Article> articles)

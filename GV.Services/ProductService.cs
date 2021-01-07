@@ -161,14 +161,18 @@ namespace GV.Services
                 var tFieldSelection = document.FindString(field, true, true);
                 var paragraph = tFieldSelection.GetAsOneRange().OwnerParagraph;
                 var images = value.ParseAs<List<string>>();
-                foreach (var image in images)
+                if (images != null)
                 {
-                    var pic = paragraph.AppendPicture(FSService.Instance.ReadFile(image.ParseAs<FileSystemObject>().Path));
-                    var ow = pic.Width;
-                    var oh = pic.Height;
-                    pic.Height = 100.0f;
-                    pic.Width = ow / oh * 100.0f;
+                    foreach (var image in images)
+                    {
+                        var pic = paragraph.AppendPicture(FSService.Instance.ReadFile(image.ParseAs<FileSystemObject>().Path));
+                        var ow = pic.Width;
+                        var oh = pic.Height;
+                        pic.Height = 100.0f;
+                        pic.Width = ow / oh * 100.0f;
+                    }
                 }
+                
                 document.Replace(field, string.Empty, true, true);
             }
             else

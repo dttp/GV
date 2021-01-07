@@ -120,6 +120,10 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
             importerTaxRequired: {
                 en: 'Tax is required',
                 vn: 'Bạn chưa nhập mã số thuế'
+            },
+            serialPhotoRequired: {
+                en: 'Serial Number or photo of serial is required',
+                vn: 'Bạn chưa nhập số serial hoặc up ảnh của serial.'
             }
         },
         message: {
@@ -184,10 +188,16 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
         SerialPhotos : [],
         WorkingFrequency : '',
         Capacity : '',
+        SerialNumber: '',
         SpuriousEmissionLevel : '',
         Others : '',
         technicalSpecs: []
     };
+
+     $scope.hasSerialNumberOrPhotos = function() {
+         if (!$scope.product.SerialNumber && uploader.queue.length === 0) return false;
+         return true;
+     };
 
     $scope.addSpecs = function () {
         $scope.product.technicalSpecs.push({
@@ -222,12 +232,13 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
 
     $scope.submit = function (form) {
         $scope.product.specAdded = true;
-        if (form.$invalid || !$scope.hasSpecs()) {
+        if (form.$invalid || !$scope.hasSpecs() || !$scope.hasSerialNumberOrPhotos()) {
             angular.forEach(form.$error, function (controls, errorName) {
                 angular.forEach(controls, function (control) {
                     control.$setDirty();
                 });
             });
+            if (!$scope.hasSerialNumberOrPhotos()) form.serialNumber.$setDirty();
         } else {
             var product = _.cloneDeep($scope.product);
             product.TechnicalSpecs = _.map(product.technicalSpecs, (spec) => spec.value);

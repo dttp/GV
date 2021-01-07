@@ -131,6 +131,7 @@
     <Content Include="app\assets\imgs\footer-logo.png" />
     <Content Include="app\assets\imgs\gv-logo.png" />
     <Content Include="app\assets\imgs\home-hero.jpg" />
+    <Content Include="app\assets\imgs\Logo full-02.png" />
     <Content Include="app\assets\imgs\Spinner-1s-284px.png" />
     <Content Include="app\assets\css\custom.css" />
     <Content Include="app\assets\js\Base64.js" />
@@ -1929,7 +1930,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>51339</DevelopmentServerPort>
+          <DevelopmentServerPort>20000</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:20000/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

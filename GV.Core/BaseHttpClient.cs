@@ -196,6 +196,7 @@ namespace GV.Core
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             };
 			var client = new HttpClient(httpHandler);
+            
 			client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = Authorization;
             client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("deflate"));

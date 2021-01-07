@@ -98,8 +98,12 @@
 
         $scope.reset = function () {
             $scope.contactInfo = {
-                YourName: '',
-                YourEmail: '',
+                Company: '',
+                Contact: '',
+                Email: '',
+                Phone: '',
+                Fax: '',
+                Address: '',
                 Message: ''
             };
         };
@@ -115,6 +119,7 @@
                 $contact.sendMessage($scope.contactInfo).then(function () {
                     $scope.alertSvc.addSuccess($scope.locale.message.sendSuccess[$scope.selectedLanguage.value]);
                     $scope.reset();
+                    form.$setPristine();
                 });
             } else {
                 form.$dirty = true;
