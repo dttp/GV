@@ -263,3 +263,15 @@ a.gv-social:hover {
     width: 250px;
     margin-right: 8px;
 }
+
+.scroll-top {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+html {
+    scroll-behavior: smooth;
+}

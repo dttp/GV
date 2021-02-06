@@ -15,7 +15,7 @@ module.controller('articleCtrl', function ($scope, $article, $category, $sce) {
     };
 
     $scope.init = function () {
-        var id = Utils.getParameterByName("id");
+        var id = Utils.getIdFromUrl();
 
         $article.getById(id, $scope.selectedLanguage.value).then(function (response) {
             $scope.article = response.data;

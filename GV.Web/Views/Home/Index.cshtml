@@ -27,9 +27,8 @@
                 <li ng-repeat="c in servicesCategories"
                     class="service-item">
                     <a title="{{c.Name}}"
-                       href="javascript:;"
-                       ng-click="gotoCategory(c)">
-                        <span class="service-item--image">
+                       href="{{c.Url}}">
+                    <span class="service-item--image">
                             <img ng-src="{{c.Image}}" alt="Image" />
                         </span>
                         <span class="service-item--text">
@@ -48,21 +47,34 @@
             <p ng-if="regulationArticles.length == 0">
                 {{locale.section.news.noArticles[selectedLanguage.value]}}
             </p>
+            <div class="arrow left">
+                <a href="javascript:;" ng-click="getPrevNews()">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+            </div>
             <div ng-repeat="article in regulationArticles"
                  class="article"
-                 ng-if="regulationArticles.length > 0"
-                 ng-click="gotoArticle(article)">
+                 ng-if="regulationArticles.length > 0">
                 <div class="article--thumbnail">
-                    <img ng-src="{{article.Thumbnail}}"/>
+                    <a href="{{getArticleUrl(article)}}">
+                        <img ng-src="{{article.Thumbnail}}" />
+                    </a>
                 </div>
                 <div class="article--info">
                     <div class="article--title">
-                        {{article.Name.toLowerCase()}}
+                        <a href="{{getArticleUrl(article)}}">
+                            {{article.Name.toLowerCase()}}
+                        </a>
                     </div>
                     <div class="article--description">
                         {{article.Description}}
                     </div>
                 </div>
+            </div>
+            <div class="arrow right">
+                <a href="javascript:;" ng-click="getNextNews()">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
         </div>
     </div>

@@ -37,7 +37,7 @@ module.controller('categoryCtrl', function ($scope, $article, $category) {
 
     function refreshArticleList() {
         var startIndex = ($scope.filter.pageIndex - 1) * $scope.filter.itemsPerPage;
-        var id = Utils.getParameterByName("id");
+        var id = Utils.getIdFromUrl();
 
         $article.getByCategory(id, $scope.selectedLanguage.value, false, false, startIndex, $scope.filter.itemsPerPage, $scope.filter.sortBy, $scope.filter.sortAsc).then(function (response) {
             $scope.articles = response.data.Items;
@@ -48,7 +48,7 @@ module.controller('categoryCtrl', function ($scope, $article, $category) {
     $scope.init = function () {
         updateSidebar();
 
-        var id = Utils.getParameterByName("id");
+        var id = Utils.getIdFromUrl();
         $category.getById(id, $scope.selectedLanguage.value).then(function (response) {
             $scope.category = response.data;
         });

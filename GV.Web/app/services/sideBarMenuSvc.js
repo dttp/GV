@@ -27,45 +27,86 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
         'cat_1_regulation': 'fa fa-balance-scale'
     };
 
+    function getSubItemsForCat(c) {
+        var defer = $q.defer();
+
+        var item = {
+            Id: c.Id,
+            Name: c.Name,
+            Type: "MenuItemList",
+            Url: '/category/' + Utils.normalizeUrl(c),
+            Icon: categoryIconMapping[c.Id],
+            Items: [],
+            Selected: false
+        };
+
+        if (!item.Icon) item.Icon = 'fa fa-circle small';
+
+        if (c.Id === 'cat_0_services') {
+            var defers = _.map(c.Items, function(subCat) {
+                return $article.getByCategory(subCat.Id, $rootScope.selectedLanguage.value, true, false);
+            });
+
+            $q.all(defers).then(function(responses) {
+                for (var idx = 0; idx < c.Items.length; idx++) {
+                    var subCat = c.Items[idx];
+                    var article = responses[idx].data.Items[0];
+
+                    var subItem = {
+                        Id: subCat.Id,
+                        Name: subCat.Name,
+                        Type: "MenuItemList",
+                        Url: '/article/'+ Utils.normalizeUrl(article),
+                        Icon: categoryIconMapping[subCat.Id],
+                        Items: [],
+                        Selected: false
+                    };
+                    if (!subItem.Icon) subItem.Icon = 'fa fa-circle small';
+                    item.Items.push(subItem);
+                }
+                console.log('get subitem for services. done.');
+                defer.resolve(item);
+            });
+        } else {
+            item.Items = _.map(c.Items, function (subCat) {
+                var subItem = {
+                    Id: subCat.Id,
+                    Name: subCat.Name,
+                    Type: "MenuItemList",
+                    Url: '/category/'+ Utils.normalizeUrl(subCat),
+                    Icon: categoryIconMapping[subCat.Id],
+                    Items: [],
+                    Selected: false
+                };
+                if (!subItem.Icon) subItem.Icon = 'fa fa-circle small';
+                return subItem;
+            });
+            console.log('get subitem for news done');
+            setTimeout(function() {
+                defer.resolve(item);
+            },0);
+        }
+
+        return defer.promise;
+    }
+
     function refreshCategoriesList() {
         var defer = $q.defer();
-        var items = [];
         $category.getSidebarCategories($rootScope.selectedLanguage.value).then(function (response) {
             if (response.data.length > 0) {
 
                 var categories = response.data;
-                _.each(categories, function (c) {
-
-                    var item = {
-                        Id: c.Id,
-                        Name: c.Name,
-                        Type: "MenuItemList",
-                        Url: '/category?id=' + c.Id,
-                        Icon: categoryIconMapping[c.Id],
-                        Items: [],
-                        Selected: false
-                    };
-
-                    if (!item.Icon) item.Icon = 'fa fa-circle small';
-
-                    _.each(c.Items, function (subCat) {
-                        var subItem = {
-                            Id: subCat.Id,
-                            Name: subCat.Name,
-                            Type: "MenuItemList",
-                            Url: '/category?id=' + subCat.Id,
-                            Icon: categoryIconMapping[subCat.Id],
-                            Items: [],
-                            Selected: false
-                        };
-                        if (!subItem.Icon) subItem.Icon = 'fa fa-circle small';
-                        item.Items.push(subItem);
+                console.log('get category done');
+                var catDefers = [];
+                _.each(categories,
+                    function(c) {
+                        catDefers.push(getSubItemsForCat(c));
                     });
 
-                    items.push(item);
+                $q.all(catDefers).then(function(catItems) {
+                    defer.resolve(catItems);
                 });
             }
-            defer.resolve(items);            
         });
 
         return defer.promise;
@@ -130,18 +171,6 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
     function SidebarMenu() {
         var self = this;
         self.items = [];
-
-        self.onItemClick = function (item) {
-            if (_.startsWith(item.Id, 'cat_svc_')) {
-                $article.getByCategory(item.Id, $rootScope.selectedLanguage.value, true, false).then(function (response) {
-                    var article = response.data.Items[0];
-                    location.href = '/article?id=' + article.Id;
-                });
-            } else {
-                location.href = item.Url;
-            }
-            
-        };
 
         self.initialize = function () {
 

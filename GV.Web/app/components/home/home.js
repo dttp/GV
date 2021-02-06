@@ -84,28 +84,43 @@ module.controller('homeCtrl', function ($scope, $fs, $article) {
     $scope.servicesCategories = [];
     $scope.regulationArticles = [];
 
+    $scope.articlePaging = {
+        pageSize: 2,
+        startIndex: 0,
+        total: 0
+    };
+
     function getRegulationArticles() {
         $article.getByCategory('cat_1_regulation',
             $scope.selectedLanguage.value,
             false,
             false,
-            0,
-            2,
+            $scope.articlePaging.startIndex,
+            $scope.articlePaging.pageSize,
             'LastModifiedDate',
             false,
             true).then(function(response) {
             $scope.regulationArticles = response.data.Items;
+            $scope.articlePaging.total = response.data.Total;
         });
     }
 
-    $scope.gotoArticle = function(a) {
-        location.href = '/article?id=' + a.Id;
+    $scope.getArticleUrl = function(a) {
+        return '/article/' +  Utils.normalizeUrl(a);
     };
 
-    $scope.gotoCategory = function (c) {
-        $scope.sidebarMenu.onItemClick(c);
+    $scope.getNextNews = function() {
+        $scope.articlePaging.startIndex += 2;
+        if ($scope.articlePaging.startIndex >= $scope.articlePaging.total - 2)
+            $scope.articlePaging.startIndex = $scope.articlePaging.total - 2; 
+        getRegulationArticles();
     };
 
+    $scope.getPrevNews = function() {
+        $scope.articlePaging.startIndex -= 2;
+        if ($scope.articlePaging.startIndex < 0) $scope.articlePaging.startIndex = 0;
+        getRegulationArticles();
+    };
 
     $scope.init = function () {
         $scope.sidebarMenu.setActive('sbHome');

@@ -130,12 +130,16 @@
 .gv-section--body.article--wrapper {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
+}
+.arrow {
+    font-size: 20px;
+    color: #11584a;
 }
 .article {
     padding: 10px;
-    width: 50%;
+    width: calc(50% - 20px);
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -146,7 +150,7 @@
     width: 120px;
     height: 120px;
 }
-.article--thumbnail > img {
+.article--thumbnail > a > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -155,7 +159,7 @@
     width: calc(100% - 120px);
     padding: 0 10px;
 }
-.article--title {
+.article--title a {
     font-size: 20px;
     color: #11584a;
     text-transform: capitalize;
