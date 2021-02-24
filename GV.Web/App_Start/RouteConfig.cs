@@ -40,8 +40,26 @@ namespace GV.Web
             );
 
             routes.MapRoute(
+                name: "search",
+                url: "search/{path}",
+                defaults: new { controller = "Article", action = "Search", path=UrlParameter.Optional}
+            );
+
+
+            routes.MapRoute(
                 name: "category",
                 url: "category/{path}",
+                defaults: new { controller = "Category", action = "Index", path=UrlParameter.Optional}
+            );
+            routes.MapRoute(
+                name: "services",
+                url: "services",
+                defaults: new { controller = "Category", action = "Index", path=UrlParameter.Optional}
+            );
+
+            routes.MapRoute(
+                name: "regulation",
+                url: "regulation",
                 defaults: new { controller = "Category", action = "Index", path=UrlParameter.Optional}
             );
         }

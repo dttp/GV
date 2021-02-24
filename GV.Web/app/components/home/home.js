@@ -140,6 +140,7 @@ module.controller('homeCtrl', function ($scope, $fs, $article) {
         $scope.servicesCategories = _.find($scope.sidebarMenu.items, {Id: 'cat_0_services'}).Items;
         _.each($scope.servicesCategories, function (item) {
             item.Image = '/app/assets/imgs/' + item.Id + '.png';
+            item.HoverImage = '/app/assets/imgs/' + item.Id + '_hover.png';
         });
     });
 

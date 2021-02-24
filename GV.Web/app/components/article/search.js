@@ -33,6 +33,10 @@ module.controller('searchCtrl', function ($scope, $article, $localStorage) {
 
     $scope.articles = [];
 
+    $scope.getArticleUrl = function(a) {
+        return '/article/' +  Utils.normalizeUrl(a);
+    };
+
     $scope.gotoArticle = function (a) {
         location.href = '/article?id=' + a.Id;
     };

@@ -11,6 +11,7 @@ angular.module('gv.app.contact', []);
 angular.module('gv.app.article', []);
 angular.module('gv.app.article.search', []);
 angular.module('gv.app.category', []);
+angular.module('gv.app.regulation', []);
 angular.module('gv.app.product', []);
 var gvWebApp = angular.module('gv.app',
     [

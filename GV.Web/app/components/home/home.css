@@ -75,13 +75,26 @@
     color: #11584a;
 }
 .service-item > a:hover > span.service-item--image {
-    border-color: #11584a;
-    background: #f6fffb;
+    background: #11584a;
 }
 
-.clients-section {
-    margin: 0 20px 20px 20px;
+img.hover {
+    display: none;
 }
+img.normal {
+    display: block;
+}
+
+.service-item > a:hover > span.service-item--image > img.hover {
+    display: block;
+}
+.service-item > a:hover > span.service-item--image > img.normal {
+    display: none;
+}
+
+    .clients-section {
+        margin: 0 20px 20px 20px;
+    }
 
 .client-item {
     

@@ -81,20 +81,20 @@ GO
 
 /* REGULATION */
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_rel_1', 'En', N'Notice', '', 'cat_1_regulation'
+SELECT 'cat_rel_1', 'En', N'Notice', 'Continuously updated, accurate and fastest law notices. Meet the requirements of searching and preparing documents for certificates. Please contact us for more information.', 'cat_1_regulation'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_rel_1' AND Lang = 'En')
 GO
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_rel_2', 'En', N'Published regulation', '', 'cat_1_regulation'
+SELECT 'cat_rel_2', 'En', N'Published regulation', 'Legal notices issued are updated continuously, accurately and quickly. Meet the requirements of searching and preparing documents for certification. Please contact us for more information.', 'cat_1_regulation'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_rel_2' AND Lang = 'En')
 GO
 
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_rel_1', 'Vn', N'Thông cáo', '', 'cat_1_regulation'
+SELECT 'cat_rel_1', 'Vn', N'Thông cáo', N'Thông báo pháp luật được cập nhật liên tục, chính xác và nhanh nhất. Đáp ứng yêu cầu tra cứu và chuẩn bị hồ sơ xin cấp chứng chỉ. Vui lòng liên hệ với chúng tôi để biết thêm thông tin.', 'cat_1_regulation'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_rel_1' AND Lang = 'Vn')
 GO
 INSERT INTO Category(Id, Lang, Name, Description, ParentId) 
-SELECT 'cat_rel_2', 'Vn', N'Quy định đã ban hành', '', 'cat_1_regulation'
+SELECT 'cat_rel_2', 'Vn', N'Quy định đã ban hành', N'Các thông báo pháp lý ban hành được cập nhật liên tục, chính xác và nhanh chóng. Đáp ứng yêu cầu tra cứu và chuẩn bị hồ sơ xin cấp chứng chỉ. Vui lòng liên hệ với chúng tôi để biết thêm thông tin.', 'cat_1_regulation'
 WHERE NOT EXISTS (SELECT * FROM Category WHERE Id = 'cat_rel_2' AND Lang = 'Vn')
 GO
 

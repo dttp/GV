@@ -36,7 +36,7 @@
                     pageSize: 20
                 };
 
-                location.href = '/article/search';
+                location.href = '/search';
             }
         };
 

@@ -12,7 +12,7 @@
                 if (!pageSize) pageSize = 100;
                 if (!sortBy) sortBy = 'LastModifiedDate';
                 if (!recursive) recursive = false;
-                return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getByCategory?catId=' + catId + '&lang=' + lang + '&createNew=' + createNew + '&detail=' + detail + '&startIndex=' + startIndex + '&pageSize=' + pageSize + '&sortBy=' + sortBy + '&sortAc=' + sortAsc + '&recursive=' + recursive);
+                return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getByCategory?catId=' + catId + '&lang=' + lang + '&createNew=' + createNew + '&detail=' + detail + '&startIndex=' + startIndex + '&pageSize=' + pageSize + '&sortBy=' + sortBy + '&sortAsc=' + sortAsc + '&recursive=' + recursive);
             },
             getAllByCategory: function (catId, lang) {
                 return $xhttp.get(WEBAPI_ENDPOINT + '/api/article/getAllByCategory?catId=' + catId + '&lang=' + lang);

@@ -1,5 +1,5 @@
-﻿var module = angular.module('gv.app.category', ['bw.paging']);
-module.controller('categoryCtrl', function ($scope, $article, $category) {
+﻿var module = angular.module('gv.app.category', ['bw.paging', 'slickCarousel'] );
+module.controller('categoryCtrl', function ($scope, $article, $category, $fs) {
 
     $scope.locale = {
         articleList: {
@@ -11,8 +11,56 @@ module.controller('categoryCtrl', function ($scope, $article, $category) {
                 en: 'View Detail',
                 vn: 'Xem chi tiết'
             }
+        },
+        section: {
+            clients: {
+                title: {
+                    en: 'Our clients',
+                    vn: 'Khách hàng của chúng tôi'
+                }
+            }
         }
     };
+
+    $scope.slickConfig = {
+        method: {},
+        dots: false,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        infinite: true,
+        speed: 300,
+        arrows: true,
+        variableWidth: true,
+        slidesToShow: 4,
+        slidesToScroll: 2,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
+    $scope.clientLoaded = false;
+    $scope.clients = [];
 
     $scope.filter = {
         pageIndex: 1,
@@ -31,33 +79,82 @@ module.controller('categoryCtrl', function ($scope, $article, $category) {
     $scope.category = {};
     $scope.articles = [];
 
-    $scope.gotoArticle = function (a) {
-        location.href = '/article?id=' + a.Id;
+    $scope.categores = [];
+
+    $scope.getArticleUrl = function(a) {
+        var id = getId();
+        if (id === 'cat_1_regulation') {
+            return '/category/' + Utils.normalizeUrl(a);
+        } else {
+            return '/article/' + Utils.normalizeUrl(a);
+        }
+        
     };
 
     function refreshArticleList() {
         var startIndex = ($scope.filter.pageIndex - 1) * $scope.filter.itemsPerPage;
-        var id = Utils.getIdFromUrl();
+        var id = getId();
 
-        $article.getByCategory(id, $scope.selectedLanguage.value, false, false, startIndex, $scope.filter.itemsPerPage, $scope.filter.sortBy, $scope.filter.sortAsc).then(function (response) {
-            $scope.articles = response.data.Items;
-            $scope.filter.Total = response.data.Total;
-        });
+        var recursive = id === 'cat_0_services' ? true : false;
+        $scope.filter.sortBy = id === 'cat_0_services' ? 'CategoryId' : 'LastModifiedDate';
+        $scope.filter.sortAsc = id === 'cat_0_services';
+
+        if (id !== 'cat_1_regulation') {
+            $article.getByCategory(id, $scope.selectedLanguage.value, false, false, startIndex, $scope.filter.itemsPerPage, $scope.filter.sortBy, $scope.filter.sortAsc, recursive).then(function (response) {
+                $scope.articles = response.data.Items;
+                $scope.filter.Total = response.data.Total;
+            });
+        } else {
+            $category.getCategories(id, $scope.selectedLanguage.value).then(function(response) {
+                $scope.categories = response.data;
+                $scope.articles = _.map($scope.categories,
+                    function(c) {
+                        return {
+                            CategoryId: c.Id,
+                            Id: c.Id,
+                            Language: c.Lang,
+                            Name: c.Name,
+                            Description: c.Description,
+                            Thumbnail: '/app/assets/imgs/' + c.Id + '.jpg',
+                            CreatedDate: '2021-01-01T01:01:01'
+                        }
+                    });
+                $scope.filter.Total = $scope.categories.length;
+            });
+        }
     }
 
     $scope.init = function () {
         updateSidebar();
 
-        var id = Utils.getIdFromUrl();
+        var id = getId();
         $category.getById(id, $scope.selectedLanguage.value).then(function (response) {
             $scope.category = response.data;
         });
 
+        if (id === 'cat_0_services' || id === 'cat_1_regulation') {
+            $scope.clientLoaded = false;
+            $fs.getList('clients').then(function (response) {
+                $scope.clients = response.data;
+                $scope.clientLoaded = true;
+            });
+        }
+
         refreshArticleList();
     };
 
+    function getId() {
+        if (location.pathname.toLowerCase() === '/services') {
+            return 'cat_0_services';
+        } else if (location.pathname.toLowerCase() === '/regulation') {
+            return 'cat_1_regulation';
+        }else {
+            return Utils.getIdFromUrl();
+        }
+    };
+
     function updateSidebar() {
-        var id = Utils.getParameterByName("id");
+        var id = getId();
         $scope.sidebarMenu.setActive(id);
     }
 

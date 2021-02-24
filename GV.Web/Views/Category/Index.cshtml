@@ -1,5 +1,7 @@
 ﻿@section css {
     <link href="~/app/components/category/category.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick.css" rel="stylesheet" />
+    <link href="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick-theme.css" rel="stylesheet" />
 }
 <div class="page-content" style="min-height: 1382px;" ng-controller="categoryCtrl">
     <div class="hero">
@@ -33,12 +35,12 @@
                         {{a.Description}}
                     </span>
 
-                    <button class="btn green-dark" ng-click="gotoArticle(a)">{{locale.articleList.detailButton[selectedLanguage.value]}}</button>
+                    <a class="btn green-dark" href="{{getArticleUrl(a)}}">{{locale.articleList.detailButton[selectedLanguage.value]}}</a>
                 </div>
 
             </div>
         </div>
-        <div class="paging">
+        <div class="paging" ng-show="filter.Total > filter.itemsPerPage">
             <paging page="filter.pageIndex"
                     page-size="filter.itemsPerPage"
                     total="filter.Total"
@@ -49,9 +51,23 @@
             </paging>
         </div>
     </div>
+    <div class="gv-section" ng-show="clients.length > 0">
+        <div class="gv-section--title">
+            {{locale.section.clients.title[selectedLanguage.value]}}
+        </div>
+        <div class="gv-section--body">
+            <div slick settings="slickConfig" ng-if="clientLoaded" class="clients-section">
+                <div ng-repeat="c in clients" class="client-item">
+                    <img ng-src="{{c.Url}}" class="client-item--image" />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @section plugin {
     <script src="~/app/assets/plugins/angular-paging/paging.min.js"></script>
+    <script src="~/app/assets/plugins/angular-slick-carousel/slick-1.8.1/slick/slick.min.js"></script>
+    <script src="~/app/assets/plugins/angular-slick-carousel/angular-slick.min.js"></script>
 }
 @section js {
     <script src="~/app/components/category/category.js"></script>

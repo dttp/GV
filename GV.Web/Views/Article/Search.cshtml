@@ -32,7 +32,7 @@
                         {{a.Description}}
                     </span>
 
-                    <button class="btn green-dark" ng-click="gotoArticle(a)">{{locale.articleList.detailButton[selectedLanguage.value]}}</button>
+                    <a class="btn green-dark" href="{{getArticleUrl(a)}}">{{locale.articleList.detailButton[selectedLanguage.value]}}</a>
                 </div>
 
             </div>

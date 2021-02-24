@@ -76,6 +76,31 @@
     font-weight: bold;
 }
 
+gv-section--body.article--wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.clients-section {
+    margin: 0 20px 20px 20px;
+}
+
+.client-item {
+    border: 1px solid #ececec;
+    border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    margin: 10px;
+}
+
+.client-item--image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
 @media (max-width: 539px) {
     .article-list {
         padding: 20px 0;

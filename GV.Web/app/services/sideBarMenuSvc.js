@@ -34,7 +34,7 @@ module.factory('$sidebarMenu', function ($category, $rootScope, $q, $article) {
             Id: c.Id,
             Name: c.Name,
             Type: "MenuItemList",
-            Url: '/category/' + Utils.normalizeUrl(c),
+            Url: c.Id === 'cat_0_services' ? '/services' : '/regulation',
             Icon: categoryIconMapping[c.Id],
             Items: [],
             Selected: false
