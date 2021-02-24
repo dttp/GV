@@ -64,9 +64,9 @@
 <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-<body class="page-header-fixed page-sidebar-fixed page-content-white page-boxed" ng-app="gv.app" ng-controller="coreCtrl" ng-cloak>
+<body class="page-header-fixed page-sidebar-fixed page-content-white page-boxed" ng-app="gv.app" ng-controller="coreCtrl">
     <div id="WEBAPI_ENDPOINT_ID" style="display:none;">@GV.Core.GVConfig.Instance.WebAPIEndpoint</div>
-    <div class="page-wrapper">
+    <div class="page-wrapper invisible" ng-class="{'visible': appInitialized, 'invisible': !appInitialized}">
         @Html.Partial("_Header")
 
         <div class="clearfix"></div>

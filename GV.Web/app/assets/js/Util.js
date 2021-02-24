@@ -24,13 +24,13 @@
         return (idStr);
     },
     normalizeUrl: function(obj) {
-        var regexPattern = /[\s.,_]/g;
+        var regexPattern = /[\s.,_:;\/]/g;
         var url = obj.Name.replaceAll(regexPattern, '-').toLowerCase() + '__' + obj.Id;
         return url;
     },
 
     getIdFromUrl: function() {
-        var idx = location.pathname.indexOf('__');
+        var idx = location.pathname.lastIndexOf('__');
         var id = location.pathname.substring(idx + 2);
         return id;
     }

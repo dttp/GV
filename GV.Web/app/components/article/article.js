@@ -20,6 +20,7 @@ module.controller('articleCtrl', function ($scope, $article, $category, $sce) {
         $article.getById(id, $scope.selectedLanguage.value).then(function (response) {
             $scope.article = response.data;
             updateSidebar();
+            $scope.setInit();
         });
     };
 
@@ -31,6 +32,7 @@ module.controller('articleCtrl', function ($scope, $article, $category, $sce) {
 
     $scope.$on('sidebarMenuReady', function () {
         updateSidebar();
+        $scope.setInit();
     });
 
     $scope.$on('languageChanged', function () {

@@ -103,6 +103,8 @@ module.controller('categoryCtrl', function ($scope, $article, $category, $fs) {
             $article.getByCategory(id, $scope.selectedLanguage.value, false, false, startIndex, $scope.filter.itemsPerPage, $scope.filter.sortBy, $scope.filter.sortAsc, recursive).then(function (response) {
                 $scope.articles = response.data.Items;
                 $scope.filter.Total = response.data.Total;
+
+                $scope.setInit();
             });
         } else {
             $category.getCategories(id, $scope.selectedLanguage.value).then(function(response) {
@@ -120,6 +122,8 @@ module.controller('categoryCtrl', function ($scope, $article, $category, $fs) {
                         }
                     });
                 $scope.filter.Total = $scope.categories.length;
+
+                $scope.setInit();
             });
         }
     }

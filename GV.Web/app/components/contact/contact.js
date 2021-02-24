@@ -129,6 +129,8 @@
         $scope.init = function () {
             $scope.sidebarMenu.setActive('sbContact');
             $scope.reset();
+
+            $scope.setInit();
         };
 
         $scope.$on('languageChanged', function () {

@@ -4,6 +4,13 @@
     }
 }
 
+.visible {
+    visibility: visible;
+}
+.invisible {
+    visibility: hidden;
+}
+
 .page-content-wrapper {
     background-color: white;
 }

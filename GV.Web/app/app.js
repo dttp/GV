@@ -53,6 +53,7 @@ gvWebApp.config(function (cfpLoadingBarProvider, $httpProvider, toastrConfig) {
 
 gvWebApp.run(function ($rootScope, alertSvc, $localStorage) {
     $rootScope.alertSvc = alertSvc;
+    $rootScope.appInitialized = false;
 
     $rootScope.availableLanguages = [
         {
@@ -89,13 +90,17 @@ gvWebApp.run(function ($rootScope, alertSvc, $localStorage) {
         }
     };
 
+    $rootScope.setInit = function() {
+        $rootScope.appInitialized = true;
+    };
+
     $rootScope.init = function () {
         if ($localStorage.lang)
             $rootScope.selectLanguage($localStorage.lang);
         setTimeout(function () {
             $rootScope.$broadcast('appInitialized');
             $rootScope.$apply();
-        }, 100);
+        }, 10);
     };
 
     $rootScope.init();

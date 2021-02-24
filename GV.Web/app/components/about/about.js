@@ -64,7 +64,9 @@
         $scope.init = function () {
             $scope.sidebarMenu.setActive('sbAbout');
         };
-
+        $scope.$on('sidebarMenuReady', function() {
+            $scope.setInit();
+        });
         $scope.$on('languageChanged', function () { $scope.init(); });
         $scope.$on('appInitialized', function () { $scope.init(); });
     });

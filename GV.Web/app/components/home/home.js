@@ -1,5 +1,5 @@
-﻿var module = angular.module('gv.app.home', ['slickCarousel']);
-module.controller('homeCtrl', function ($scope, $fs, $article) {
+﻿var homeModule = angular.module('gv.app.home', ['slickCarousel']);
+homeModule.controller('homeCtrl', function ($scope, $fs, $article) {
 
     $scope.locale = {
         hero: {
@@ -130,6 +130,7 @@ module.controller('homeCtrl', function ($scope, $fs, $article) {
             $scope.clientLoaded = true;
         });
         getRegulationArticles();
+        $scope.setInit();
     };
 
     $scope.onLangChanged = function () {

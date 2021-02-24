@@ -47,6 +47,7 @@ module.controller('searchCtrl', function ($scope, $article, $localStorage) {
         $article.search($scope.searchQuery.keyword, $scope.selectedLanguage.value, startIndex, $scope.searchQuery.pageSize).then(function (response) {
             $scope.articles = response.data.Items;
             $scope.searchQuery.Total = response.data.Total;
+            $scope.setInit();
         });
     }
 

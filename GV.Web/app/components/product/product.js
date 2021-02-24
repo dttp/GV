@@ -256,8 +256,13 @@ module.controller('productRegisterCtrl', function ($scope, FileUploader, $produc
         }
     };
 
+    $scope.$on('sidebarMenuReady', function() {
+        $scope.setInit();
+    });
+
     $scope.init = function () {
         $scope.sidebarMenu.setActive('sbRegisterProduct');  
+        $scope.setInit();
     };
 
     $scope.$on('languageChanged', function () { $scope.init(); });
